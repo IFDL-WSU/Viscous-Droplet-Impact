@@ -26,7 +26,7 @@ video2frame Converts a greyscale video file to a matrix of greyscale frames.
    matrix M of frames, and reports the number of frames R.
 
 An indivigual frame can be shown using:
-   imshow( M(:,:,:,frame) )
+   imshow( M( : , : , : , frame) )
  
 ---
 ## File Manifest <a name="manifest"></a>
@@ -43,3 +43,4 @@ The following packages are required for this applet to function properly: <br />
 
 ## Changelog <a name="log"></a>
 10/01/2020 - Update /Image-Processing/README.md
+10/03/2020 - Created video2frame.m, updated README.md
