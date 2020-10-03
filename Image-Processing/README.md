@@ -7,8 +7,9 @@ This section of the project revolves arround making and understanding the functi
 1. [Goals](#goals)
 2. [Function Instructions](#functions)
 3. [File Manifest](#manifest)
-4. [Known Bugs](#bugs)
-5. [Changelog](#log)
+4. [Dependencies](#dependencies)
+5. [Known Bugs](#bugs)
+6. [Changelog](#log)
 
 ---
 ## Goals <a name="goals"></a>
@@ -26,6 +27,10 @@ This section of the project revolves arround making and understanding the functi
   video2frame.m
 
 ---
+## Dependencies <a name="dependencies"></a>
+The following packes are required for this applet to function properly: <br /> 
+"MATLAB"
+
 ## Known Bugs <a name="bugs"></a>
 
 ---
