@@ -20,8 +20,14 @@ This section of the project revolves arround making and understanding the functi
   By 11/14/2020: Final app that takes video file input and outputs video frame-by-frame with boundary outlined along with velocity, max spread radius, jet formation, droplet break-up, and partial rebound data
 
 ---
-## Functions Instructions <a name="functions"></a>
-  
+## Function Instructions <a name="functions"></a>
+video2frame Converts a greyscale video file to a matrix of greyscale frames.
+   [M,R] = video2frame('MEDIA.avi') converts MEDIA.avi to 4D
+   matrix M of frames, and reports the number of frames R.
+
+An indivigual frame can be shown using:
+   imshow( M( : , : , : , frame) )
+ 
 ---
 ## File Manifest <a name="manifest"></a>
   video2frame.m
@@ -37,3 +43,4 @@ The following packages are required for this applet to function properly: <br />
 
 ## Changelog <a name="log"></a>
 10/01/2020 - Update /Image-Processing/README.md
+10/03/2020 - Created video2frame.m, updated README.md
