@@ -28,7 +28,7 @@ This section of the project revolves arround making and understanding the functi
 
 ---
 ## Dependencies <a name="dependencies"></a>
-The following packes are required for this applet to function properly: <br /> 
+The following packages are required for this applet to function properly: <br /> 
 "MATLAB"
 
 ## Known Bugs <a name="bugs"></a>
