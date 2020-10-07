@@ -10,6 +10,6 @@ function frame2file(M,name,path,ext)
     [~,~,~,fRange] = size(M); %Number of frames.
     % Convert each matrix entry to to an image and export.
     for i = 1:fRange
-          imwrite(M(:,:,:,i),append(path,"/", "test",string(i),".",ext));
+          imwrite(M(:,:,:,i),append(path,"/", name, string(i), ".", ext));
     end
 end
