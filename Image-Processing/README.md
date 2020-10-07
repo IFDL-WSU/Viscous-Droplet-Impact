@@ -21,26 +21,47 @@ This section of the project revolves arround making and understanding the functi
 
 ---
 ## Function Instructions <a name="functions"></a>
-video2frame Converts a greyscale video file to a matrix of greyscale frames.
-   [M,R] = video2frame('MEDIA.avi') converts MEDIA.avi to 4D
-   matrix M of frames, and reports the number of frames R.
+	video2frame Converts a greyscale video file to a matrix of greyscale frames.
+		[M,R] = video2frame('MEDIA.avi') converts MEDIA.avi to 4D matrix M of frames, and reports the number of frames R.
 
-An indivigual frame can be shown using:
-   imshow( M( : , : , : , frame) )
+	frame2file Converts and saves a greyscale matrix of video frames into indivigual image files to a location of your choosing.
+		FRAME2FILE(M,filename, path, ext).
+		- 'M' is the greyscale image matrix (4 dimensional Matrix)
+		- 'filename' is a string containing the enumerated image files' prefix 
+		- 'path' is a string containing the file path to the desired output folder
+		- 'ext' is the desired file format. All formats supported by imwrite() are supported here.
+			-Types include: 'jpg', 'jp2', 'bmp', 'tif', 'png', etc.
+
+	An indivigual frame can be shown using: 
+   		imshow( M( : , : , : , frame) )
  
 ---
 ## File Manifest <a name="manifest"></a>
-  video2frame.m
+  video2frame.m <br /> 
+  frame2file.m <br /> 
+  borders.m <br /> 
 
 ---
 ## Dependencies <a name="dependencies"></a>
 The following packages are required for this applet to function properly: <br /> 
-"MATLAB"
+"MATLAB" <br /> 
+"MATLAB Image Processing Toolbox" <br />
+
+---
 
 ## Known Bugs <a name="bugs"></a>
+Due to how the borders function currently works, the droplet outline is deleted once any part of it moves off screen or intersects the floor.
 
 ---
 
 ## Changelog <a name="log"></a>
-10/01/2020 - Update /Image-Processing/README.md
-10/03/2020 - Created video2frame.m, updated README.md
++ 10/01/2020 
+	- Update /Image-Processing/README.md
++ 10/03/2020
+	- Created video2frame.m
+	- Updated README.md  
++ 10/05/2020
+	- Created first draft of borders.m
+	- Created frame2file.m
++ 10/06/2020
+	- Updated README.md
