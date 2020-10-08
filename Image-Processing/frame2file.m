@@ -1,7 +1,7 @@
-function frame2file(M,name,path,ext)
-% FRAME2FILE Converts a matrix of frames M into a series of pictures of an file type.
-%    FRAME2FILE(M,filename, path, ext) converts a frames matrix M to files of the format
-%    'ext' with the numbered name 'name' to the folder specified with 'path'. 
+function frame2file(M,name,path,ext,frame)
+% FRAME2FILE Converts a frame from a matrix of frames M into an image file.
+%    FRAME2FILE(M,filename, path, ext, frame) converts the selected frame of number "frame" 
+%    in matrix M to a file at directory "path" of the format specified by "ext". 
 %
 %    Acceptible file formats include all those supported by imwrite(). 
 %  
@@ -9,7 +9,5 @@ function frame2file(M,name,path,ext)
 
     [~,~,~,fRange] = size(M); %Number of frames.
     % Convert each matrix entry to to an image and export.
-    for i = 1:fRange
-          imwrite(M(:,:,:,i),append(path,"/", name, string(i), ".", ext));
-    end
+          imwrite(M(:,:,:,frame),append(path,"/", name, string(frame), ".", ext));
 end
