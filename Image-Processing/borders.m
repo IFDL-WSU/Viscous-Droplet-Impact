@@ -23,6 +23,8 @@ for i = 1:d
     %Removed BWnobord since it deletes the droplet if it intersects the
     %floor or ceiling. Will add back in once that is addressed.
     %BWnobord = imclearborder(BWdfill, 8);
+
+    %Temp line so I can make the pull request.
     
     %Remove small objects
     BWnosmall = bwareaopen(BWdfill, 150);
