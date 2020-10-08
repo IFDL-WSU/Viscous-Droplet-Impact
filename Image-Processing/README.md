@@ -24,13 +24,14 @@ This section of the project revolves arround making and understanding the functi
 	video2frame Converts a greyscale video file to a matrix of greyscale frames.
 		[M,R] = video2frame('MEDIA.avi') converts MEDIA.avi to 4D matrix M of frames, and reports the number of frames R.
 
-	frame2file Converts and saves a greyscale matrix of video frames into indivigual image files to a location of your choosing.
-		FRAME2FILE(M,filename, path, ext).
+	frame2file Converts and saves a frame from a greyscale matrix of video frames into a indivigual image file at location of your choosing.
+		FRAME2FILE(M,filename, path, ext, frame).
 		- 'M' is the greyscale image matrix (4 dimensional Matrix)
 		- 'filename' is a string containing the enumerated image files' prefix 
 		- 'path' is a string containing the file path to the desired output folder
-		- 'ext' is the desired file format. All formats supported by imwrite() are supported here.
+		- 'ext' is the desired file format. All formats supported by imwrite() are supported 
 			-Types include: 'jpg', 'jp2', 'bmp', 'tif', 'png', etc.
+		- 'frame' is the number of the frame in the image matrix
 
 	An indivigual frame can be shown using: 
    		imshow( M( : , : , : , frame) )
