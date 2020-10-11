@@ -7,7 +7,6 @@ function frame2file(M,name,path,ext,frame)
 %  
 %    See also VIDEO2FRAME, BORDERS, IMWRITE
 
-    [~,~,~,fRange] = size(M); %Number of frames.
     % Convert each matrix entry to to an image and export.
           imwrite(M(:,:,:,frame),append(path,"/", name, string(frame), ".", ext));
 end

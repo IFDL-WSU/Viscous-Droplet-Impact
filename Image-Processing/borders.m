@@ -1,4 +1,4 @@
-function videoBorders = borders(dat)
+function videoBorders = borders(dat,h,t)
 % extract dimensions of video matrix
 [a, b, c, d] = size(dat);
 
@@ -13,21 +13,17 @@ for i = 1:d
     [~, threshold] = edge(I, 'sobel');
     fudgeFactor = 0.25;
     BWs = edge(I, 'prewitt', threshold * fudgeFactor);
-    
     se90 = strel('line', 3, 90);
     se0 = strel('line', 3, 0);
     BWsdil = imdilate(BWs, [se90 se0]);
-
-    BWdfill = imfill(BWsdil, 'holes');
-    
-    %Removed BWnobord since it deletes the droplet if it intersects the
-    %floor or ceiling. Will add back in once that is addressed.
-    %BWnobord = imclearborder(BWdfill, 8);
-
-    %Temp line so I can make the pull request.
-    
+    %Remove floor and complete droplet outline.
+    BWsfloor = floorremove(BWsdil,h,t,2);
+    BWdfill = imfill(BWsfloor, 'holes');
+    %Remove residual floor line.
+    seD = strel('diamond',1);
+    BWsrod = imerode(BWdfill,seD);
     %Remove small objects
-    BWnosmall = bwareaopen(BWdfill, 150);
+    BWnosmall = bwareaopen(BWsrod, 100);
     
     %Return processed images in the same format as the input images.
     videoBorders(:,:,:,i) = BWnosmall;
