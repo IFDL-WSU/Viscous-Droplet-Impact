@@ -1,0 +1,42 @@
+% Variables needed for function, these will be inputted by user when using
+% the function.
+image_collection = dat_borders;
+row_to_delete = 417;
+rotation_angle = 0.5;
+
+% Rotate images
+% dat_rotated is going to be used to store rotated images
+dat_rotated = dat_borders;
+a = size(dat_borders); % used to find the length of for loop
+for i = 1:a(4)
+    dat_rotated(:,:,1,i) = imrotate(dat_borders(:,:,1,i),...
+        rotation_angle,...
+        'bilinear', 'crop');
+end
+imshow(dat_rotated(:,:,1,59))
+
+
+% Delete table. This will require the user to input the row manually where
+% they believe the table is. 
+dat_deleted_table = dat_rotated(:,:,1,:);
+dat_deleted_table(row_to_delete:end,:,1,:) = 0;
+imshow(dat_deleted_table(:,:,1,59))
+
+% Try and fill the circle
+% Draw a line on the row above the deleted row connecting the two edges.
+row_num = row_to_delete - 1; % Row that a line will be drawn on
+for n = 1:a(4)
+    which_are_white = [];
+    for i = 1:a(2)
+        if dat_deleted_table(row_num,i,1,n) == 1
+            which_are_white = [which_are_white, i];% Finds all the columns 
+            % that are white. 
+        end
+    end
+    which_are_white
+    % Changes all values between the first and last column of whites to
+    % white. 
+    dat_deleted_table(row_num,which_are_white(1):which_are_white(end),1,n) = 1;
+% Fails: Index exceeds the number of array elements (0)
+end
+imshow(dat_deleted_table(:,:,1,59))
