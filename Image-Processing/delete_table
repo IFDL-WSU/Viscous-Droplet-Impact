@@ -16,7 +16,7 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
 
     % Rotate images
     % dat_rotated is going to be used to store rotated images
-    dat_rotated = dat_borders;
+    dat_rotated = image_collection;
     a = size(dat_borders); % used to find the length of for loop
     for i = 1:a(4)
         dat_rotated(:,:,1,i) = imrotate(dat_borders(:,:,1,i),...
