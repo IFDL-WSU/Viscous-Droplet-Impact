@@ -5,7 +5,7 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
         1. Rotating the image to align the table with the x-axis.
         2. Deleting the table (floor)
         3. Filling the droplets. 
-    This function does sacrifice the very top row of pixels, to quickly fill in the droplet. This shouldn't be a problem as the top row isn't needed for anything.
+    This function removes partial droplets (since they are useless). It also creates an all black frame when there is no full droplet. These frames will be deleted later.
     %}
     %{
     image_collection = dat_borders;
@@ -38,6 +38,7 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
        2. Draw line on very top pixel.
        3. Fill in holes in the image.
        4. Delete the lines that were added.
+       5. Clear the borders (get rid of partial droplets)
     %}
     
     thickness = row_to_delete + 1;
@@ -57,8 +58,10 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
     % Step 4. Remove added lines.
     dat_final = dat_filled(:,:,:,:);
     dat_final(row_to_delete:thickness,:,:,:) = 0;
-    dat_final(1,:,:,:) = 0;
     
-    
+    % Step 5. Clear the borders.
     X = dat_final;
+    for i = 1:a(4)
+        X(:,:,:,i) = imclearborder(X(:,:,:,i), 4);
+    end
 end
