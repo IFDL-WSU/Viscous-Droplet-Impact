@@ -59,7 +59,10 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
     dat_final = dat_filled(:,:,:,:);
     dat_final(row_to_delete:thickness,:,:,:) = 0;
     
-    % Step 5. Clear the borders.
+    % Step 5. Clear the borders. Remove small objects.
+    dat_final = bwareaopen(dat_final, 150,4);
+    %seD = strel('diamond',1);
+    %dat_final = imerode(dat_final,seD);
     X = dat_final;
     for i = 1:a(4)
         X(:,:,:,i) = imclearborder(X(:,:,:,i), 4);
