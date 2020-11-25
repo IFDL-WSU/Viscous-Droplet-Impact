@@ -1,4 +1,4 @@
-function [R_angle,L_angle] = contactAngles(image_collection, floorHeight)
+function [R_angle,L_angle] = contactAngles(image_collection)
 % This function is HIGHLY dependent on floorremove.m
 % This function takes in an image array "image_collection" and a floor
 % removal height to return the left and right contact angles.
