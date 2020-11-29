@@ -1,4 +1,4 @@
-function [data,impactData] = fallVelocity(image_collection)
+function [data,impactData,droplets] = fallVelocity(image_collection)
 % This function finds the centroid location data (pixel location,
 % the centroid velocity data
 % and the impact velocity.
@@ -12,6 +12,9 @@ function [data,impactData] = fallVelocity(image_collection)
 %
 % The impactVel saves the impact velocity and it's frame as follows:
 % impactData = [velocity, frame]
+%
+% droplets returns the number of ADDITIONAL objects in the image after the
+% main droplet.
 %
 % For reference, pixel location is as follows.
 % (0,0)--→ (0,W)
@@ -70,5 +73,7 @@ end
             velocity(i-5) + velocity(i-6) +...
             velocity(i-7) + velocity(i-8))/9;
     end
-    impactData(1) = velocityAvg(impactData(2)); 
+impactData(1) = velocityAvg(impactData(2)); 
+droplets = size(data,2)    
 end
+
