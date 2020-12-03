@@ -74,7 +74,7 @@ else
     colorDef = [255,0,0];
 end
 
-SE = strel('diamond',thickness-1);
+SE = strel('diamond',(thickness-1)/2);
 for i = 20:d
     % Create outline, clear the boundary pixels in source image.
     outline(:,:,1,i) = bwperim(overlayM(:,:,1,i),8);

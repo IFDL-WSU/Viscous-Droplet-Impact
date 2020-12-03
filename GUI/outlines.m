@@ -1,4 +1,4 @@
-function M = outlines(sourceM, overlayM, rotation_angle, color)
+function M = outlines(sourceM, overlayM, rotation_angle, thickness, color)
 % Outlines overlays the outline given by an image overlayM overtop of a
 % source image sourceM.
 %
@@ -11,6 +11,8 @@ function M = outlines(sourceM, overlayM, rotation_angle, color)
 %
 % 'rotation_angle' is the amount the border image was rotated in degrees
 % during processing. Use the same value from floorremoval.m
+%
+% 'thickness' is the line thickness of the outline. Minimum is 1.
 %
 % NOTE: sourceM and overlayM must have the same number of frames and have
 % equal sizes!
@@ -72,9 +74,11 @@ else
     colorDef = [255,0,0];
 end
 
+SE = strel('diamond',(thickness-1)/2);
 for i = 20:d
     % Create outline, clear the boundary pixels in source image.
     outline(:,:,1,i) = bwperim(overlayM(:,:,1,i),8);
+    outline(:,:,1,i) = imdilate(outline(:,:,1,i),SE);
     for n=1:3
         M(:,:,n,i) = M(:,:,n,i).*~outline(:,:,1,i);
         M(:,:,n,i) = M(:,:,n,i) + (outline(:,:,1,i)*colorDef(n));
