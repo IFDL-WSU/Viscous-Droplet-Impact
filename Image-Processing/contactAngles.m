@@ -44,8 +44,8 @@ B = bwboundaries(image_collection(:,:,:,n));
 
 %Check if frame is empty (Check that no bodies were found)
 if size(B,1) == 0
-    angle(1,n) = -1;
-    angle(2,n) = -1;
+    angle(1,n) = NaN;
+    angle(2,n) = NaN;
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
 end
@@ -57,8 +57,8 @@ S(:,2) = J{1,2};
 
 %Check is frame is not in contact with the floor.
 if ~any(S(:,1) >= (floorHeight-1))
-    angle(1,n) = -1;
-    angle(2,n) = -1;
+    angle(1,n) = NaN;
+    angle(2,n) = NaN;
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
 end
