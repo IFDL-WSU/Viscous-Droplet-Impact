@@ -17,6 +17,25 @@ function angle = contactAngles(image_collection,floorHeight,pNum,order)
 % A value of -1 means a angle could not be calculated for that frame.
 
 [~,  ~,  ~,  d] = size(image_collection);
+%% Input error checking, default values, and options
+if (exist('order')==1)
+   if order == 0
+       error("Polyfit Order must be greater than 0")
+   end
+   degree = order;
+else
+   degree = 2; %Default value
+end
+
+if (exist('pNum')==1)
+    if pNum <= degree
+        error(append("pNum cannot be less than or equal to the order of the polyfit (",string(degree),")"))
+    end
+    numPoints = pNum;
+else
+    numPoints = 10; %Default value
+end
+
 for n=1:d
 %% Collect image outline
 
@@ -44,12 +63,6 @@ if ~any(S(:,1) >= (floorHeight-1))
     continue %skip analysis
 end
 %% Collect important Pixels 
-if (exist('pNum')) == 1
-    numPoints = pNum;
-else
-    numPoints = 10;
-end
-
 index=max(S(:,1)); % Start from bottom.
 floor = index;
 temp = S(find(S(:,1) == index),2); % Find first points. 
@@ -86,12 +99,6 @@ for i = 0:Span % Move up the image.
 end
 
 %% Create PolyNomial Fit
-% Create a poly fit of "order" degree using the points collected before
-if (exist('order')) == 1
-    degree = order;
-else
-    degree = 2; %Default to a order of 2.
-end
 % Set vertical (down image) as x or R(2,:) for future compatibility:
     % Technically, a horizontal value could have multiple vertical
     % values, but not vice-versa. Therefore, the polyfits have been evaluated
