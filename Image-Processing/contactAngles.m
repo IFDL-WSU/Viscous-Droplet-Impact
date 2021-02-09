@@ -1,9 +1,20 @@
-function [R_angle,L_angle] = contactAngles(image_collection)
+function angle = contactAngles(image_collection,floorHeight,pNum,order)
 % This function is HIGHLY dependent on floorremove.m
 % This function takes in an image array "image_collection" and a floor
-% removal height to return the left and right contact angles.
+% removal "height" to return the left and right contact angles of the droplet.
+% The input "order" sets the order of the polyfit. Defaults to 2
+% The input "pNum" sets the number of evaluations points per side. Defaults
+% to 10.
 %
-% [R_angle, L_Angle] = contactAngles(image_collection, floorHeight)
+% The inputs "order" and "pNum" are optional.
+%
+% angle[2,:] = contactAngles(image_collection, floorHeight, pNum, order)
+%
+% angle(1,:) is the right contact angle
+% angle(2,:) is the left contact angle
+%
+% Contact Angle values range from 0 to 180 degrees.
+% A value of -1 means a angle could not be calculated for that frame.
 
 [~,  ~,  ~,  d] = size(image_collection);
 for n=1:d
@@ -11,15 +22,36 @@ for n=1:d
 
 %BWoutline = bwperim(image_collection);
 B = bwboundaries(image_collection(:,:,:,n));
+
+%Check if frame is empty (Check that no bodies were found)
+if size(B,1) == 0
+    angle(1,n) = -1;
+    angle(2,n) = -1;
+    clear B J S %Perform next of cycle cleanup now.
+    continue %skip analysis
+end
+
 %Save boundary of important mass 
 J = num2cell(cell2mat(B(1,:)),1);
 S(:,1) = J{1,1};
 S(:,2) = J{1,2};
 
+%Check is frame is not in contact with the floor.
+if ~any(S(:,1) >= (floorHeight-1))
+    angle(1,n) = -1;
+    angle(2,n) = -1;
+    clear B J S %Perform next of cycle cleanup now.
+    continue %skip analysis
+end
 %% Collect important Pixels 
+if (exist('pNum')) == 1
+    numPoints = pNum;
+else
+    numPoints = 10;
+end
+
 index=max(S(:,1)); % Start from bottom.
 floor = index;
-numPoints = 6; % Collect 6 points
 temp = S(find(S(:,1) == index),2); % Find first points. 
 nL = min(temp);
 nR = max(temp);
@@ -53,26 +85,50 @@ for i = 0:Span % Move up the image.
     index = index-1;
 end
 
-%% Create Splines
-    ppR = spline(R(2,:),R(1,:));
-    ppL = spline(L(2,:),L(1,:));
-    %Create Derivatives
-    [breaksR,coefsR,lR,kR,dR] = unmkpp(ppR);
-    [breaksL,coefsL,lL,kL,dL] = unmkpp(ppL);
-    ppR2 = mkpp(breaksR,repmat(kR-1:-1:1,dR*lR,1).*coefsR(:,1:kR-1),dR);
-    ppL2 = mkpp(breaksL,repmat(kL-1:-1:1,dL*lL,1).*coefsL(:,1:kL-1),dL);
-    %Evaluate Angles
-    R_angle(n)= atand(inv(ppval(ppR2,floor)));
-    L_angle(n)= -atand(inv(ppval(ppL2,floor)));
+%% Create PolyNomial Fit
+% Create a poly fit of "order" degree using the points collected before
+if (exist('order')) == 1
+    degree = order;
+else
+    degree = 2; %Default to a order of 2.
+end
+% Set vertical (down image) as x or R(2,:) for future compatibility:
+    % Technically, a horizontal value could have multiple vertical
+    % values, but not vice-versa. Therefore, the polyfits have been evaluated
+    % 90 degrees relative to the image. 
+[pR,sR] = polyfit(R(2,:),R(1,:),degree);
+[pL,sL] = polyfit(L(2,:),L(1,:),degree);
+
+% Create Derivatives and find slope at bottom contact points
+qR = polyder(pR); 
+qL = polyder(pL);
+slopes = [polyval(qR, max(R(2,:))),-polyval(qL, max(L(2,:)))];
     
-%% Angle post processing??
-    if R_angle(n) < 0
-        R_angle(n) = R_angle(n) + 180;
+% Convert Slopes to contact angles
+for i = 1:2
+    if slopes(i) < 0
+        angle(i,n)= atand(abs(slopes(i)))+90;
+    elseif slopes(i) > 0
+        angle(i,n)= 90-atand(slopes(i));
+    elseif slopes(i) == 0
+        angle(i,n)= 90;
     end
-    if L_angle < 0
-        L_angle(n) = L_angle(n) + 180;
-    end
-        
-clear B J S ppR ppL ppR2 ppl2
+end
+
+% % Plot polyfits (REMOVE BEFORE RELEASE. ERROR CHECKING TOOL)
+% xR = (min(R(2,:))):0.5:(max(R(2,:)));
+% xL = (min(L(2,:))):0.5:(max(L(2,:)));
+% yR = polyval(pR, xR);
+% yL = polyval(pL, xL);
+% imshow(image_collection(:,:,:,n))
+% hold on
+% plot(yR,xR,'r','LineWidth',2)
+% plot(yL,xL,'g','LineWidth',2)
+% %plot(R(1,:),R(2,:),'ro')
+% %plot(L(1,:),L(2,:),'go')
+% hold off
+
+%Necessary. Do not remove.
+clear B J S
 end
     
