@@ -12,8 +12,7 @@ function M = outlines(sourceM, overlayM, rotation_angle, thickness, color)
 % 'rotation_angle' is the amount the border image was rotated in degrees
 % during processing. Use the same value from floorremoval.m
 %
-% 'thickness' is the line thickness of the outline. Minimum is 1. Can only
-% take odd values at the moment.
+% 'thickness' is the line thickness of the outline. Minimum is 1.
 %
 % NOTE: sourceM and overlayM must have the same number of frames and have
 % equal sizes!
