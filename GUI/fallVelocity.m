@@ -32,7 +32,7 @@ function [data,impactData,droplets] = fallVelocity(image_collection, floorHeight
 data = NaN(4,1,d);
 velocity=zeros(1,d);
 lower = zeros(1,d);
-impact=0;
+impact = 0;
 maxObjects = 0;
 
 for i = 1:d
@@ -43,6 +43,7 @@ for i = 1:d
     if objectsNum == 0
         data([1:2],1,i) = NaN(2,1);
         lower(i) = NaN;
+        droplets(i)=0;
         continue
     else
         %Save feature data
@@ -59,11 +60,11 @@ for i = 1:d
     lower(i) = s(1).BoundingBox(2) + s(1).BoundingBox(4);
     end
     %Buttom most pixel
+    droplets(i)=objectsNum-1;
 end
-droplets = size(data,2)-1;
 impactData(2)= find(lower >= (floorHeight-2), 1, 'first');    
 
-% Compute velocity and impact velocity (haven't figured out impact yet).
+% Compute velocity and impact velocity
 for i = 1:(d-1)
     for n = 1:size(data,2)
         %VelocityX 
