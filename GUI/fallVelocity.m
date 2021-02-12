@@ -60,7 +60,7 @@ for i = 1:d
     end
     %Buttom most pixel
 end
-droplets = size(data,2);
+droplets = size(data,2)-1;
 impactData(2)= find(lower >= (floorHeight-2), 1, 'first');    
 
 % Compute velocity and impact velocity (haven't figured out impact yet).
