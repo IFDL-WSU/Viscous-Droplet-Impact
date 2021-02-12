@@ -1,4 +1,4 @@
-function [data,impactData,droplets] = fallVelocity(image_collection)
+function [data,impactData,droplets] = fallVelocity(image_collection, floorHeight)
 % This function finds the centroid location data (pixel location,
 % the centroid velocity data
 % and the impact velocity.
@@ -24,36 +24,44 @@ function [data,impactData,droplets] = fallVelocity(image_collection)
 %
 % To save on processing time, this function should be merged with
 % calculateVelocity and maxSpread.
-%
-% This function DOES NOT WORK if all black frames are present.
 
 % Pre-create the feature matrix in the length of the image_collection
 [~,~,~,d] = size(image_collection);
 
 % Preallocate the feautre array, assume minimum of 4 objects.
-data=zeros(4,1,d);
+data = NaN(4,1,d);
 velocity=zeros(1,d);
 lower = zeros(1,d);
 impact=0;
+maxObjects = 0;
+
 for i = 1:d
     %Collect feautres from frame
     s=regionprops(image_collection(:,:,1,i),'Centroid','BoundingBox');
     %Determine number of objects
     [objectsNum, ~] = size(s);
+    if objectsNum == 0
+        data([1:2],1,i) = NaN(2,1);
+        lower(i) = NaN;
+        continue
+    else
         %Save feature data
         data([1:2],1,i) = s(1).Centroid;
         if objectsNum > 1
             for n = 2:objectsNum
-                data = [data,zeros(4,1,d)];
+                if n > maxObjects
+                    maxObjects = n;
+                    data = [data,NaN(4,1,d)];
+                end
                 data([1:2],n,i) = s(n).Centroid;    
             end
         end
-    %Buttom most pixel
     lower(i) = s(1).BoundingBox(2) + s(1).BoundingBox(4);
+    end
+    %Buttom most pixel
 end
-
-floor = max(lower);
-impactData(2)=find(lower == floor, 1, 'first');    
+droplets = size(data,2);
+impactData(2)= find(lower >= (floorHeight-2), 1, 'first');    
 
 % Compute velocity and impact velocity (haven't figured out impact yet).
 for i = 1:(d-1)
@@ -74,6 +82,6 @@ end
             velocity(i-7) + velocity(i-8))/9;
     end
 impactData(1) = velocityAvg(impactData(2)); 
-droplets = size(data,2)    
+ 
 end
 
