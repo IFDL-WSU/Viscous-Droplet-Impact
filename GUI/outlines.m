@@ -33,7 +33,7 @@ function M = outlines(sourceM, overlayM, rotation_angle, thickness, color)
 [oa,ob, ~,od] = size(overlayM);
 
 if (a ~= oa) || (b ~= ob) || (d ~= od)
-    error('Source and Overlay matrix sizes do match!')
+    error('Source and Overlay matrix sizes do not match!')
 end
 
 if ndims(sourceM) < 4
