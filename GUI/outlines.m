@@ -33,19 +33,19 @@ function M = outlines(sourceM, overlayM, rotation_angle, thickness, color)
 [oa,ob, ~,od] = size(overlayM);
 
 if (a ~= oa) || (b ~= ob) || (d ~= od)
-    error('Source and Overlay matrix sizes do match!')
+    error('Source and Overlay matrix sizes do not match!')
 end
 
 if ndims(sourceM) < 4
     error('Unexpected Source Matrix format. Please provide a grayscale image, an RGB truecolor image, or a binary image. ')
 elseif islogical(sourceM) == 1
-    for i = 20:d
+    for i = 1:d
         for n = 1:3
             M(:,:,n,i) = double(sourceM(:,:,1,i));
         end
     end
 elseif c == 1
-    for i = 20:d
+    for i = 1:d
         for n = 1:3
             M(:,:,n,i) = double(sourceM(:,:,1,i))./255; 
         end
@@ -75,7 +75,7 @@ else
 end
 
 SE = strel('diamond',(thickness-1)/2);
-for i = 20:d
+for i =1:d
     % Create outline, clear the boundary pixels in source image.
     outline(:,:,1,i) = bwperim(overlayM(:,:,1,i),8);
     outline(:,:,1,i) = imdilate(outline(:,:,1,i),SE);

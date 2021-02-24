@@ -1,4 +1,4 @@
-function angle = contactAngles(image_collection,floorHeight,pNum,order)
+function [angle,contactPoints] = contactAngles(image_collection,floorHeight,pNum,order)
 % This function is HIGHLY dependent on floorremove.m
 % This function takes in an image array "image_collection" and a floor
 % removal "height" to return the left and right contact angles of the droplet.
@@ -8,10 +8,15 @@ function angle = contactAngles(image_collection,floorHeight,pNum,order)
 %
 % The inputs "order" and "pNum" are optional.
 %
-% angle[2,:] = contactAngles(image_collection, floorHeight, pNum, order)
+% [angle[2,:],contactPoints[2,2,:] = contactAngles(image_collection, floorHeight, pNum, order)
 %
 % angle(1,:) is the right contact angle
 % angle(2,:) is the left contact angle
+%
+% contact[1,:,:] is the right contact point.
+% contact[2,:,:] is the left contact point.
+% contact[:,1,:] is the x value
+% contact[:,2,:] is the y value
 %
 % Contact Angle values range from 0 to 180 degrees.
 % A value of -1 means a angle could not be calculated for that frame.
@@ -46,6 +51,8 @@ B = bwboundaries(image_collection(:,:,:,n));
 if size(B,1) == 0
     angle(1,n) = NaN;
     angle(2,n) = NaN;
+    contactPoints(1,1:2,n) = [NaN,NaN];
+    contactPoints(2,1:2,n) = [NaN,NaN];
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
 end
@@ -59,6 +66,9 @@ S(:,2) = J{1,2};
 if ~any(S(:,1) >= (floorHeight-1))
     angle(1,n) = NaN;
     angle(2,n) = NaN;
+    contactPoints(1,1:2,n) = [NaN,NaN];
+    contactPoints(2,1:2,n) = [NaN,NaN];
+
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
 end
@@ -103,14 +113,18 @@ end
     % Technically, a horizontal value could have multiple vertical
     % values, but not vice-versa. Therefore, the polyfits have been evaluated
     % 90 degrees relative to the image. 
-[pR,sR] = polyfit(R(2,:),R(1,:),degree);
-[pL,sL] = polyfit(L(2,:),L(1,:),degree);
+pR = polyfit(R(2,:),R(1,:),degree);
+pL = polyfit(L(2,:),L(1,:),degree);
+
+% Collect Floor pixels
+    contactPoints(1,1:2,n) = [polyval(pR,max(R(2,:))),max(R(2,:))];
+    contactPoints(2,1:2,n) = [polyval(pL,max(L(2,:))),max(L(2,:))];
 
 % Create Derivatives and find slope at bottom contact points
 qR = polyder(pR); 
 qL = polyder(pL);
 slopes = [polyval(qR, max(R(2,:))),-polyval(qL, max(L(2,:)))];
-    
+
 % Convert Slopes to contact angles
 for i = 1:2
     if slopes(i) < 0
