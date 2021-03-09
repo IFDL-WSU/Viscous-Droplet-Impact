@@ -33,15 +33,15 @@ function [maxSpreadLeft, maxSpreadRight, spreadLeft, spreadRight, x] = maxSpread
   
   % New dataset and size
   X = dat(:,:,:,frame+1:end);
-  [~,~,~,e] = size(X)
+  [~,~,~,e] = size(X);
   
   
   % Find when droplet impacts floor
   frame = 1;
   
   for i = 1:d
-      if dat(floor+1,:,:,i) == 0
-          frame = i;
+      if dat(floor-1,:,:,i) == 0
+          frame = i
       end
   end
   
@@ -69,7 +69,7 @@ function [maxSpreadLeft, maxSpreadRight, spreadLeft, spreadRight, x] = maxSpread
       difference is the gap in black frames. 
       %}
       spreadLeft(i+difference)  = center - m(1,1).Extrema(6,1); 
-      spreadRight(i+difference) = m(1,1).Extrema(5,1) - center; 
+      spreadRight(i+difference) = m(1,1).Extrema(5,1) - center;
   end
   
   spreadLeft(1:frame,:) = NaN;
