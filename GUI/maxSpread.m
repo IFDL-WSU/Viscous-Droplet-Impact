@@ -41,7 +41,7 @@ function [maxSpreadLeft, maxSpreadRight, spreadLeft, spreadRight, x] = maxSpread
   
   for i = 1:d
       if dat(floor-1,:,:,i) == 0
-          frame = i
+          frame = i;
       end
   end
   
