@@ -1,13 +1,13 @@
-function [jetVelAvg,jetPos,jetDia]=jetVelocity(image_collection)
+function [jetVel,jetPos,jetDia]=jetVelocity(image_collection)
 % This function finds the jet velocity, position, and diameter using a
 % black and white border matrix.
 
 [~,  ~,  ~,  d] = size(image_collection);
 
 %Preallocate Matrices
-jetPos = zeros(d,1);
-jetDia = zeros(d,1);
-jetVel = zeros(d,1);
+jetPos = NaN(d,1);
+jetDia = NaN(d,1);
+jetVel = NaN(d,1);
 
 for n = 1:d %For each frame.
     %Find the boundary points of the droplet.
@@ -56,7 +56,7 @@ for i = 2:d
         %jetVel in Y 
         jetVel(i)=jetPos(i)-jetPos(i-1);
 end
-jetVel(1)=0;
+jetVel(1)=NaN;
 
 % plot(S(:,2),S(:,1))
 % hold on
