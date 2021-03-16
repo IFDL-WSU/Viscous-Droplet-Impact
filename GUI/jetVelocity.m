@@ -7,7 +7,7 @@ function [jetVelAvg,jetPos,jetDia]=jetVelocity(image_collection)
 %Preallocate Matrices
 jetPos = zeros(d,1);
 jetDia = zeros(d,1);
-jetVel = zeros(d-1,1);
+jetVel = zeros(d,1);
 
 for n = 1:d %For each frame.
     %Find the boundary points of the droplet.
@@ -52,19 +52,11 @@ for n = 1:d %For each frame.
     clear B J S
 end
 
-for i = 1:(d-1)
+for i = 2:d
         %jetVel in Y 
-        jetVel(i)=jetPos(i+1)-jetPos(i);
+        jetVel(i)=jetPos(i)-jetPos(i-1);
 end
-
-    jetVelAvg = zeros(d,1);
-    for i = 9:d-1
-        jetVelAvg(i) = (jetVel(i) + ...
-            jetVel(i-1) + jetVel(i-2) +...
-            jetVel(i-3) + jetVel(i-4) +...
-            jetVel(i-5) + jetVel(i-6) +...
-            jetVel(i-7) + jetVel(i-8))/9;
-    end
+jetVel(1)=0;
 
 % plot(S(:,2),S(:,1))
 % hold on
