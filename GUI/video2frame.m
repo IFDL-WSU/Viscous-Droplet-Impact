@@ -1,4 +1,4 @@
-function [fMatrix, fRange] = video2frame(vFile)
+function [fMatrix, videoSize] = video2frame(vFile)
 % VIDEO2FRAME Converts a greyscale video file to a matrix of greyscale frames.
 %    [M,R] = VIDEO2FRAME('MEDIA.avi') converts MEDIA.avi to 4D
 %    matrix M of frames, and reports the number of frames R.
@@ -10,5 +10,6 @@ function [fMatrix, fRange] = video2frame(vFile)
 
     Video = VideoReader(vFile);     %Video Object
     fMatrix = read(Video, [1,Inf]); %4D Frame Matrix
-    [~,~,~,fRange] = size(fMatrix); %Number of frames.
+    [a,b,c,d] = size(fMatrix);  %Number of frames.
+    videoSize = [a,b,c,d];      %Video dimensions
 end
