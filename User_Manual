@@ -1,0 +1,360 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+
+\documentclass{scrreprt}
+
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{blindtext}
+\usepackage[T1]{fontenc}
+\usepackage{lipsum}
+\usepackage{hyperref}
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+
+\newlength\mylen
+\setlength\mylen{0.5in}
+\geometry{letterpaper, portrait, lmargin=1.5in, tmargin=1in}
+
+\renewcommand*{\chapterformat}{%
+  \llap{\protect\makebox[\mylen][l]{\chapappifchapterprefix{\nobreakspace}\thechapter\autodot\hfill}}%
+}
+
+
+
+
+
+
+\begin{document}
+
+\chapter{Introduction}
+
+
+\section{Purpose}
+The purpose of this document is to describe the operating steps, description theory, and fault isolation procedures of the microdroplet impact analysis software. 
+
+
+\section{Document Conventions}
+\lipsum[4]
+
+\section{Intended Audience}
+MATLAB Microdroplet Impact Analysis Application is designed for students, professors, professionals, and anyone interested in analyzing microdroplet impacts. This application was initially designed for Interfacial Fluid Dynamics Lab at Washington State University Vancouver. However, this is an open source program and can be used by anyone. 
+
+\section{Product Scope}
+\lipsum[4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Overall Description}
+
+
+\section{Product Perspective}
+\lipsum[4]
+
+\section{Product Functions}
+\lipsum[4]
+
+\section{User Classes and Characteristics}
+\lipsum[4]
+
+\section{Operating Environment}
+\lipsum[4]
+
+\section{Design and Implementation Constrainsts}
+\lipsum[4]
+
+\section{User Documentation}
+\lipsum[4]
+
+\section{Assumptions and Dependencies}
+\lipsum[4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{System Functions}
+In this chapter each of the image processing and droplet analysis functions are described. A paragraph of the system theory is given and describes the overall operation of the function and the variables in it. A fault isolation section is also provided which gives solutions and fixes to possible issues that may arise. 
+
+\section{borders}
+\subsection{Theory and Description}
+The borders function is the second video processing function applied to the source video. 
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+\section{calculateVelocity}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+\section{contactAngles}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+\section{convertSource}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{drawContactAngles}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{fallVelocity}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{floorremove}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{frame2file}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{jetVelocity}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{maskOverlay}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{maxSpread}
+
+
+\subsection{Theory and Description}
+The droplet radius spreading feature determines the radius of the droplet on the left and right side, and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has made contact with the floor.
+\newline
+\newline
+This function begins by determining the number of frames in dataset ('d').  Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as 'frame'. A new dataset is created from the original, this time eliminating the frames without any droplet. 
+
+\subsection{Fault Isolation}
+
+
+
+
+\section{outlineMask}\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{outlines}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{removePartialDroplet}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+\section{video2frame}
+\subsection{Theory and Description}
+\lipsum[4]
+
+\subsection{Fault Isolation}
+\lipsum[4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Other Nonfunctional Requirements}
+
+\section{Performance Requirements}
+\par Matlab requirements are needed. Found at \url{https://www.mathworks.com/support/requirements/matlab-system-requirements.html}
+
+\section{Safety Requirements}
+\lipsum[4]
+
+\section{Security Requirements}
+\lipsum[4]
+
+\section{Software Quality Attributes}
+\lipsum[4]
+
+\section{Business Rules}
+\lipsum[4]
+
+
+
+
+
+
+
+
+
+\chapter{Other Requirements}
+
+
+
+\chapter{Appendix A: Glossary}
+
+Dataset: Any video file that has been uploaded to MATLAB.\newline
+Floor: (Variable) The horizontal reference in which the droplet impacts and begins spreading. \newline
+
+
+
+
+\chapter{Appendix B: Analysis Models}
+
+
+
+
+\chapter{Appendix C: TBD}
+
+
+
+
+
+
+\end{document}
