@@ -1,4 +1,4 @@
-function [X] = floorremove(image_collection, row_to_delete, rotation_angle)   
+function [videoFloorRemoved] = floorremove(videoBorders, floorPixel, floorAngle)   
     %{ 
     This function takes a collection of processed images, removes the floor and fills in droplets. 
     This is accomplished by:
@@ -16,11 +16,11 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
 
     % Rotate images
     % dat_rotated is going to be used to store rotated images
-    dat_rotated = image_collection;
-    a = size(image_collection); % used to find the length of for loop
-    for i = 1:a(4)
-        dat_rotated(:,:,1,i) = imrotate(image_collection(:,:,1,i),...
-            rotation_angle,...
+    dat_rotated = videoBorders;
+    [~,~,~,videoLength] = size(videoBorders); % used to find the length of for loop
+    for frame = 1:videoLength
+        dat_rotated(:,:,1,frame) = imrotate(videoBorders(:,:,1,frame),...
+            floorAngle,...
             'bilinear', 'crop');
     end
 
@@ -28,7 +28,7 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
     % Delete table. This will require the user to input the row manually where
     % they believe the table is. 
     dat_deleted_table = dat_rotated(:,:,1,:);
-    dat_deleted_table(row_to_delete:end,:,1,:) = 0;
+    dat_deleted_table(floorPixel:end,:,1,:) = 0;
     
     
     
@@ -41,30 +41,30 @@ function [X] = floorremove(image_collection, row_to_delete, rotation_angle)
        5. Clear the borders (get rid of partial droplets)
     %}
     
-    thickness = row_to_delete + 1;
+    thickness = floorPixel + 1;
     % Step 1. Draw line across image where floor was.
     dat_added_floor = dat_deleted_table(:,:,:,:);
-    dat_added_floor(row_to_delete:thickness,:,:,:) = 1;
+    dat_added_floor(floorPixel:thickness,:,:,:) = 1;
     
     % Step 2. Draw line on very top pixel
     dat_added_floor(1,:,:,:) = 1;
     
     % Step 3. Fill in holes.
     dat_filled = dat_added_floor;
-    for i = 1:a(4)
-        dat_filled(:,:,:,i) = imfill(dat_added_floor(:,:,:,i), 'holes');
+    for frame = 1:videoLength
+        dat_filled(:,:,:,frame) = imfill(dat_added_floor(:,:,:,frame), 'holes');
     end
     
     % Step 4. Remove added lines.
     dat_final = dat_filled(:,:,:,:);
-    dat_final(row_to_delete:thickness,:,:,:) = 0;
+    dat_final(floorPixel:thickness,:,:,:) = 0;
     
     % Step 5. Clear the borders. Remove small objects.
     dat_final = bwareaopen(dat_final, 150,4);
     %seD = strel('diamond',1);
     %dat_final = imerode(dat_final,seD);
-    X = dat_final;
-    for i = 1:a(4)
-        X(:,:,:,i) = imclearborder(X(:,:,:,i), 4);
+    videoFloorRemoved = dat_final;
+    for frame = 1:videoLength
+        videoFloorRemoved(:,:,:,frame) = imclearborder(videoFloorRemoved(:,:,:,frame), 4);
     end
 end

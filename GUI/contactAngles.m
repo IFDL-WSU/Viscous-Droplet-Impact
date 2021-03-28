@@ -1,4 +1,4 @@
-function [angle,contactPoints] = contactAngles(image_collection,floorHeight,pNum,order)
+function [contactAngle,contactPoints] = contactAngles(imageFloorRemoved,floorHeight,numberOfPoints,polyOrder)
 % This function is HIGHLY dependent on floorremove.m
 % This function takes in an image array "image_collection" and a floor
 % removal "height" to return the left and right contact angles of the droplet.
@@ -21,39 +21,38 @@ function [angle,contactPoints] = contactAngles(image_collection,floorHeight,pNum
 % Contact Angle values range from 0 to 180 degrees.
 % A value of -1 means a angle could not be calculated for that frame.
 
-[~,  ~,  ~,  d] = size(image_collection);
+[~,  ~,  ~,  videoLength] = size(imageFloorRemoved);
 %% Input error checking, default values, and options
-if (exist('order')==1)
-   if order == 0
+if (exist('polyOrder')==1)
+   if polyOrder == 0
        error("Polyfit Order must be greater than 0")
    end
-   degree = order;
 else
-   degree = 2; %Default value
+   polyOrder = 2; %Default value
 end
 
 if (exist('pNum')==1)
-    if pNum <= degree
-        error(append("pNum cannot be less than or equal to the order of the polyfit (",string(degree),")"))
+    if numberOfPoints <= polyOrder
+        error(append("pNum cannot be less than or equal to the order of the polyfit (",string(polyOrder),")"))
     end
-    numPoints = pNum;
+    numPoints = numberOfPoints;
 else
     numPoints = 10; %Default value
 end
 
-for n=1:d
+for frame=1:videoLength
 %% Collect image outline
 
 %BWoutline = bwperim(image_collection);
-B = bwboundaries(image_collection(:,:,:,n));
+B = bwboundaries(imageFloorRemoved(:,:,:,frame));
 
 %Check if frame is empty (Check that no bodies were found)
 if size(B,1) == 0
-    angle(1,n) = NaN;
-    angle(2,n) = NaN;
-    contactPoints(1,1:2,n) = [NaN,NaN];
-    contactPoints(2,1:2,n) = [NaN,NaN];
-    clear B J S %Perform next of cycle cleanup now.
+    contactAngle(1,frame) = NaN;
+    contactAngle(2,frame) = NaN;
+    contactPoints(1,1:2,frame) = [NaN,NaN];
+    contactPoints(2,1:2,frame) = [NaN,NaN];
+    clear B J S %Perform next cycle cleanup now.
     continue %skip analysis
 end
 
@@ -64,10 +63,10 @@ S(:,2) = J{1,2};
 
 %Check is frame is not in contact with the floor.
 if ~any(S(:,1) >= (floorHeight-1))
-    angle(1,n) = NaN;
-    angle(2,n) = NaN;
-    contactPoints(1,1:2,n) = [NaN,NaN];
-    contactPoints(2,1:2,n) = [NaN,NaN];
+    contactAngle(1,frame) = NaN;
+    contactAngle(2,frame) = NaN;
+    contactPoints(1,1:2,frame) = [NaN,NaN];
+    contactPoints(2,1:2,frame) = [NaN,NaN];
 
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
@@ -113,12 +112,12 @@ end
     % Technically, a horizontal value could have multiple vertical
     % values, but not vice-versa. Therefore, the polyfits have been evaluated
     % 90 degrees relative to the image. 
-pR = polyfit(R(2,:),R(1,:),degree);
-pL = polyfit(L(2,:),L(1,:),degree);
+pR = polyfit(R(2,:),R(1,:),polyOrder);
+pL = polyfit(L(2,:),L(1,:),polyOrder);
 
 % Collect Floor pixels
-    contactPoints(1,1:2,n) = [polyval(pR,max(R(2,:))),max(R(2,:))];
-    contactPoints(2,1:2,n) = [polyval(pL,max(L(2,:))),max(L(2,:))];
+    contactPoints(1,1:2,frame) = [polyval(pR,max(R(2,:))),max(R(2,:))];
+    contactPoints(2,1:2,frame) = [polyval(pL,max(L(2,:))),max(L(2,:))];
 
 % Create Derivatives and find slope at bottom contact points
 qR = polyder(pR); 
@@ -128,11 +127,11 @@ slopes = [polyval(qR, max(R(2,:))),-polyval(qL, max(L(2,:)))];
 % Convert Slopes to contact angles
 for i = 1:2
     if slopes(i) < 0
-        angle(i,n)= atand(abs(slopes(i)))+90;
+        contactAngle(i,frame)= atand(abs(slopes(i)))+90;
     elseif slopes(i) > 0
-        angle(i,n)= 90-atand(slopes(i));
+        contactAngle(i,frame)= 90-atand(slopes(i));
     elseif slopes(i) == 0
-        angle(i,n)= 90;
+        contactAngle(i,frame)= 90;
     end
 end
 

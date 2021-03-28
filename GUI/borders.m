@@ -1,11 +1,11 @@
-function videoBorders = borders(dat)
+function videoBorders = borders(videoSource)
 % extract dimensions of video matrix
-[a, b, c, d] = size(dat);
+[~, ~, ~, videoLength] = size(videoSource);
 
-for i = 1:d
+for frame = 1:videoLength
     % Selects each frame and uploads it as a single double image.
     % *32 multiplier brightens the image to reduce inconsistancies. 
-    I = im2double(dat(:,:,1,i))*32;
+    I = im2double(videoSource(:,:,1,frame))*32;
     % Convert back to uint8
     I = im2uint8(I);
     
@@ -28,5 +28,5 @@ for i = 1:d
     BWnosmall = bwareaopen(BWdfill, 150);
     
     %Return processed images in the same format as the input images.
-    videoBorders(:,:,:,i) = BWnosmall;
+    videoBorders(:,:,:,frame) = BWnosmall;
 end

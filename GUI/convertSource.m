@@ -1,31 +1,31 @@
-function converted_Source_Collection = convertSource(image_Collection, floor_Angle)
+function convertedSourceVideo = convertSource(videoSource, floorAngle)
 %% Convert source image to TrueColor image. %%
-[a,b,c,d]=size(image_Collection);
-converted_Source_Collection = uint8(zeros(a,b,3,d));
+[videoHeight,videoWidth,videoMode,videoLength]=size(videoSource);
+convertedSourceVideo = uint8(zeros(videoHeight,videoWidth,3,videoLength));
 
-if ndims(image_Collection) < 4
+if ndims(videoSource) < 4
     error('Unexpected Source Matrix format. Please provide a grayscale image, an RGB image, or a binary image. ')
-elseif islogical(image_Collection) == 1
+elseif islogical(videoSource) == 1
     for n = 1:3
-        converted_Source_Collection(:,:,n,:) = im2uint8(image_Collection(:,:,1,:));
+        convertedSourceVideo(:,:,n,:) = im2uint8(videoSource(:,:,1,:));
     end
-elseif c == 1
+elseif videoMode == 1
     for n = 1:3
-        converted_Source_Collection(:,:,n,:) = im2uint8(image_Collection(:,:,1,:));
+        convertedSourceVideo(:,:,n,:) = im2uint8(videoSource(:,:,1,:));
     end
-elseif (c == 3)
-    if isa(image_Collection,'uint8') == 0
-        converted_Source_Collection(:,:,:,:) = im2uint8(image_Collection(:,:,:,:));
+elseif (videoMode == 3)
+    if isa(videoSource,'uint8') == 0
+        convertedSourceVideo(:,:,:,:) = im2uint8(videoSource(:,:,:,:));
     end
 else
     error('Unexpected Source Matrix format. Please provide a grayscale image, an RGB image, or a binary image. ')
 end
 
 %% Rotate TrueColor Image to match rotated borders.
-if floor_Angle ~= 0
-    for i = 1:d
-        converted_Source_Collection(:,:,:,i) = ...
-        imrotate(converted_Source_Collection(:,:,:,i),floor_Angle,'bilinear', 'crop');
+if floorAngle ~= 0
+    for frame = 1:videoLength
+        convertedSourceVideo(:,:,:,frame) = ...
+        imrotate(convertedSourceVideo(:,:,:,frame),floorAngle,'bilinear', 'crop');
     end
 end
 end

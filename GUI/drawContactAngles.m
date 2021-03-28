@@ -1,4 +1,4 @@
-function angleMask = drawContactAngles(videosize, contactAngles, contactPos, lineLength)
+function maskAngles = drawContactAngles(videoSize, contactAngle, contactPoints, lineLength)
 % videosize is the size of the input video matrix, eg. [512,512,1,418]
 %       this should come from second output of video2frame, but that
 %       needs to be validated.
@@ -8,10 +8,10 @@ function angleMask = drawContactAngles(videosize, contactAngles, contactPos, lin
 %
 
 %Create Mask Matrix
-h = videosize(1); %Video height
-w = videosize(2); %Video Width
-d = videosize(4); %Video number of frames (depth)
-angleMask=false(h,w,1,d);
+videoHeight = videoSize(1); %Video height
+videoWidth = videoSize(2); %Video Width
+videoLength = videoSize(4); %Video number of frames (depth)
+maskAngles=false(videoHeight,videoWidth,1,videoLength);
 
 radius = ceil(lineLength/2)-1;
 
@@ -25,14 +25,14 @@ for side = 1:2
             flipAngle = -1;
     end
     %Draw the contact angle for each frame.
-    for n = 1:d
-        if any(isnan(contactAngles(:,n)),'all') || any(isnan(contactPos(:,:,n)),'all')
+    for frame = 1:videoLength
+        if any(isnan(contactAngle(:,frame)),'all') || any(isnan(contactPoints(:,:,frame)),'all')
             continue
         end
         
         %Determine reference points to draw between.
-        angleX = floor(radius*cosd(contactAngles(side,n)));
-        angleY = flipAngle*floor(radius*sind(contactAngles(side,n)));
+        angleX = floor(radius*cosd(contactAngle(side,frame)));
+        angleY = flipAngle*floor(radius*sind(contactAngle(side,frame)));
         %Determine the minimum number of pixels to draw
         if abs(angleX) >= abs(angleY)
             pixels = abs(angleX*2)+1;
@@ -41,16 +41,16 @@ for side = 1:2
         end
         
         %Create Pixel line
-        lineX=round(linspace(contactPos(side,1,n)-angleX,contactPos(side,1,n)+angleX,pixels));
-        lineY=round(linspace(contactPos(side,2,n)-angleY,contactPos(side,2,n)+angleY,pixels));
+        lineX=round(linspace(contactPoints(side,1,frame)-angleX,contactPoints(side,1,frame)+angleX,pixels));
+        lineY=round(linspace(contactPoints(side,2,frame)-angleY,contactPoints(side,2,frame)+angleY,pixels));
         %Remove coordinates outside of angleMask range.
-        remove = (lineX > w | lineX <= 0 | lineY > h | lineY <= 0);
+        remove = (lineX > videoWidth | lineX <= 0 | lineY > videoHeight | lineY <= 0);
         lineX(remove) = [];
         lineY(remove) = [];
         %Print line to tempMask. Then merge into angleMask
-        tempMask=false(h,w);
-        tempMask(sub2ind([h,w],lineY,lineX))=true;
-        angleMask(:,:,1,n)=angleMask(:,:,1,n)|tempMask;       
+        tempMask=false(videoHeight,videoWidth);
+        tempMask(sub2ind([videoHeight,videoWidth],lineY,lineX))=true;
+        maskAngles(:,:,1,frame)=maskAngles(:,:,1,frame)|tempMask;       
     end
 end
 end
