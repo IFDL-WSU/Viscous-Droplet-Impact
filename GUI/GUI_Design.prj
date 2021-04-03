@@ -1,0 +1,96 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="3470328511" file="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI\GUI_Design.prj" location="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI" name="GUI_Design" target="target.mlapps" target-name="Package App">
+    <param.appname>GUI_Design</param.appname>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot>C:\Users\14085\AppData\Local\Temp\tp8e20d20e_c653_42eb_9af9_93e997d26af1.png</param.screenshot>
+    <param.version>1.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>C:\Users\14085\Desktop</param.output>
+    <param.guid>07eea96a-5287-4ebb-9be4-ab8298f42fc4</param.guid>
+    <unset>
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.version />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\GUI_Design.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\borders.m</file>
+      <file>${PROJECT_ROOT}\contactAngles.m</file>
+      <file>${PROJECT_ROOT}\convertSource.m</file>
+      <file>${PROJECT_ROOT}\drawContactAngles.m</file>
+      <file>${PROJECT_ROOT}\fallVelocity.m</file>
+      <file>${PROJECT_ROOT}\floorremove.m</file>
+      <file>${PROJECT_ROOT}\floorselectdlgbox.mlapp</file>
+      <file>${PROJECT_ROOT}\frame2file.m</file>
+      <file>${PROJECT_ROOT}\jetVelocity.m</file>
+      <file>${PROJECT_ROOT}\maskOverlay.m</file>
+      <file>${PROJECT_ROOT}\maxSpread.m</file>
+      <file>${PROJECT_ROOT}\outlineMask.m</file>
+      <file>${PROJECT_ROOT}\video2frame.m</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="C:\Users\14085" name="Desktop" optional="false">C:\Users\14085\Desktop</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2020b</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

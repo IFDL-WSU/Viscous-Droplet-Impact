@@ -10,6 +10,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{lipsum}
 \usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
 
 
 \hypersetup{
@@ -50,7 +53,7 @@ The purpose of this document is to describe the operating steps, description the
 MATLAB Microdroplet Impact Analysis Application is designed for students, professors, professionals, and anyone interested in analyzing microdroplet impacts. This application was initially designed for Interfacial Fluid Dynamics Lab at Washington State University Vancouver. However, this is an open source program and can be used by anyone. 
 
 \section{Product Scope}
-\lipsum[4]
+This applet is to be used for automated processing of microfluid droplet videos. This applet takes an input of .avi video files and provides a table of parameters for instantaneous primary droplet velocity, primary droplet spread radius, satellite droplet velocity, number of satellite droplets per frame, jet velocity, jet diameter, jet tip position, primary droplet contact angle, maximum primary droplet spread radius, and maximum primary droplet velocity. This data is intended for use in aiding research in microfluid behavior. This applet is not intended to replace logical reasoning, so data taken from this applet should be checked before use in academic research in case errors have occurred in processing.
 
 
 
@@ -78,31 +81,86 @@ MATLAB Microdroplet Impact Analysis Application is designed for students, profes
 
 
 \section{Product Perspective}
-\lipsum[4]
+This applet reduces the need for extensive image processing training and coding for researchers, as it provides much of the basic parameters that are necessary for microfluid droplet analysis. However, this applet is a living code that needs continuous updates to be compatible with a wide range of droplet videos. At its current iteration, this applet can be used on droplets with high contrast against their environment that move vertically from the perspective of the camera.
 
 \section{Product Functions}
-\lipsum[4]
+The applet can be used to output:
+\begin{itemize}
+\item Basic microdroplet parameters, such as:
+\begin{itemize}
+\item primary and satellite droplet velocity
+\item primary droplet spread radius
+\item primary droplet contact angle
+\item jet speed
+\item jet diameter
+\item jet tip position
+\item number of satellite droplets
+\end{itemize}
+
+\item Individual processed frames with either droplet outlines or contact angle lines.
+
+\end{itemize}
 
 \section{User Classes and Characteristics}
-\lipsum[4]
+The user classes for this applet include undergraduate, graduate, and postgraduate researchers as well as university instructors and researchers. Undergraduate researchers are likely to be using laptops or other computers with limited memory resources. These users will also be performing introductory levels of analysis of microfluid droplet behavior. Graduate, postgraduate, and university researchers are likely to have access to high performing computing, such as that provided by computing clusters. These users are likely to be performing higher level analysis of microfluid droplet behavior and are more likely to be able to spot processing errors if they arise. For all user classes, this applet provides many of the key parameters necessary for conducting microfluid droplet analysis without the need to learn image processing algorithms or extensive MATLAB coding tools.
 
 \section{Operating Environment}
-\lipsum[4]
+This applet was created in MATLAB, which has been tested on Mac, Windows, and Ubuntu operating systems. This applet was created and tested using Windows.
 
-\section{Design and Implementation Constrainsts}
-\lipsum[4]
+\section{Design and Implementation Constraints}
+This applet is constrained to use on microfluid droplet videos in the .avi format. Future iterations may be implemented for use with a wider range of video formats. The applet is also unable to process droplets that are clear or provide little contrast to the background. Input videos must be converted to grayscale prior to use in the applet. The user is expected to provide high quality input videos for optimal processing.
 
 \section{User Documentation}
-\lipsum[4]
+Any user of this applet is the target audience of this user documentation. For users that may be altering the code of the GUI or image processing functions, additional documentation found on the MathWorks website is suggested as a supplemental resource.
 
 \section{Assumptions and Dependencies}
-\lipsum[4]
+It is assumed that all users of this applet have at least a basic understanding of microfluid analysis and an ability to understand MATLAB error messages. 
 
+\chapter{GUI User Guide}
+In this chapter, a step-by-step guide for the use of the GUI is provided, with images.
 
+\section{Installation}
 
+\begin{enumerate}[label = Step \arabic*.]
 
+\item Double left-click on GUI\_Design.mlappinstall. \\
+\item Left-click on "Install" on pop-up window.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{InstallIntoMyApps.jpg}
+\label{fig:installpopup}
+\end{figure}
+\end{enumerate}
 
+\section{Opening the Applet}
 
+\begin{enumerate}[label = Step \arabic*.]
+
+\item Open MATLAB. \\
+\item Left-click on the "APPS" tab in the top left corner of the MATLAB environment
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{FindingApps.jpg}
+\label{fig:appstablocation}
+\end{figure} 
+
+\item Left-click on the dropdown menu in the APPS bar.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{APPSDropDown.jpg}
+\label{fig:appsdropdown}
+\end{figure}
+
+\item From the dropdown menu, left-click GUI\_Design from the "MY APPS" section.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{MyAppsSection.jpg}
+\label{fig:myappssection}
+\end{figure}
+
+\end{enumerate}
+
+\section{Using the Applet}
 
 
 
