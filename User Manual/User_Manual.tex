@@ -162,13 +162,75 @@ In this chapter, a step-by-step guide for the use of the GUI is provided, with i
 
 \section{Using the Applet}
 
+\subsection{Uploading a Video}
+
+\begin{enumerate}[label = Step \arabic*.]
+
+\item Left-click on the "Upload Video" button. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{appletbeforeupload.jpg}
+\label{fig:uploadvideobutton}
+\end{figure}
+
+\item Select the video you would like to upload from the File Explorer window. Select "Open" to open that video file in the applet. The applet will open a secondary window for floor selection. You can either use the interactive floor finding or input the floor height in pixels and the floor angle. \\
+
+\end{enumerate}
+
+\subsubsection{Interactive Floor Finding}
+\begin{enumerate}[label = Step \arabic*.]
+
+\item Left-click the "Start Interactive Floor Find" button.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{SecondaryAppletFloorFindButton.jpg}
+\label{fig:interactivefloorfindbutton}
+\end{figure}
+
+\item An instructional message will appear, informing the user that they can now draw a line at the floor on the video frame. Press the "OK" button to proceed with the interactive floor finding.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{DrawALineMsg.jpg}
+\label{fig:drawalinemsg}
+\end{figure}
+
+\item Left-click and drag on the image to draw a line for the floor. To move this line, left-click and drag either blue dot at the ends of the line. Use the "Zoom-In" feature in the upper right-hand corner of the image to get a better look at where the floor line is located on the image. Continue manipulating the line by moving the blue dots until the interactive floor line matches the line of the floor in the original image. Press "Set Floor Height" Button once the interactive line is aligned.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{InteractiveFloorLine.jpg}
+\label{fig:interactiveline}
+\end{figure}
+
+\subsubsection{Manual Floor Height and Angle Entry}
+During the manual floor height and angle entry process, if the line is difficult to see, the user can select a different line option from the "Line Color" dropdown menu. This feature is ONLY available for the line printed by manual floor height and angle entry.
 
 
+\item Move the slider next to "Floor Height" or manually enter floor height value into the textbox below to set a floor height. Note: "Floor Height" is measured in pixels, counting the number of pixels from the top of the image to the centermost pixel of the floor line.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{ManualFloorHeight.jpg}
+\label{fig:manualfloorheightslct}
+\end{figure}
 
+\item Move the slider next to "Floor Angle" or manually enter floor angle value into the textbox below to set a floor angle. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{ManualFloorAngle.jpg}
+\label{fig:manualfloorangleslct}
+\end{figure}
 
+\item Once both floor height and floor angle are at the correct values, left-click the "Set Floor Height" button to input the floor values.
 
+\item Once the floor height and angle has been set, the applet will process the entire video, then display the processed video. Please note, this process takes a lot of computation and will take time, especially on computers with limited processing power. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{FirstProcessedVideoImage.jpg}
+\label{fig:rightafterfloorfind}
+\end{figure}
+\end{enumerate}
 
-
+\subsection{Applet Features}
 
 
 
