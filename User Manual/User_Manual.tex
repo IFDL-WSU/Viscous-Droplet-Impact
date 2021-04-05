@@ -13,7 +13,7 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{float}
-
+\usepackage{hyperref}
 
 \hypersetup{
     colorlinks=true,
@@ -247,6 +247,7 @@ During the manual floor height and angle entry process, if the line is difficult
 In this chapter each of the image processing and droplet analysis functions are described. A paragraph of the system theory is given and describes the overall operation of the function and the variables in it. A fault isolation section is also provided which gives solutions and fixes to possible issues that may arise. 
 
 \section{borders}
+\label{sec:borders}
 \subsection{Theory and Description}
 The borders function is the second video processing function applied to the source video. 
 
@@ -255,7 +256,8 @@ The borders function is the second video processing function applied to the sour
 
 
 
-\section{calculateVelocity}
+\section{fallVelocity}
+\label{sec:fallVelocity}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -265,6 +267,7 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{contactAngles}
+\label{sec:contactAngles}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -274,16 +277,21 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{convertSource}
+\label{sec:convertSource}
+See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:maskOverlay]{maskOverlay}
 \subsection{Theory and Description}
-\lipsum[4]
-
+The function convertSource converts an input video frame matrix, referred to as videoSource, to an RGB video frame matrix of data type of unint8. This function also rotates videoSource to match the rotation of of the analyzed frames. The function can be called as follows:
+\begin{verbatim}
+convertedVideoSource = convertSource(videoSource, floorAngle)
+\end{verbatim}  
+Where convertedVideoSource is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame]. convertedVideoSource is the same size as videoSource, but has a video mode of 3. floorAngle is given in degrees.
 \subsection{Fault Isolation}
-\lipsum[4]
-
-
-
+This function is compatible with RGB24 and greyscale videoSource matrices for future compatibility. If videoSource is off the wrong format, not a 4 dimensional matrix or videoMode is not either 1 or 3, this function will halt and report the following error: \\
+\textbf{'Unexpected Source Matrix format. Please provide a grayscale image, an RGB image, or a binary image.'} \\
+If you receive this error, videoSource may have been changed after video2frame, or video2frame encountered an uncaught error importing the video. 
 
 \section{drawContactAngles}
+\label{sec:drawContactAngles}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -294,6 +302,7 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{fallVelocity}
+\label{sec:fallVelocity}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -304,6 +313,7 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{floorremove}
+\label{sec:floorremove}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -314,16 +324,24 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{frame2file}
+\label{sec:frame2file}
+See also: \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:maskOverlay]{maskOverlay}
 \subsection{Theory and Description}
-\lipsum[4]
-
+frame2file takes a frame from a video frame matrix and saves it as an image file at a chosen location. This function is compatible with RGB24 and greyscale video frame matrices. The file may be saved as .bmp, .gif, .hdf, .jpg, .jpeg, .jp2, .jpx, .pbm, .pcx, .png, .pnm, .ppm, .ras, .tif, .tiff, or .xwd. This function can be called as follows:
+\begin{verbatim}
+frame2file(videoToBeSaved, your_file_name.ext, 'C:\your_file_Path', frameToBeSaved.)
+\end{verbatim}  
+Where videoToBeSaves is a 4 dimensional video frame matrix of your choice, and frameToBeSaved is the desired frame number. Place a valid file extention at the end of the file name to save as that format.
 \subsection{Fault Isolation}
-\lipsum[4]
+If no file extension is provided, then this function returns the following error:\\
+\textbf{'No file extension provided!'}\\
+This function does not currently check for a valid file extention.
 
 
 
 
 \section{jetVelocity}
+\label{sec:jetVelocity}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -334,6 +352,7 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{maskOverlay}
+\label{sec:maskOverlay}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -344,8 +363,7 @@ The borders function is the second video processing function applied to the sour
 
 
 \section{maxSpread}
-
-
+\label{sec:maxSpead}
 \subsection{Theory and Description}
 The droplet radius spreading feature determines the radius of the droplet on the left and right side, and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has made contact with the floor.
 \newline
@@ -357,7 +375,9 @@ This function begins by determining the number of frames in dataset ('d').  Once
 
 
 
-\section{outlineMask}\subsection{Theory and Description}
+\section{outlineMask}
+\label{sec:outlineMask}
+\subsection{Theory and Description}
 \lipsum[4]
 
 \subsection{Fault Isolation}
@@ -367,6 +387,7 @@ This function begins by determining the number of frames in dataset ('d').  Once
 
 
 \section{outlines}
+\label{sec:outlines}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -377,6 +398,7 @@ This function begins by determining the number of frames in dataset ('d').  Once
 
 
 \section{removePartialDroplet}
+\label{sec:removePartialDroplet}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -387,11 +409,20 @@ This function begins by determining the number of frames in dataset ('d').  Once
 
 
 \section{video2frame}
+\label{sec:video2frame}
+See also: \hyperref[sec:borders]{borders}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:frame2file]{frame2file},  \hyperref[sec:drawContactAngles]{drawContactAngles}
 \subsection{Theory and Description}
-\lipsum[4]
+The function video2frame imports a greyscale .AVI video file and converts it into MATLAB video frame data. The function takes in a video file and returns the video frame matrix and its dimensions. This function can be called as follows:
+\begin{verbatim}
+[videoSource, videoSize] = video2frame('C:\video_file_path\video.avi')
+\end{verbatim}  
+Where videoSource is a four dimensional matrix of data type uint8 and the form\\
+{[Height, Width, videoMode, Frame]}, and videoSize is a 4 element array of the form\\
+{[Height, Width, videoMode, Frames]}.
 
 \subsection{Fault Isolation}
-\lipsum[4]
+Currently, this function does not have fault isolation. This function should return an error if the read .AVI video has a videoMode not equal to 1, which would indicate a color video.
+
 
 
 
