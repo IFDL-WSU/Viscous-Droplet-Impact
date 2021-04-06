@@ -292,12 +292,19 @@ If you receive this error, videoSource may have been changed after video2frame, 
 
 \section{drawContactAngles}
 \label{sec:drawContactAngles}
+See also: \hyperref[sec:maskOverlay]{maskOverlay}, \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:contactAngles]{contactAngles},
 \subsection{Theory and Description}
-\lipsum[4]
-
+The function drawContactAngles creates a post-processing video frame matrix mask showing the contact angles with a predefined line length. The returned video mask is boolean black-and-white 4D video matrix of the height, width, and length defined by the videoSize input. The function can be called as follows:
+\begin{verbatim}
+maskAngle = drawContactAngles(videoSize, contactAngle, contactPoints, lineLength)
+\end{verbatim}  
+Where videoSize is a 4 element integer array of the form [Height, Width,videoMode,Frames], contactAngle is the contact angle matrix from the contactAngles function, contactPoints is the contact position matrix from the contactAngles function, and lineLength is an interger line length.\\ \\
+drawContactAngles creates this contact angle video mask by first creating a 4 dimensional boolean matrix of the size [videoHeight, videoWidth, 1, videoLength] set to false. Each contact angle in each frame is defined by the variables lineX and lineY, where lineX is an array of linearly spaced integer x-axis values between\\
+$(contactPointInX\pm LineLength*Cos[contactAngle])$\\
+lineY is a similiar array in the vertical direction with the same number of elements. Together lineX and lineY make up linearly spaced integer coordinate pairs. If either value in each coordinate pair is outside the height or width range of the video, that pair is removed from the set {[lineX,lineY]}. The {[lineX,lineY]} coordinate pairs are then used to set the coresponding pixels in each frame to true. This process is repeated for each contact point in each frame of the video.
 \subsection{Fault Isolation}
-\lipsum[4]
-
+By removing any points that are outside of the given range, the video mask matrix will always match the videoSize dimensions provided. This function can handle non-integer lineLength values, but it will be rounded down to the nearest odd number. This function skips drawing contact angles for frames where either the contact point or the contact angle is undefined, meaning this function works when there are no contact angles to draw. There is no error checking for the videoSize inputs.
+ 
 
 
 
