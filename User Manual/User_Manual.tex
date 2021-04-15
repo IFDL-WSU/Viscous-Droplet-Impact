@@ -258,23 +258,51 @@ The borders function is the second video processing function applied to the sour
 
 \section{fallVelocity}
 \label{sec:fallVelocity}
+See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:borders]{borders}
 \subsection{Theory and Description}
-\lipsum[4]
+The function fallVelocity finds and tracks the centroids and velocities of all objects in an input four dimensional borders matrix of data type uint8. This function finds the speed and frame of impact of the main droplet, records the centroids and velocities of all tracked objects per frame, and tracks the total number of satillite objects found in the video.The function can be called as follows:
+\begin{verbatim}
+[dropletVelocity, impactData, numberOfSatillites] = 
+fallVelocity(videoFloorRemoved, floorHeight)
+\end{verbatim}  
+ Where numberOfSatillites is an integer number of satillite droplets in the video, impactData is a two element array where the first element is the downwards velocity of the first droplet at impact as a double and the second element is the frame at which the droplet made impact, and dropletVelocity is a three dimensional array of the size [4,numberOfSatillites+1,Frames]. dropletVelocity is formatted as follows:
+\begin{verbatim}
+[Centroid1_X, Centroid2_X, Centroid3_X, Centroid4_X;...
+ Centroid1_Y, Centroid2_Y, Centroid3_Y, Centroid4_y;...
+ Velocity1_X, Velocity2_X, Velocity3_X, Velocity4_X;....
+ Velocity1_Y, Velocity2_Y, Velocity3_Y, Velocity4_Y...]
+\end{verbatim} 
+videoFloorRemoved is the 4 dimensional matrix output from the floorremove function. floorHeight is the value tracking the height of the floor; it is used to find the frame of impact.
 
 \subsection{Fault Isolation}
-\lipsum[4]
-
-
+This functions currently does not have fault isolation. This function needs to be able to reliably identify and track droplets even when they pass off screen. This has not been implemented, and may cause some errors.
 
 \section{contactAngles}
 \label{sec:contactAngles}
+See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:borders]{borders}, \hyperref[sec:drawContactAngles]{drawContactAngles}
 \subsection{Theory and Description}
-\lipsum[4]
+The function contactAngles finds the angles of the contact the droplet has with the floor and the locations of contact. This function can be callled as follows:
+ \begin{verbatim}
+[contactAngle, contactPoints] =
+contactAngles(imageFloorRemoved, floorHeight, numberOfPoints,polyOrder)
+\end{verbatim}  
+The inputs are the following: imageFloorRemoved, the 4 dimensional matrix from the floorremoved function; foorHeight, the floor pixel height used in the floorremoved function; numberOfPoints, the number of sample points along the edge of the droplet to calculate the contact angles. Default: 10; polyOrder, the polynomial order used to calculate the contact angles. Default: 2. numberOfPoints must always be greater than polyOrder. 
+The outputs are as follows: contactAngle is a 2 dimensional matrix of the size [2,Frames]. The first value of contactAngles is the right contact angle, while the second value is the left contact angle. contactPoints is a 3 dimensional of the size [2,2,frames]. contactPoints is formatted as follows:
+\begin{verbatim}
+contact[1,:,:] is the right contact point
+contact[2,:,:] is the left contact point
+contact[:,1,:] is the x value
+contact[:,2,:] is the y value
+\end{verbatim}
+The contactAngles function works by collecting a series of points on either side of the droplet once it has contacted the floor. Those points are then used to create a polyfit estimation of the curve of the droplet. Once the derivative of the polyfit is found the slope at each contact point, found using the floorHeight imput, is calculated. The slopes are converted into degrees and saved.
+
 
 \subsection{Fault Isolation}
-\lipsum[4]
-
-
+contactAngles as two optional inputs. If numberOfPoints and polyOrder are not entered, that is:
+ \begin{verbatim}
+[contactAngle, contactPoints] =contactAngles(imageFloorRemoved, floorHeight)
+ \end{verbatim}
+then default values for those inputs are used. There is no error checking to ensure that the found contact angles make sense. Instead, those additional options were created to allow for more refined configurations.
 
 \section{convertSource}
 \label{sec:convertSource}
