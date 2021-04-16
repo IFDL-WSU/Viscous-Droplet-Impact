@@ -388,11 +388,13 @@ This function does not currently check for a valid file extention.
 \label{sec:maskOverlay}
 See also: \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:convertSource]{convertSource},
 \subsection{Theory and Description}
-The function maskOverlay overlays a mask over a selected video input using a selected line weight and color.
+The function maskOverlay overlays a mask over a selected video input using a selected line weight and color. This function can be called as follows:
 \begin{verbatim}
 	videoOverlay = maskOverlay(convertedSourceVideo, videoMask, lineThickness, lineColor)
 \end{verbatim}
+Where convertedVideoSource is the four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame] from the function convertSource. videoMask is a boolean black-and-white 4D video matrix of the height, width, and length of the convertedVideoSource. videoMask may either be the output matrix from the function outlineMask or the function drawContactAngles. lineThickness is an odd interger value. lineThickness determines how thick the lines in the videoMask matrix will be in the final video in number of pixels.  lineColor is a RGB color defined by a three element uint8 array of the form [R,G,B]. videoOverlay is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame], the same format as convertedVideoSource.
 
+Each 
 \subsection{Fault Isolation}
 \lipsum[4]
 
