@@ -41,7 +41,7 @@ function [videoFinal] = floorremove(videoBorders, rowToDelete, rotationAngle)
     
     thickness = rowToDelete + 1;
     % Step 1. Draw line across image where floor was.
-    videoAaddedFloor = videoDeletedFloor(:,:,:,:);
+    videoAddedFloor = videoDeletedFloor(:,:,:,:);
     videoAddedFloor(rowToDelete:thickness,:,:,:) = 1;
     
     % Step 2. Draw line on very top pixel
