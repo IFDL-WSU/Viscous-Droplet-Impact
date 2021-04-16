@@ -275,7 +275,7 @@ fallVelocity(videoFloorRemoved, floorHeight)
 videoFloorRemoved is the 4 dimensional matrix output from the floorremove function. floorHeight is the value tracking the height of the floor; it is used to find the frame of impact.
 
 \subsection{Fault Isolation}
-This functions currently does not have fault isolation. This function needs to be able to reliably identify and track droplets even when they pass off screen. This has not been implemented, and may cause some errors.
+This functions currently does not have fault isolation. This function needs to be able to reliably identify and track droplets even when they pass off screen. This has not been implemented, and may cause errors. In addition, the floor impact data relies heavily on the floorremove function. If there are errors, check floorremove and floor GUI.
 
 \section{contactAngles}
 \label{sec:contactAngles}
@@ -302,7 +302,7 @@ contactAngles as two optional inputs. If numberOfPoints and polyOrder are not en
  \begin{verbatim}
 [contactAngle, contactPoints] =contactAngles(imageFloorRemoved, floorHeight)
  \end{verbatim}
-then default values for those inputs are used. There is no error checking to ensure that the found contact angles make sense. Instead, those additional options were created to allow for more refined configurations.
+then default values for those inputs are used. There is no error checking to ensure that the found contact angles make sense. Instead, those additional options were created to allow for more refined configurations. contactAngles relies heavily on floorremove. If the user input floorremove settings are inaccurate, this function will be prone to create errors.
 
 \section{convertSource}
 \label{sec:convertSource}
@@ -336,8 +336,8 @@ By removing any points that are outside of the given range, the video mask matri
 
 
 
-\section{fallVelocity}
-\label{sec:fallVelocity}
+\section{calculateVelocity}
+\label{sec:calculateVelocity}
 \subsection{Theory and Description}
 \lipsum[4]
 
@@ -373,8 +373,6 @@ If no file extension is provided, then this function returns the following error
 This function does not currently check for a valid file extention.
 
 
-
-
 \section{jetVelocity}
 \label{sec:jetVelocity}
 \subsection{Theory and Description}
@@ -388,8 +386,12 @@ This function does not currently check for a valid file extention.
 
 \section{maskOverlay}
 \label{sec:maskOverlay}
+See also: \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:convertSource]{convertSource},
 \subsection{Theory and Description}
-\lipsum[4]
+The function maskOverlay overlays a mask over a selected video input using a selected line weight and color.
+\begin{verbatim}
+	videoOverlay = maskOverlay(convertedSourceVideo, videoMask, lineThickness, lineColor)
+\end{verbatim}
 
 \subsection{Fault Isolation}
 \lipsum[4]
@@ -412,23 +414,16 @@ This function begins by determining the number of frames in dataset ('d').  Once
 
 \section{outlineMask}
 \label{sec:outlineMask}
+See also: \hyperref[sec:maskOverlay]{maskOverlay}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:floorremove]{floorremove},
 \subsection{Theory and Description}
-\lipsum[4]
+The function outlineMask creates a post-processing video frame matrix mask showing the borders of all objects in the processsed video matrix videoFloorRemoved, the output of floorremoved. The returned video mask is boolean black-and-white 4D video matrix of the height, width, and length of the videoFloorRemoved input.This function can be called as follows:
+\begin{verbatim}
+maskOutline = outlineMask(videoFloorRemoved)
+\end{verbatim}
+Where videoFloorRemoved is a four dimensional matrix of data type uint8 and the form [Height, Width, 1, Frame]. 
 
 \subsection{Fault Isolation}
-\lipsum[4]
-
-
-
-
-\section{outlines}
-\label{sec:outlines}
-\subsection{Theory and Description}
-\lipsum[4]
-
-\subsection{Fault Isolation}
-\lipsum[4]
-
+This function has no fault isolation. This function relies solely on videoFloorRemoved and uses the MATLAB function bwperim to generate the mask. If there are errors with this mask highlighting incorrent elements, check the 4D video matrix videoFloorRemoved and ensure no noise is present. 
 
 
 
