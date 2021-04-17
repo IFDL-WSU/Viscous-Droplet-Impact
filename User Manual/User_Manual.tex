@@ -392,11 +392,17 @@ The function maskOverlay overlays a mask over a selected video input using a sel
 \begin{verbatim}
 	videoOverlay = maskOverlay(convertedSourceVideo, videoMask, lineThickness, lineColor)
 \end{verbatim}
-Where convertedVideoSource is the four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame] from the function convertSource. videoMask is a boolean black-and-white 4D video matrix of the height, width, and length of the convertedVideoSource. videoMask may either be the output matrix from the function outlineMask or the function drawContactAngles. lineThickness is an odd interger value. lineThickness determines how thick the lines in the videoMask matrix will be in the final video in number of pixels.  lineColor is a RGB color defined by a three element uint8 array of the form [R,G,B]. videoOverlay is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame], the same format as convertedVideoSource.
+Where convertedVideoSource is the four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame] from the function convertSource. videoMask is a boolean black-and-white 4D video matrix of the height, width, and length of the convertedVideoSource. videoMask may either be the output matrix from the function outlineMask or the function drawContactAngles. lineThickness is an odd interger value. lineThickness determines how thick the lines in the videoMask matrix will be in the final video in number of pixels. The input lineColor is a RGB color defined by a three element uint8 array of the form [R,G,B]. The output videoOverlay is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame], the same format as convertedVideoSource.
+First, each frame of the mask is dilated by the amount given by the lineThickness. For each of the RGB color components, accessed by [:,:,1,:], [:,:,2,:], [:,:,3,:], the mask is applied over the convertedSourceVideo matrix with the corresponding value of the lineColor input.
 
-Each 
 \subsection{Fault Isolation}
-\lipsum[4]
+This function checks if the convertedSourceVideo and videoMask are of the same size in height, width, and the number of frames. If the sizes do not match, then the following error occurs:\\
+\textbf{'Source and Overlay matrix sizes do not match!'}\\
+If this is the case, please ensure that the convertedSourceVideo matrix was not altered after being created by the function convertSource, and check that the function drawContactAngles, one of the mask functions, has the correct size input array.
+If no input is given for the lineThickness of the lineColor, 1 and red ([255,0,0]) are used respectively. If the lineColor is of the wrong format, the following error called: \\
+\textbf{'lineColor is in incorrect format. Please use an RGB value in the form [R,G,B]'}\\
+Check to make sure that the line color input is a three element uint8 array of the format [R,G,B]/ 
+
 
 
 
