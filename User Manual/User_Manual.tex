@@ -232,9 +232,62 @@ During the manual floor height and angle entry process, if the line is difficult
 
 \subsection{Applet Features}
 
+The following section describes the function and interactivity of each feature, listed in order as marked in the figure below.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{AppletFeatures.jpg}
+\label{fig:appletfeatures}
+\end{figure}
 
+\begin{enumerate}[label = \textbf{Feature \arabic*.}]
 
+\item Upload Video Button. \\
+
+\textbf{Function:} The upload video button allows the user to select a video file from the file explorer window to upload to the applet for processing. \\
+\textbf{Interactivity:} The user can press the button to activate the button-down callback.
+
+\item Micron/pixel and Frame/sec text boxes. \\
+
+\textbf{Function:} These text boxes are used to change the micron/pixel ratio and frame/second ratio for the parameters found by the applet. The applet automatically converts all values using the user's input.\\
+\textbf{Interactivity:} The user can type a decimal value into the text boxes to activate the value changed callback.
+
+\item Frame Slider. \\
+
+\textbf{Function:} The frame slider is used to change the current frame displayed in the original and processed video image boxes. This also changes the displays of all of the parameter text boxes to show the value of each parameter at the newly selected frame. The frames and values change in realtime as the user interacts with the slider.\\
+\textbf{Interactivity:} The user can right-click on any point along the line to activate the value changed callback. The user can right-click and drag the indicator along the line to activate the value changing callback.
+
+\item Parameter Text Boxes. \\
+
+\textbf{Function:} The parameter text boxes display the various calculated parameters that the applet obtains from the video. Some values displayed are calculated per frame, while others are calculated for the entire video (i.e. max spread radius is the maximum for the whole video).\\
+\textbf{Interactivity:} The user cannot interact directly with these text boxes.
+
+\item Save Current Frame Button. \\
+
+\textbf{Function:} The save current frame button allows the user to save the image displayed in the processed video image box as an image in the directory of their choice from the file explorer window. This image is named by the user through the file explorer window.\\
+\textbf{Interactivity:} The user can press the button to activate the button-down callback.
+
+\item Contact Angles On/Off. \\
+
+\textbf{Function:} The contact angles on/off button allows the user to switch between displaying the border line around the processed image, indicating the edge detected by the applet, and the contact angle lines, indicating the angle of the point of contact of the droplet with the floor. When the button displays "Contact Angles Off", the processed video image box will show the bordered image. When the button displays "Contact Angles On", the processed video image box will show the contact angle image.\\
+\textbf{Interactivity:} The user can press the button to activate the button-down callback.
+
+\item Outline Color Dropdown Menu. \\
+
+\textbf{Function:} This menu allows the user to select the color of the lines drawn over the processed video image within the processed video image box. The user can select yellow, red, green, or blue.\\
+\textbf{Interactivity:} The user can press the arrow to open the menu, then select a color to activate the value changed callback.
+
+\item Save Analytics Button. \\
+
+\textbf{Function:} The save analytics button allows the user to save the processed data for the entire video to a single file. The data is organized into a table with columns that correspond to each parameter and rows that correspond to each frame. This table is named by the user through the file explorer window.\\
+\textbf{Interactivity:} The user can press the button to activate the button-down callback.
+
+\item Save Processed Video Button. \\
+
+\textbf{Function:} The save processed video button allows the user to save the processed video in the directory of their choice from the file explorer window. This video is named by the user through the file explorer window.\\
+\textbf{Interactivity:} The user can press the button to activate the button-down callback.
+
+\end{enumerate}
 
 
 

@@ -1,0 +1,1777 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>GUI_Design_exported</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-14"><meta name="DC.source" content="GUI_Design_exported.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">classdef</span> GUI_Design_exported &lt; matlab.apps.AppBase
+
+    <span class="comment">% Properties that correspond to app components</span>
+    <span class="keyword">properties</span> (Access = public)
+        UIFigure                        <span class="typesection">matlab.ui.Figure</span>
+        UploadVideoButton               <span class="typesection">matlab.ui.control.Button</span>
+        FrameSliderLabel                <span class="typesection">matlab.ui.control.Label</span>
+        FrameSlider                     <span class="typesection">matlab.ui.control.Slider</span>
+        SaveProcessedVideoButton        <span class="typesection">matlab.ui.control.Button</span>
+        InstantaneousVelocityButton     <span class="typesection">matlab.ui.control.Button</span>
+        AverageVelocityButton           <span class="typesection">matlab.ui.control.Button</span>
+        MaxSpreadRadiusButton           <span class="typesection">matlab.ui.control.Button</span>
+        SaveAnalyticsButton             <span class="typesection">matlab.ui.control.Button</span>
+        SatelliteDropletSpeedButton     <span class="typesection">matlab.ui.control.Button</span>
+        SatelliteDropletCountButton     <span class="typesection">matlab.ui.control.Button</span>
+        InstantaneousVelocityUnits      <span class="typesection">matlab.ui.control.EditField</span>
+        AverageVelocityUnits            <span class="typesection">matlab.ui.control.EditField</span>
+        MaxSpreadUnits                  <span class="typesection">matlab.ui.control.EditField</span>
+        DropletSpeedUnits               <span class="typesection">matlab.ui.control.EditField</span>
+        DropletCountUnits               <span class="typesection">matlab.ui.control.EditField</span>
+        CurrentFrameEditFieldLabel      <span class="typesection">matlab.ui.control.Label</span>
+        CurrentFrameEditField           <span class="typesection">matlab.ui.control.EditField</span>
+        InstantVelocityTxt              <span class="typesection">matlab.ui.control.NumericEditField</span>
+        AverageVelocityTxt              <span class="typesection">matlab.ui.control.NumericEditField</span>
+        MaxRadiusTxt                    <span class="typesection">matlab.ui.control.NumericEditField</span>
+        DropletSpeedTxt                 <span class="typesection">matlab.ui.control.NumericEditField</span>
+        DropletCountTxt                 <span class="typesection">matlab.ui.control.NumericEditField</span>
+        MicronspixelEditFieldLabel      <span class="typesection">matlab.ui.control.Label</span>
+        MicronspixelEditField           <span class="typesection">matlab.ui.control.NumericEditField</span>
+        ContactAngleButton              <span class="typesection">matlab.ui.control.Button</span>
+        ContactAngleUnits               <span class="typesection">matlab.ui.control.EditField</span>
+        ContactAngleTxt                 <span class="typesection">matlab.ui.control.NumericEditField</span>
+        TotalSatelliteDropletsButton    <span class="typesection">matlab.ui.control.Button</span>
+        TotalSatelliteDropletsTxt       <span class="typesection">matlab.ui.control.NumericEditField</span>
+        MaxVelocityPrimaryDropletButton  <span class="typesection">matlab.ui.control.Button</span>
+        MaxVelocityPrimaryDropletTxt    <span class="typesection">matlab.ui.control.NumericEditField</span>
+        MaxVelocityPrimaryDropletUnits  <span class="typesection">matlab.ui.control.EditField</span>
+        TotalSatelliteDropletsUnits     <span class="typesection">matlab.ui.control.EditField</span>
+        OutlineColorDropDownLabel       <span class="typesection">matlab.ui.control.Label</span>
+        OutlineColorDropDown            <span class="typesection">matlab.ui.control.DropDown</span>
+        SaveCurrentFrameButton          <span class="typesection">matlab.ui.control.Button</span>
+        SpreadRadius                    <span class="typesection">matlab.ui.control.Button</span>
+        SpreadRadiusUnits               <span class="typesection">matlab.ui.control.EditField</span>
+        SpreadRadiusTxt                 <span class="typesection">matlab.ui.control.NumericEditField</span>
+        ContactAnglesOffButton          <span class="typesection">matlab.ui.control.StateButton</span>
+        JetVelocity                     <span class="typesection">matlab.ui.control.Button</span>
+        JetVelocityUnits                <span class="typesection">matlab.ui.control.EditField</span>
+        JetVelocityTxt                  <span class="typesection">matlab.ui.control.NumericEditField</span>
+        JetTipPosition                  <span class="typesection">matlab.ui.control.Button</span>
+        JetTipPositionUnits             <span class="typesection">matlab.ui.control.EditField</span>
+        JetTipPositionTxt               <span class="typesection">matlab.ui.control.NumericEditField</span>
+        JetDiameter                     <span class="typesection">matlab.ui.control.Button</span>
+        JetDiameterUnits                <span class="typesection">matlab.ui.control.EditField</span>
+        JetDiameterTxt                  <span class="typesection">matlab.ui.control.NumericEditField</span>
+        FramessecLabel                  <span class="typesection">matlab.ui.control.Label</span>
+        FramesecEditField               <span class="typesection">matlab.ui.control.NumericEditField</span>
+        UIAxes                          <span class="typesection">matlab.ui.control.UIAxes</span>
+        UIAxes2                         <span class="typesection">matlab.ui.control.UIAxes</span>
+    <span class="keyword">end</span>
+
+
+    <span class="keyword">properties</span> (Access = private)
+        R <span class="comment">% total size and frame count of original video</span>
+        B <span class="comment">% matrix of processed border video frames with the floor removed</span>
+        Ly <span class="comment">% matrix of original video frames with a yellow border</span>
+        Lr <span class="comment">% matrix of original video frames with a red border</span>
+        Lg <span class="comment">% matrix of original video frames with a green border</span>
+        Lb <span class="comment">% matrix of original video frames with a blue border</span>
+        cay <span class="comment">% matrix of original video frames with yellow contact angles</span>
+        car <span class="comment">% matrix of original video frames with yellow contact angles</span>
+        cag <span class="comment">% matrix of original video frames with yellow contact angles</span>
+        cab <span class="comment">% matrix of original video frames with yellow contact angles</span>
+        DialogApp <span class="comment">% Dialog box app</span>
+        floorheight <span class="comment">% pixel height of floor</span>
+        floorangle <span class="comment">% angle of floor</span>
+        mspreadl <span class="comment">% max spread radius left</span>
+        mspreadr <span class="comment">% max spread radius right</span>
+        spreadl <span class="comment">% spread radius left</span>
+        spreadr <span class="comment">% spread radius right</span>
+        micron_to_pxl <span class="comment">% pixel to micron ratio</span>
+        frame_to_s <span class="comment">% frame to second ratio</span>
+        cangle <span class="comment">% contact angle (both left and right) for the matrix</span>
+        cpoints <span class="comment">% contact position for the contact angles printing function</span>
+        fvelocity <span class="comment">%fall velocity of droplet x and y directions</span>
+        impactdata <span class="comment">% includes [speed,frame#] for impact of primary droplet</span>
+        totalobjects <span class="comment">% a count of the number of separate objects in frame</span>
+        ctrmsprd <span class="comment">% center found from maxspread function</span>
+        viddisplay <span class="comment">% the current video frames to display</span>
+        jetv <span class="comment">% jet velocity</span>
+        jetpos <span class="comment">% height of the tip of the jet</span>
+        jetd <span class="comment">% jet diameter</span>
+        mxvindex <span class="comment">% frame of the max velocity</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">properties</span> (Access = public)
+        M <span class="comment">% matrix of original video frames</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">methods</span> (Access = public)
+        <span class="keyword">function</span> updatefloor(app, h, t)
+            <span class="comment">% Store inputs as properties</span>
+            app.floorheight = h;
+            app.floorangle = t;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+
+    <span class="comment">% Callbacks that handle component events</span>
+    <span class="keyword">methods</span> (Access = private)
+
+        <span class="comment">% Button pushed function: UploadVideoButton</span>
+        <span class="keyword">function</span> UploadVideoButtonPushed(app, event)
+            [vidname,vidpath] = uigetfile(<span class="string">'*.avi'</span>); <span class="comment">% this asks the user for a file input</span>
+            <span class="keyword">if</span> vidname == 0
+                figure(app.UIFigure); <span class="comment">% this ensures that the app does not go to the background when uigetfile is called</span>
+                <span class="keyword">return</span>; <span class="comment">% this is a simple catch to stop the program from displaying an error if the user presses cancel</span>
+            <span class="keyword">end</span>
+            figure(app.UIFigure); <span class="comment">% this ensures that the app does not go to the background when uigetfile is called</span>
+            fullname = fullfile(vidpath,vidname); <span class="comment">% this concatenates the path and file name of the input file</span>
+            [app.M,app.R] = video2frame(fullname);
+            imshow(app.M(:,:,:,1),<span class="string">'Parent'</span>,app.UIAxes); <span class="comment">% this displays the input file in the original video axes</span>
+            totalframes = app.R(4); <span class="comment">% this sets totalframes to the number of frames in the uploaded video</span>
+            app.FrameSlider.Limits = [1 totalframes]; <span class="comment">% this sets the slider limits to 1 to the total frames of the video</span>
+            app.FrameSlider.MajorTicks = [1:30:totalframes totalframes]; <span class="comment">% this sets the slider major ticks to 1 to the total frames</span>
+            <span class="comment">% of the video in increments of 20</span>
+            app.FrameSlider.MinorTicks = [1:5:totalframes]; <span class="comment">% this sets the slider minor ticks to 1 to the total frames</span>
+            <span class="comment">% of the video in increments of 5</span>
+            app.DialogApp = floorselectdlgbox(app,app.M);
+            waitfor(app.DialogApp);
+            B_withfloor = borders(app.M); <span class="comment">% this processes the video to get a B&amp;W border video</span>
+            app.B = floorremove(B_withfloor,app.floorheight,app.floorangle); <span class="comment">% this processes the border video to remove the floor</span>
+            rotatedsource = convertSource(app.M,app.floorangle); <span class="comment">% this rotates the source image for use in maskOverlay function</span>
+            omask = outlineMask(app.B); <span class="comment">% this creates an outline mask from the border matrix</span>
+            app.Ly = maskOverlay(rotatedsource,omask,5,[255,255,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with a yellow line around the border</span>
+            app.Lr = maskOverlay(rotatedsource,omask,5,[255,0,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with a red line around the border</span>
+            app.Lg = maskOverlay(rotatedsource,omask,5,[0,255,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with a green line around the border</span>
+            app.Lb = maskOverlay(rotatedsource,omask,5,[0,0,255]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with a blue line around the border</span>
+            app.viddisplay = zeros(app.R); <span class="comment">% this creates a blank display matrix for use later</span>
+            app.viddisplay = app.Ly; <span class="comment">% this displays the B&amp;W border video in the processed video axes</span>
+            imshow(app.viddisplay(:,:,:,1),<span class="string">'Parent'</span>,app.UIAxes2);
+            [app.cangle, app.cpoints] = contactAngles(app.B,app.floorheight);
+            amask = drawContactAngles(app.R,app.cangle,app.cpoints,(app.R(2)/4)); <span class="comment">% this creates an angle mask for drawing contact angles matrix</span>
+            app.cay = maskOverlay(rotatedsource,amask,5,[255,255,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with yellow contact angles</span>
+            app.car = maskOverlay(rotatedsource,amask,5,[255,0,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with red contact angles</span>
+            app.cag = maskOverlay(rotatedsource,amask,5,[0,255,0]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with green contact angles</span>
+            app.cab = maskOverlay(rotatedsource,amask,5,[0,0,255]); <span class="comment">% this creates a matrix of frames with the original video</span>
+            <span class="comment">% with blue contact angles</span>
+            [app.fvelocity, app.impactdata, app.totalobjects] = fallVelocity(app.B,app.floorheight); <span class="comment">%this optains the fall veloctiy of the droplet and jet in the x and y directions</span>
+            [app.mspreadl, app.mspreadr, app.spreadl,app.spreadr, app.ctrmsprd] = maxSpread(app.B,app.floorheight); <span class="comment">% this processes the B&amp;W border video to find the spread radius per frame and max spread</span>
+            app.MaxRadiusTxt.Value = (app.mspreadl + app.mspreadr)/2;
+            app.TotalSatelliteDropletsTxt.Value = max(app.totalobjects); <span class="comment">% this sets the value of the total satellite droplets for the video</span>
+            [~,app.mxvindex] = max(abs(app.fvelocity(4,1,:)),[],<span class="string">'omitnan'</span>); <span class="comment">% this finds the index of the absolute maximum velocity</span>
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); <span class="comment">% this sets the value of the absolute maximum velocity of the primary droplet</span>
+            [app.jetv,app.jetpos,app.jetd] = jetVelocity(app.B);
+        <span class="keyword">end</span>
+
+        <span class="comment">% Button pushed function: SaveAnalyticsButton</span>
+        <span class="keyword">function</span> SaveAnalyticsButtonPushed(app, event)
+            frames  = [1:app.R(4)];
+            j = 1;
+            averageVelocity = nan(1, app.R(4));
+            <span class="keyword">for</span> i = frames
+                velocity(i) = app.fvelocity(4,1,i);
+                <span class="keyword">if</span> isnan(app.fvelocity(4,1,i))
+                <span class="keyword">else</span>
+                    realVelocity(j) = app.fvelocity(4,1,i);         <span class="comment">%All velocity values that are not NaN up to any point i in the loop</span>
+                    averageVelocity(i) = mean(realVelocity(1:j));
+                    j = j+1;
+                <span class="keyword">end</span>
+                satelliteDropletSpeed(i) = app.fvelocity(4,2,i);
+                satelliteDropletCount(i) = app.totalobjects(i);
+                contactAngle(i) = mean(app.cangle(:,i));
+                spreadRadius(i) = mean([app.spreadl(i) app.spreadr(i)]);
+                jetVelocity(i) = app.jetv(i);
+                jetTipPosition(i) = app.jetpos(i);
+                jetDiameter(i) = app.jetd(i);
+            <span class="keyword">end</span>
+
+            <span class="comment">% Create a table with the data and variable names</span>
+            T = table(frames', velocity', averageVelocity', satelliteDropletSpeed', satelliteDropletCount', contactAngle', spreadRadius', jetVelocity', jetTipPosition', jetDiameter',<span class="keyword">...</span>
+                <span class="string">'VariableNames'</span>,{<span class="string">'Frame Number'</span>,<span class="string">'Instantanous Velocity(um/s)'</span>,<span class="string">'Average Velocity(um/s)'</span>, <span class="string">'Satellite Droplet Speed(um/s)'</span>, <span class="string">'Satellite Droplet Count(droplets)'</span>, <span class="string">'Contact Angle(degrees)'</span>, <span class="string">'Spread Radius(um)'</span>, <span class="string">'Jet Velocity(um/s)'</span>,<span class="string">'Jet Tip Position(um)'</span>, <span class="string">'Jet Diameter(um)'</span>});
+            <span class="comment">% Write data to text file</span>
+            [txtname,txtpath] = uiputfile(<span class="string">'*.csv'</span>); <span class="comment">% this asks the user for a file destination</span>
+            fullpath = fullfile(txtpath,txtname); <span class="comment">% this concatenates the path and file name of the file destination</span>
+            writetable(T, fullpath);
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changed function: FrameSlider</span>
+        <span class="keyword">function</span> FrameSliderValueChanged(app, event)
+            value = app.FrameSlider.Value;
+            imshow(app.M(:,:,:,round(value)),<span class="string">'Parent'</span>,app.UIAxes); <span class="comment">% this displays the selected frame in the original video axes</span>
+            imshow(app.viddisplay(:,:,:,round(value)),<span class="string">'Parent'</span>,app.UIAxes2); <span class="comment">% this displays the B&amp;W border video in the processed video axes</span>
+            app.CurrentFrameEditField.Value = string(round(value)); <span class="comment">% this sets the display in the Current Frame text field</span>
+            <span class="comment">% to the value selected on the slider</span>
+            <span class="keyword">if</span>  isnan(mean(app.cangle(:,round(value))))
+                app.ContactAngleTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.ContactAngleTxt.Visible = <span class="string">'on'</span>;
+                app.ContactAngleTxt.Value = mean(app.cangle(:,round(value)));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,1,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,2,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'on'</span>;
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the average velocity at the current frame is a real number</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> isnan(mean(app.spreadl(round(value)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the spread radius at the current frame is a real number</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'on'</span>;
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(value)) app.spreadr(round(value))],<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetv(round(value)))   <span class="comment">%checking to see if the jet velocity at the current frame is a real number</span>
+                app.JetVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetpos(round(value)))   <span class="comment">%checking to see if the jet tip position at the current frame is a real number</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'on'</span>;
+                app.JetTipPositionTxt.Value = app.jetpos(round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetd(round(value)))   <span class="comment">%checking to see if the jet diameter at the current frame is a real number</span>
+                app.JetDiameterTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetDiameterTxt.Visible = <span class="string">'on'</span>;
+                app.JetDiameterTxt.Value = app.jetd(round(value));
+            <span class="keyword">end</span>
+
+            app.DropletCountTxt.Value = app.totalobjects(round(value));
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changing function: FrameSlider</span>
+        <span class="keyword">function</span> FrameSliderValueChanging(app, event)
+            changingValue = event.Value;
+            imshow(app.M(:,:,:,round(changingValue)),<span class="string">'Parent'</span>,app.UIAxes); <span class="comment">% this displays the selected frame in the original video axes</span>
+            imshow(app.viddisplay(:,:,:,round(changingValue)),<span class="string">'Parent'</span>,app.UIAxes2); <span class="comment">% this displays the B&amp;W border video in the processed video axes</span>
+            app.CurrentFrameEditField.Value = string(round(changingValue)); <span class="comment">% this sets the display in the Current Frame text field</span>
+            <span class="comment">% to the value selected on the slider</span>
+            <span class="keyword">if</span>  isnan(mean(app.cangle(:,round(changingValue))))
+                app.ContactAngleTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.ContactAngleTxt.Visible = <span class="string">'on'</span>;
+                app.ContactAngleTxt.Value = mean(app.cangle(:,round(changingValue)));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,1,round(changingValue))) <span class="comment">%checking to see if the veloctiy at the 'changingValue' frame is a real number</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(changingValue));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,2,round(changingValue))) <span class="comment">%checking to see if the veloctiy at the 'changingValue' frame is a real number</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'on'</span>;
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(changingValue));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(mean(app.fvelocity(4,1,1:round(changingValue)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the average velocity at the current frame is a real number</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(changingValue)),<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(mean(app.spreadl(round(changingValue)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the spread radius at the current frame is a real number</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'on'</span>;
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(changingValue)) app.spreadr(round(changingValue))],<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetv(round(changingValue)))   <span class="comment">%checking to see if the jet velocity at the current frame is a real number</span>
+                app.JetVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.JetVelocityTxt.Value = app.jetv(round(changingValue));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetpos(round(changingValue)))   <span class="comment">%checking to see if the jet tip position at the current frame is a real number</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'on'</span>;
+                app.JetTipPositionTxt.Value = app.jetpos(round(changingValue));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetd(round(changingValue)))   <span class="comment">%checking to see if the jet diameter at the current frame is a real number</span>
+                app.JetDiameterTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetDiameterTxt.Visible = <span class="string">'on'</span>;
+                app.JetDiameterTxt.Value = app.jetd(round(changingValue));
+            <span class="keyword">end</span>
+
+            app.DropletCountTxt.Value = app.totalobjects(round(changingValue));
+        <span class="keyword">end</span>
+
+        <span class="comment">% Button pushed function: SaveProcessedVideoButton</span>
+        <span class="keyword">function</span> SaveProcessedVideoButtonPushed(app, event)
+            [filename,filepath]=uiputfile(<span class="string">'.JPEG'</span>);
+            [~,~,~,sizeapp] = size(app.L);
+            i=1;
+            <span class="keyword">while</span>(i &lt;= sizeapp)
+                frame2file(app.L,filename,filepath,i);
+                i=i+1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changed function: MicronspixelEditField</span>
+        <span class="keyword">function</span> MicronspixelEditFieldValueChanged(app, event)
+            app.micron_to_pxl = app.MicronspixelEditField.Value; <span class="comment">% collects user input for pxl/mm</span>
+            <span class="keyword">if</span> app.micron_to_pxl == 0
+                f = errordlg(<span class="string">'Pixels/mm Cannot Be Set to 0. Setting Pixels/mm to 1...'</span>,<span class="string">'Invalid Pixels/Millimeter Input'</span>);
+                app.MicronspixelEditField.Value = 1;
+            <span class="keyword">end</span>
+            app.mspreadl  = app.mspreadl*app.micron_to_pxl; <span class="comment">% converts max spread radius left</span>
+            app.mspreadr  = app.mspreadr*app.micron_to_pxl; <span class="comment">% converts max spread radius right</span>
+            app.spreadl = app.spreadl*app.micron_to_pxl; <span class="comment">% converts spread radius left</span>
+            app.spreadr = app.spreadr*app.micron_to_pxl; <span class="comment">% converts spread radius right</span>
+            app.fvelocity([3 4],:,:) = app.fvelocity([3 4],:,:)*app.micron_to_pxl; <span class="comment">% converts fall velocity of droplet x and y directions</span>
+            app.jetv = app.jetv*app.micron_to_pxl; <span class="comment">% converts jet velocity</span>
+            app.jetpos = app.jetpos*app.micron_to_pxl; <span class="comment">% converts height of the tip of the jet</span>
+            app.jetd = app.jetd*app.micron_to_pxl; <span class="comment">% converts jet diameter</span>
+
+            value = app.FrameSlider.Value; <span class="comment">% finds current frame for updating data currently displayed</span>
+            app.MaxRadiusTxt.Value = (app.mspreadl + app.mspreadr)/2; <span class="comment">% updates the display of maxspread</span>
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); <span class="comment">% updates the absolute maximum velocity of the primary droplet</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,1,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,2,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'on'</span>;
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the average velocity at the current frame is a real number</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> isnan(mean(app.spreadl(round(value)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the spread radius at the current frame is a real number</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.SpreadRadiusTxt.Visible = <span class="string">'on'</span>;
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(value)) app.spreadr(round(value))],<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetv(round(value)))   <span class="comment">%checking to see if the jet velocity at the current frame is a real number</span>
+                app.JetVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetpos(round(value)))   <span class="comment">%checking to see if the jet tip position at the current frame is a real number</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetTipPositionTxt.Visible = <span class="string">'on'</span>;
+                app.JetTipPositionTxt.Value = app.jetpos(round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.jetd(round(value)))   <span class="comment">%checking to see if the jet diameter at the current frame is a real number</span>
+                app.JetDiameterTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetDiameterTxt.Visible = <span class="string">'on'</span>;
+                app.JetDiameterTxt.Value = app.jetd(round(value));
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changed function: OutlineColorDropDown</span>
+        <span class="keyword">function</span> OutlineColorDropDownValueChanged(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            value = app.OutlineColorDropDown.Value;
+            cavalue = app.ContactAnglesOffButton.Value;
+            <span class="keyword">if</span> cavalue == 0
+                <span class="keyword">if</span> strcmp(value,<span class="string">'Red'</span>)
+                    app.viddisplay = app.Lr; <span class="comment">% this sets the displayed video as the red outline video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Blue'</span>)
+                    app.viddisplay = app.Lb; <span class="comment">% this sets the displayed video as the blue outline video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Yellow'</span>)
+                    app.viddisplay = app.Ly; <span class="comment">% this sets the displayed video as the yellow outline video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Green'</span>)
+                    app.viddisplay = app.Lg; <span class="comment">% this sets the displayed video as the green outline video</span>
+                <span class="keyword">end</span>
+            <span class="keyword">elseif</span> cavalue == 1
+                <span class="keyword">if</span> strcmp(value,<span class="string">'Red'</span>)
+                    app.viddisplay = app.car; <span class="comment">% this sets the displayed video as the red angle video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Blue'</span>)
+                    app.viddisplay = app.cab; <span class="comment">% this sets the displayed video as the blue angle video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Yellow'</span>)
+                    app.viddisplay = app.cay; <span class="comment">% this sets the displayed video as the yellow angle video</span>
+                <span class="keyword">elseif</span> strcmp(value,<span class="string">'Green'</span>)
+                    app.viddisplay = app.cag; <span class="comment">% this sets the displayed video as the green angle video</span>
+                <span class="keyword">end</span>
+            <span class="keyword">end</span>
+            imshow(app.viddisplay(:,:,:,currentframe),<span class="string">'Parent'</span>,app.UIAxes2); <span class="comment">% this displays the B&amp;W border video in the processed video axes</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Button pushed function: SaveCurrentFrameButton</span>
+        <span class="keyword">function</span> SaveCurrentFrameButtonPushed(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            [filename,filepath]=uiputfile(<span class="string">'.JPEG'</span>);
+            frame2file(app.viddisplay,filename,filepath,currentframe); <span class="comment">% this saves the current frame of the processed video axes</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changed function: ContactAnglesOffButton</span>
+        <span class="keyword">function</span> ContactAnglesOffButtonValueChanged(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            value = app.ContactAnglesOffButton.Value;
+            colvalue = app.OutlineColorDropDown.Value;
+            <span class="keyword">if</span> value == 0
+                app.ContactAnglesOffButton.Text = <span class="string">'Contact Angles Off'</span>;
+                <span class="keyword">if</span> strcmp(colvalue,<span class="string">'Red'</span>)
+                    app.viddisplay = app.Lr; <span class="comment">% this sets the displayed video as the red outline video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Blue'</span>)
+                    app.viddisplay = app.Lb; <span class="comment">% this sets the displayed video as the blue outline video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Yellow'</span>)
+                    app.viddisplay = app.Ly; <span class="comment">% this sets the displayed video as the yellow outline video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Green'</span>)
+                    app.viddisplay = app.Lg; <span class="comment">% this sets the displayed video as the green outline video</span>
+                <span class="keyword">end</span>
+            <span class="keyword">elseif</span> value == 1
+                app.ContactAnglesOffButton.Text = <span class="string">'Contact Angles On'</span>;
+                <span class="keyword">if</span> strcmp(colvalue,<span class="string">'Red'</span>)
+                    app.viddisplay = app.car; <span class="comment">% this sets the displayed video as the red angle video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Blue'</span>)
+                    app.viddisplay = app.cab; <span class="comment">% this sets the displayed video as the blue angle video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Yellow'</span>)
+                    app.viddisplay = app.cay; <span class="comment">% this sets the displayed video as the yellow angle video</span>
+                <span class="keyword">elseif</span> strcmp(colvalue,<span class="string">'Green'</span>)
+                    app.viddisplay = app.cag; <span class="comment">% this sets the displayed video as the green angle video</span>
+                <span class="keyword">end</span>
+            <span class="keyword">end</span>
+            imshow(app.viddisplay(:,:,:,currentframe),<span class="string">'Parent'</span>,app.UIAxes2); <span class="comment">% this displays the B&amp;W border video in the processed video axes</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Value changed function: FramesecEditField</span>
+        <span class="keyword">function</span> FramesecEditFieldValueChanged(app, event)
+            app.frame_to_s = app.FramesecEditField.Value;
+            <span class="keyword">if</span> app.frame_to_s == 0
+                f = errordlg(<span class="string">'Frame/Sec Cannot Be Set to 0. Setting Frame/s to 1...'</span>,<span class="string">'Invalid Frame/Second Input'</span>);
+                app.frame_to_s = 0;
+            <span class="keyword">end</span>
+            app.fvelocity([3 4],:,:) = app.fvelocity([3 4],:,:)*app.frame_to_s; <span class="comment">% converts fall velocity of droplet x and y directions</span>
+            app.jetv = app.jetv*app.frame_to_s; <span class="comment">% converts jet velocity</span>
+
+            value = app.FrameSlider.Value; <span class="comment">% finds current frame for updating data currently displayed</span>
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); <span class="comment">% updates the absolute maximum velocity of the primary droplet</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,1,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.InstantVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(app.fvelocity(4,2,round(value)))   <span class="comment">%checking to see if the veloctiy at the 'value' frame is a real number</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.DropletSpeedTxt.Visible = <span class="string">'on'</span>;
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            <span class="keyword">end</span>
+
+            <span class="keyword">if</span> isnan(mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>))   <span class="comment">%checking to see if the average velocity at the current frame is a real number</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.AverageVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),<span class="string">"omitnan"</span>);
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> isnan(app.jetv(round(value)))   <span class="comment">%checking to see if the jet velocity at the current frame is a real number</span>
+                app.JetVelocityTxt.Visible = <span class="string">'off'</span>;
+            <span class="keyword">else</span>
+                app.JetVelocityTxt.Visible = <span class="string">'on'</span>;
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% Component initialization</span>
+    <span class="keyword">methods</span> (Access = private)
+
+        <span class="comment">% Create UIFigure and components</span>
+        <span class="keyword">function</span> createComponents(app)
+
+            <span class="comment">% Create UIFigure and hide until all components are created</span>
+            app.UIFigure = uifigure(<span class="string">'Visible'</span>, <span class="string">'off'</span>);
+            app.UIFigure.Position = [100 100 653 718];
+            app.UIFigure.Name = <span class="string">'MATLAB App'</span>;
+
+            <span class="comment">% Create UploadVideoButton</span>
+            app.UploadVideoButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.UploadVideoButton.ButtonPushedFcn = createCallbackFcn(app, @UploadVideoButtonPushed, true);
+            app.UploadVideoButton.Position = [124 496 100 22];
+            app.UploadVideoButton.Text = <span class="string">'Upload Video'</span>;
+
+            <span class="comment">% Create FrameSliderLabel</span>
+            app.FrameSliderLabel = uilabel(app.UIFigure);
+            app.FrameSliderLabel.HorizontalAlignment = <span class="string">'right'</span>;
+            app.FrameSliderLabel.Position = [313 340 40 22];
+            app.FrameSliderLabel.Text = <span class="string">'Frame'</span>;
+
+            <span class="comment">% Create FrameSlider</span>
+            app.FrameSlider = uislider(app.UIFigure);
+            app.FrameSlider.Limits = [0 15];
+            app.FrameSlider.MajorTicks = [5 10 15];
+            app.FrameSlider.ValueChangedFcn = createCallbackFcn(app, @FrameSliderValueChanged, true);
+            app.FrameSlider.ValueChangingFcn = createCallbackFcn(app, @FrameSliderValueChanging, true);
+            app.FrameSlider.MinorTicks = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15];
+            app.FrameSlider.Position = [88 384 479 3];
+
+            <span class="comment">% Create SaveProcessedVideoButton</span>
+            app.SaveProcessedVideoButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SaveProcessedVideoButton.ButtonPushedFcn = createCallbackFcn(app, @SaveProcessedVideoButtonPushed, true);
+            app.SaveProcessedVideoButton.Position = [466 38 140 22];
+            app.SaveProcessedVideoButton.Text = <span class="string">'Save Processed Video '</span>;
+
+            <span class="comment">% Create InstantaneousVelocityButton</span>
+            app.InstantaneousVelocityButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.InstantaneousVelocityButton.Position = [70 296 131 22];
+            app.InstantaneousVelocityButton.Text = <span class="string">'Instantaneous Velocity'</span>;
+
+            <span class="comment">% Create AverageVelocityButton</span>
+            app.AverageVelocityButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.AverageVelocityButton.Position = [83 261 105 22];
+            app.AverageVelocityButton.Text = <span class="string">'Average Velocity'</span>;
+
+            <span class="comment">% Create MaxSpreadRadiusButton</span>
+            app.MaxSpreadRadiusButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.MaxSpreadRadiusButton.Position = [466 163 121 22];
+            app.MaxSpreadRadiusButton.Text = <span class="string">'Max Spread Radius'</span>;
+
+            <span class="comment">% Create SaveAnalyticsButton</span>
+            app.SaveAnalyticsButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SaveAnalyticsButton.ButtonPushedFcn = createCallbackFcn(app, @SaveAnalyticsButtonPushed, true);
+            app.SaveAnalyticsButton.Position = [486 75 100 22];
+            app.SaveAnalyticsButton.Text = <span class="string">'Save Analytics'</span>;
+
+            <span class="comment">% Create SatelliteDropletSpeedButton</span>
+            app.SatelliteDropletSpeedButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SatelliteDropletSpeedButton.Position = [71 228 132 22];
+            app.SatelliteDropletSpeedButton.Text = <span class="string">'Satellite Droplet Speed'</span>;
+
+            <span class="comment">% Create SatelliteDropletCountButton</span>
+            app.SatelliteDropletCountButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SatelliteDropletCountButton.Position = [71 196 129 22];
+            app.SatelliteDropletCountButton.Text = <span class="string">'Satellite Droplet Count'</span>;
+
+            <span class="comment">% Create InstantaneousVelocityUnits</span>
+            app.InstantaneousVelocityUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.InstantaneousVelocityUnits.Editable = <span class="string">'off'</span>;
+            app.InstantaneousVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.InstantaneousVelocityUnits.Position = [300 294 100 22];
+            app.InstantaneousVelocityUnits.Value = <span class="string">'um/s'</span>;
+
+            <span class="comment">% Create AverageVelocityUnits</span>
+            app.AverageVelocityUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.AverageVelocityUnits.Editable = <span class="string">'off'</span>;
+            app.AverageVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.AverageVelocityUnits.Position = [300 261 100 22];
+            app.AverageVelocityUnits.Value = <span class="string">'um/s'</span>;
+
+            <span class="comment">% Create MaxSpreadUnits</span>
+            app.MaxSpreadUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.MaxSpreadUnits.Editable = <span class="string">'off'</span>;
+            app.MaxSpreadUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.MaxSpreadUnits.Position = [561 128 62 22];
+            app.MaxSpreadUnits.Value = <span class="string">'um'</span>;
+
+            <span class="comment">% Create DropletSpeedUnits</span>
+            app.DropletSpeedUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.DropletSpeedUnits.Editable = <span class="string">'off'</span>;
+            app.DropletSpeedUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.DropletSpeedUnits.Position = [300 228 100 22];
+            app.DropletSpeedUnits.Value = <span class="string">'um/s'</span>;
+
+            <span class="comment">% Create DropletCountUnits</span>
+            app.DropletCountUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.DropletCountUnits.Editable = <span class="string">'off'</span>;
+            app.DropletCountUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.DropletCountUnits.Position = [300 196 100 22];
+            app.DropletCountUnits.Value = <span class="string">'droplets'</span>;
+
+            <span class="comment">% Create CurrentFrameEditFieldLabel</span>
+            app.CurrentFrameEditFieldLabel = uilabel(app.UIFigure);
+            app.CurrentFrameEditFieldLabel.HorizontalAlignment = <span class="string">'right'</span>;
+            app.CurrentFrameEditFieldLabel.Position = [86 412 83 22];
+            app.CurrentFrameEditFieldLabel.Text = <span class="string">'Current Frame'</span>;
+
+            <span class="comment">% Create CurrentFrameEditField</span>
+            app.CurrentFrameEditField = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.CurrentFrameEditField.Editable = <span class="string">'off'</span>;
+            app.CurrentFrameEditField.Position = [184 412 62 17];
+            app.CurrentFrameEditField.Value = <span class="string">'#'</span>;
+
+            <span class="comment">% Create InstantVelocityTxt</span>
+            app.InstantVelocityTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.InstantVelocityTxt.Position = [231 294 44 27];
+
+            <span class="comment">% Create AverageVelocityTxt</span>
+            app.AverageVelocityTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.AverageVelocityTxt.Position = [231 259 44 27];
+
+            <span class="comment">% Create MaxRadiusTxt</span>
+            app.MaxRadiusTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.MaxRadiusTxt.Position = [504 126 44 27];
+
+            <span class="comment">% Create DropletSpeedTxt</span>
+            app.DropletSpeedTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.DropletSpeedTxt.Position = [231 226 44 27];
+
+            <span class="comment">% Create DropletCountTxt</span>
+            app.DropletCountTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.DropletCountTxt.Position = [231 194 44 27];
+
+            <span class="comment">% Create MicronspixelEditFieldLabel</span>
+            app.MicronspixelEditFieldLabel = uilabel(app.UIFigure);
+            app.MicronspixelEditFieldLabel.HorizontalAlignment = <span class="string">'right'</span>;
+            app.MicronspixelEditFieldLabel.Position = [25 454 75 22];
+            app.MicronspixelEditFieldLabel.Text = <span class="string">'Microns/pixel'</span>;
+
+            <span class="comment">% Create MicronspixelEditField</span>
+            app.MicronspixelEditField = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.MicronspixelEditField.ValueChangedFcn = createCallbackFcn(app, @MicronspixelEditFieldValueChanged, true);
+            app.MicronspixelEditField.Position = [109 454 64 22];
+            app.MicronspixelEditField.Value = 1;
+
+            <span class="comment">% Create ContactAngleButton</span>
+            app.ContactAngleButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.ContactAngleButton.Position = [85 161 100 22];
+            app.ContactAngleButton.Text = <span class="string">'Contact Angle'</span>;
+
+            <span class="comment">% Create ContactAngleUnits</span>
+            app.ContactAngleUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.ContactAngleUnits.Editable = <span class="string">'off'</span>;
+            app.ContactAngleUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.ContactAngleUnits.Position = [300 161 100 22];
+            app.ContactAngleUnits.Value = <span class="string">'degrees'</span>;
+
+            <span class="comment">% Create ContactAngleTxt</span>
+            app.ContactAngleTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.ContactAngleTxt.Position = [231 159 44 27];
+
+            <span class="comment">% Create TotalSatelliteDropletsButton</span>
+            app.TotalSatelliteDropletsButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.TotalSatelliteDropletsButton.Position = [458 293 135 28];
+            app.TotalSatelliteDropletsButton.Text = <span class="string">'Total Satellite Droplets'</span>;
+
+            <span class="comment">% Create TotalSatelliteDropletsTxt</span>
+            app.TotalSatelliteDropletsTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.TotalSatelliteDropletsTxt.Position = [504 259 44 27];
+
+            <span class="comment">% Create MaxVelocityPrimaryDropletButton</span>
+            app.MaxVelocityPrimaryDropletButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.MaxVelocityPrimaryDropletButton.Position = [439 228 178 22];
+            app.MaxVelocityPrimaryDropletButton.Text = <span class="string">'Max Velocity (Primary Droplet)'</span>;
+
+            <span class="comment">% Create MaxVelocityPrimaryDropletTxt</span>
+            app.MaxVelocityPrimaryDropletTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.MaxVelocityPrimaryDropletTxt.Position = [504 193 44 27];
+
+            <span class="comment">% Create MaxVelocityPrimaryDropletUnits</span>
+            app.MaxVelocityPrimaryDropletUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.MaxVelocityPrimaryDropletUnits.Editable = <span class="string">'off'</span>;
+            app.MaxVelocityPrimaryDropletUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.MaxVelocityPrimaryDropletUnits.Position = [561 195 62 22];
+            app.MaxVelocityPrimaryDropletUnits.Value = <span class="string">'um/s'</span>;
+
+            <span class="comment">% Create TotalSatelliteDropletsUnits</span>
+            app.TotalSatelliteDropletsUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.TotalSatelliteDropletsUnits.Editable = <span class="string">'off'</span>;
+            app.TotalSatelliteDropletsUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.TotalSatelliteDropletsUnits.Position = [561 261 62 22];
+            app.TotalSatelliteDropletsUnits.Value = <span class="string">'droplets'</span>;
+
+            <span class="comment">% Create OutlineColorDropDownLabel</span>
+            app.OutlineColorDropDownLabel = uilabel(app.UIFigure);
+            app.OutlineColorDropDownLabel.HorizontalAlignment = <span class="string">'right'</span>;
+            app.OutlineColorDropDownLabel.Position = [478 433 75 22];
+            app.OutlineColorDropDownLabel.Text = <span class="string">'Outline Color'</span>;
+
+            <span class="comment">% Create OutlineColorDropDown</span>
+            app.OutlineColorDropDown = uidropdown(app.UIFigure);
+            app.OutlineColorDropDown.Items = {<span class="string">'Yellow'</span>, <span class="string">'Green'</span>, <span class="string">'Blue'</span>, <span class="string">'Red'</span>};
+            app.OutlineColorDropDown.ValueChangedFcn = createCallbackFcn(app, @OutlineColorDropDownValueChanged, true);
+            app.OutlineColorDropDown.Position = [466 412 100 22];
+            app.OutlineColorDropDown.Value = <span class="string">'Yellow'</span>;
+
+            <span class="comment">% Create SaveCurrentFrameButton</span>
+            app.SaveCurrentFrameButton = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SaveCurrentFrameButton.ButtonPushedFcn = createCallbackFcn(app, @SaveCurrentFrameButtonPushed, true);
+            app.SaveCurrentFrameButton.Position = [451 496 124 22];
+            app.SaveCurrentFrameButton.Text = <span class="string">'Save Current Frame'</span>;
+
+            <span class="comment">% Create SpreadRadius</span>
+            app.SpreadRadius = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.SpreadRadius.Position = [86 124 100 22];
+            app.SpreadRadius.Text = <span class="string">'Spread Radius'</span>;
+
+            <span class="comment">% Create SpreadRadiusUnits</span>
+            app.SpreadRadiusUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.SpreadRadiusUnits.Editable = <span class="string">'off'</span>;
+            app.SpreadRadiusUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.SpreadRadiusUnits.Position = [300 124 100 22];
+            app.SpreadRadiusUnits.Value = <span class="string">'um'</span>;
+
+            <span class="comment">% Create SpreadRadiusTxt</span>
+            app.SpreadRadiusTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.SpreadRadiusTxt.Position = [231 122 44 27];
+
+            <span class="comment">% Create ContactAnglesOffButton</span>
+            app.ContactAnglesOffButton = uibutton(app.UIFigure, <span class="string">'state'</span>);
+            app.ContactAnglesOffButton.ValueChangedFcn = createCallbackFcn(app, @ContactAnglesOffButtonValueChanged, true);
+            app.ContactAnglesOffButton.Text = <span class="string">'Contact Angles Off'</span>;
+            app.ContactAnglesOffButton.Position = [455 463 116 22];
+
+            <span class="comment">% Create JetVelocity</span>
+            app.JetVelocity = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.JetVelocity.Position = [101 89 71 22];
+            app.JetVelocity.Text = <span class="string">'Jet Velocity'</span>;
+
+            <span class="comment">% Create JetVelocityUnits</span>
+            app.JetVelocityUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.JetVelocityUnits.Editable = <span class="string">'off'</span>;
+            app.JetVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetVelocityUnits.Position = [300 89 100 22];
+            app.JetVelocityUnits.Value = <span class="string">'um/s'</span>;
+
+            <span class="comment">% Create JetVelocityTxt</span>
+            app.JetVelocityTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.JetVelocityTxt.Position = [231 87 44 27];
+
+            <span class="comment">% Create JetTipPosition</span>
+            app.JetTipPosition = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.JetTipPosition.Position = [85 54 100 22];
+            app.JetTipPosition.Text = <span class="string">'Jet Tip Position'</span>;
+
+            <span class="comment">% Create JetTipPositionUnits</span>
+            app.JetTipPositionUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.JetTipPositionUnits.Editable = <span class="string">'off'</span>;
+            app.JetTipPositionUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetTipPositionUnits.Position = [300 54 100 22];
+            app.JetTipPositionUnits.Value = <span class="string">'um'</span>;
+
+            <span class="comment">% Create JetTipPositionTxt</span>
+            app.JetTipPositionTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.JetTipPositionTxt.Position = [231 52 44 27];
+
+            <span class="comment">% Create JetDiameter</span>
+            app.JetDiameter = uibutton(app.UIFigure, <span class="string">'push'</span>);
+            app.JetDiameter.Position = [86 17 100 22];
+            app.JetDiameter.Text = <span class="string">'Jet Diameter'</span>;
+
+            <span class="comment">% Create JetDiameterUnits</span>
+            app.JetDiameterUnits = uieditfield(app.UIFigure, <span class="string">'text'</span>);
+            app.JetDiameterUnits.Editable = <span class="string">'off'</span>;
+            app.JetDiameterUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetDiameterUnits.Position = [300 17 100 22];
+            app.JetDiameterUnits.Value = <span class="string">'um'</span>;
+
+            <span class="comment">% Create JetDiameterTxt</span>
+            app.JetDiameterTxt = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.JetDiameterTxt.Position = [231 15 44 27];
+
+            <span class="comment">% Create FramessecLabel</span>
+            app.FramessecLabel = uilabel(app.UIFigure);
+            app.FramessecLabel.HorizontalAlignment = <span class="string">'right'</span>;
+            app.FramessecLabel.Position = [181 454 68 22];
+            app.FramessecLabel.Text = <span class="string">'Frames/sec'</span>;
+
+            <span class="comment">% Create FramesecEditField</span>
+            app.FramesecEditField = uieditfield(app.UIFigure, <span class="string">'numeric'</span>);
+            app.FramesecEditField.ValueChangedFcn = createCallbackFcn(app, @FramesecEditFieldValueChanged, true);
+            app.FramesecEditField.Position = [258 454 65 22];
+            app.FramesecEditField.Value = 1;
+
+            <span class="comment">% Create UIAxes</span>
+            app.UIAxes = uiaxes(app.UIFigure);
+            title(app.UIAxes, <span class="string">'Original Video'</span>)
+            app.UIAxes.PlotBoxAspectRatio = [1.93129770992366 1 1];
+            app.UIAxes.Position = [1 517 300 185];
+
+            <span class="comment">% Create UIAxes2</span>
+            app.UIAxes2 = uiaxes(app.UIFigure);
+            title(app.UIAxes2, <span class="string">'Processed Video'</span>)
+            app.UIAxes2.Position = [334 517 300 185];
+
+            <span class="comment">% Show the figure after all components are created</span>
+            app.UIFigure.Visible = <span class="string">'on'</span>;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% App creation and deletion</span>
+    <span class="keyword">methods</span> (Access = public)
+
+        <span class="comment">% Construct app</span>
+        <span class="keyword">function</span> app = GUI_Design_exported
+
+            <span class="comment">% Create UIFigure and components</span>
+            createComponents(app)
+
+            <span class="comment">% Register the app with App Designer</span>
+            registerApp(app, app.UIFigure)
+
+            <span class="keyword">if</span> nargout == 0
+                clear <span class="string">app</span>
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+
+        <span class="comment">% Code that executes before app deletion</span>
+        <span class="keyword">function</span> delete(app)
+
+            <span class="comment">% Delete UIFigure when app is deleted</span>
+            delete(app.UIFigure)
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+classdef GUI_Design_exported < matlab.apps.AppBase
+
+    % Properties that correspond to app components
+    properties (Access = public)
+        UIFigure                        matlab.ui.Figure
+        UploadVideoButton               matlab.ui.control.Button
+        FrameSliderLabel                matlab.ui.control.Label
+        FrameSlider                     matlab.ui.control.Slider
+        SaveProcessedVideoButton        matlab.ui.control.Button
+        InstantaneousVelocityButton     matlab.ui.control.Button
+        AverageVelocityButton           matlab.ui.control.Button
+        MaxSpreadRadiusButton           matlab.ui.control.Button
+        SaveAnalyticsButton             matlab.ui.control.Button
+        SatelliteDropletSpeedButton     matlab.ui.control.Button
+        SatelliteDropletCountButton     matlab.ui.control.Button
+        InstantaneousVelocityUnits      matlab.ui.control.EditField
+        AverageVelocityUnits            matlab.ui.control.EditField
+        MaxSpreadUnits                  matlab.ui.control.EditField
+        DropletSpeedUnits               matlab.ui.control.EditField
+        DropletCountUnits               matlab.ui.control.EditField
+        CurrentFrameEditFieldLabel      matlab.ui.control.Label
+        CurrentFrameEditField           matlab.ui.control.EditField
+        InstantVelocityTxt              matlab.ui.control.NumericEditField
+        AverageVelocityTxt              matlab.ui.control.NumericEditField
+        MaxRadiusTxt                    matlab.ui.control.NumericEditField
+        DropletSpeedTxt                 matlab.ui.control.NumericEditField
+        DropletCountTxt                 matlab.ui.control.NumericEditField
+        MicronspixelEditFieldLabel      matlab.ui.control.Label
+        MicronspixelEditField           matlab.ui.control.NumericEditField
+        ContactAngleButton              matlab.ui.control.Button
+        ContactAngleUnits               matlab.ui.control.EditField
+        ContactAngleTxt                 matlab.ui.control.NumericEditField
+        TotalSatelliteDropletsButton    matlab.ui.control.Button
+        TotalSatelliteDropletsTxt       matlab.ui.control.NumericEditField
+        MaxVelocityPrimaryDropletButton  matlab.ui.control.Button
+        MaxVelocityPrimaryDropletTxt    matlab.ui.control.NumericEditField
+        MaxVelocityPrimaryDropletUnits  matlab.ui.control.EditField
+        TotalSatelliteDropletsUnits     matlab.ui.control.EditField
+        OutlineColorDropDownLabel       matlab.ui.control.Label
+        OutlineColorDropDown            matlab.ui.control.DropDown
+        SaveCurrentFrameButton          matlab.ui.control.Button
+        SpreadRadius                    matlab.ui.control.Button
+        SpreadRadiusUnits               matlab.ui.control.EditField
+        SpreadRadiusTxt                 matlab.ui.control.NumericEditField
+        ContactAnglesOffButton          matlab.ui.control.StateButton
+        JetVelocity                     matlab.ui.control.Button
+        JetVelocityUnits                matlab.ui.control.EditField
+        JetVelocityTxt                  matlab.ui.control.NumericEditField
+        JetTipPosition                  matlab.ui.control.Button
+        JetTipPositionUnits             matlab.ui.control.EditField
+        JetTipPositionTxt               matlab.ui.control.NumericEditField
+        JetDiameter                     matlab.ui.control.Button
+        JetDiameterUnits                matlab.ui.control.EditField
+        JetDiameterTxt                  matlab.ui.control.NumericEditField
+        FramessecLabel                  matlab.ui.control.Label
+        FramesecEditField               matlab.ui.control.NumericEditField
+        UIAxes                          matlab.ui.control.UIAxes
+        UIAxes2                         matlab.ui.control.UIAxes
+    end
+
+    
+    properties (Access = private)
+        R % total size and frame count of original video
+        B % matrix of processed border video frames with the floor removed
+        Ly % matrix of original video frames with a yellow border
+        Lr % matrix of original video frames with a red border
+        Lg % matrix of original video frames with a green border
+        Lb % matrix of original video frames with a blue border
+        cay % matrix of original video frames with yellow contact angles
+        car % matrix of original video frames with yellow contact angles
+        cag % matrix of original video frames with yellow contact angles
+        cab % matrix of original video frames with yellow contact angles
+        DialogApp % Dialog box app
+        floorheight % pixel height of floor
+        floorangle % angle of floor
+        mspreadl % max spread radius left
+        mspreadr % max spread radius right
+        spreadl % spread radius left
+        spreadr % spread radius right
+        micron_to_pxl % pixel to micron ratio
+        frame_to_s % frame to second ratio
+        cangle % contact angle (both left and right) for the matrix
+        cpoints % contact position for the contact angles printing function
+        fvelocity %fall velocity of droplet x and y directions
+        impactdata % includes [speed,frame#] for impact of primary droplet
+        totalobjects % a count of the number of separate objects in frame
+        ctrmsprd % center found from maxspread function
+        viddisplay % the current video frames to display
+        jetv % jet velocity
+        jetpos % height of the tip of the jet
+        jetd % jet diameter
+        mxvindex % frame of the max velocity
+    end
+    
+    properties (Access = public)
+        M % matrix of original video frames
+    end
+    
+    methods (Access = public)
+        function updatefloor(app, h, t)
+            % Store inputs as properties
+            app.floorheight = h;
+            app.floorangle = t;
+        end
+    end
+    
+
+    % Callbacks that handle component events
+    methods (Access = private)
+
+        % Button pushed function: UploadVideoButton
+        function UploadVideoButtonPushed(app, event)
+            [vidname,vidpath] = uigetfile('*.avi'); % this asks the user for a file input
+            if vidname == 0
+                figure(app.UIFigure); % this ensures that the app does not go to the background when uigetfile is called
+                return; % this is a simple catch to stop the program from displaying an error if the user presses cancel
+            end
+            figure(app.UIFigure); % this ensures that the app does not go to the background when uigetfile is called
+            fullname = fullfile(vidpath,vidname); % this concatenates the path and file name of the input file
+            [app.M,app.R] = video2frame(fullname); 
+            imshow(app.M(:,:,:,1),'Parent',app.UIAxes); % this displays the input file in the original video axes
+            totalframes = app.R(4); % this sets totalframes to the number of frames in the uploaded video
+            app.FrameSlider.Limits = [1 totalframes]; % this sets the slider limits to 1 to the total frames of the video
+            app.FrameSlider.MajorTicks = [1:30:totalframes totalframes]; % this sets the slider major ticks to 1 to the total frames 
+            % of the video in increments of 20
+            app.FrameSlider.MinorTicks = [1:5:totalframes]; % this sets the slider minor ticks to 1 to the total frames 
+            % of the video in increments of 5
+            app.DialogApp = floorselectdlgbox(app,app.M);
+            waitfor(app.DialogApp);
+            B_withfloor = borders(app.M); % this processes the video to get a B&W border video
+            app.B = floorremove(B_withfloor,app.floorheight,app.floorangle); % this processes the border video to remove the floor
+            rotatedsource = convertSource(app.M,app.floorangle); % this rotates the source image for use in maskOverlay function
+            omask = outlineMask(app.B); % this creates an outline mask from the border matrix
+            app.Ly = maskOverlay(rotatedsource,omask,5,[255,255,0]); % this creates a matrix of frames with the original video
+            % with a yellow line around the border
+            app.Lr = maskOverlay(rotatedsource,omask,5,[255,0,0]); % this creates a matrix of frames with the original video
+            % with a red line around the border
+            app.Lg = maskOverlay(rotatedsource,omask,5,[0,255,0]); % this creates a matrix of frames with the original video
+            % with a green line around the border
+            app.Lb = maskOverlay(rotatedsource,omask,5,[0,0,255]); % this creates a matrix of frames with the original video
+            % with a blue line around the border
+            app.viddisplay = zeros(app.R); % this creates a blank display matrix for use later
+            app.viddisplay = app.Ly; % this displays the B&W border video in the processed video axes
+            imshow(app.viddisplay(:,:,:,1),'Parent',app.UIAxes2);
+            [app.cangle, app.cpoints] = contactAngles(app.B,app.floorheight);
+            amask = drawContactAngles(app.R,app.cangle,app.cpoints,(app.R(2)/4)); % this creates an angle mask for drawing contact angles matrix
+            app.cay = maskOverlay(rotatedsource,amask,5,[255,255,0]); % this creates a matrix of frames with the original video
+            % with yellow contact angles
+            app.car = maskOverlay(rotatedsource,amask,5,[255,0,0]); % this creates a matrix of frames with the original video
+            % with red contact angles
+            app.cag = maskOverlay(rotatedsource,amask,5,[0,255,0]); % this creates a matrix of frames with the original video
+            % with green contact angles
+            app.cab = maskOverlay(rotatedsource,amask,5,[0,0,255]); % this creates a matrix of frames with the original video
+            % with blue contact angles
+            [app.fvelocity, app.impactdata, app.totalobjects] = fallVelocity(app.B,app.floorheight); %this optains the fall veloctiy of the droplet and jet in the x and y directions
+            [app.mspreadl, app.mspreadr, app.spreadl,app.spreadr, app.ctrmsprd] = maxSpread(app.B,app.floorheight); % this processes the B&W border video to find the spread radius per frame and max spread
+            app.MaxRadiusTxt.Value = (app.mspreadl + app.mspreadr)/2;
+            app.TotalSatelliteDropletsTxt.Value = max(app.totalobjects); % this sets the value of the total satellite droplets for the video
+            [~,app.mxvindex] = max(abs(app.fvelocity(4,1,:)),[],'omitnan'); % this finds the index of the absolute maximum velocity
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); % this sets the value of the absolute maximum velocity of the primary droplet
+            [app.jetv,app.jetpos,app.jetd] = jetVelocity(app.B); 
+        end
+
+        % Button pushed function: SaveAnalyticsButton
+        function SaveAnalyticsButtonPushed(app, event)
+            frames  = [1:app.R(4)];
+            j = 1;
+            averageVelocity = nan(1, app.R(4));
+            for i = frames
+                velocity(i) = app.fvelocity(4,1,i);
+                if isnan(app.fvelocity(4,1,i))
+                else
+                    realVelocity(j) = app.fvelocity(4,1,i);         %All velocity values that are not NaN up to any point i in the loop
+                    averageVelocity(i) = mean(realVelocity(1:j));
+                    j = j+1;
+                end               
+                satelliteDropletSpeed(i) = app.fvelocity(4,2,i);
+                satelliteDropletCount(i) = app.totalobjects(i);
+                contactAngle(i) = mean(app.cangle(:,i));
+                spreadRadius(i) = mean([app.spreadl(i) app.spreadr(i)]);
+                jetVelocity(i) = app.jetv(i);
+                jetTipPosition(i) = app.jetpos(i);
+                jetDiameter(i) = app.jetd(i);  
+            end
+            
+            % Create a table with the data and variable names
+            T = table(frames', velocity', averageVelocity', satelliteDropletSpeed', satelliteDropletCount', contactAngle', spreadRadius', jetVelocity', jetTipPosition', jetDiameter',...
+                'VariableNames',{'Frame Number','Instantanous Velocity(um/s)','Average Velocity(um/s)', 'Satellite Droplet Speed(um/s)', 'Satellite Droplet Count(droplets)', 'Contact Angle(degrees)', 'Spread Radius(um)', 'Jet Velocity(um/s)','Jet Tip Position(um)', 'Jet Diameter(um)'});
+            % Write data to text file
+            [txtname,txtpath] = uiputfile('*.csv'); % this asks the user for a file destination
+            fullpath = fullfile(txtpath,txtname); % this concatenates the path and file name of the file destination
+            writetable(T, fullpath);
+        end
+
+        % Value changed function: FrameSlider
+        function FrameSliderValueChanged(app, event)
+            value = app.FrameSlider.Value;
+            imshow(app.M(:,:,:,round(value)),'Parent',app.UIAxes); % this displays the selected frame in the original video axes
+            imshow(app.viddisplay(:,:,:,round(value)),'Parent',app.UIAxes2); % this displays the B&W border video in the processed video axes
+            app.CurrentFrameEditField.Value = string(round(value)); % this sets the display in the Current Frame text field
+            % to the value selected on the slider
+            if  isnan(mean(app.cangle(:,round(value))))
+                app.ContactAngleTxt.Visible = 'off';
+            else
+                app.ContactAngleTxt.Visible = 'on';
+                app.ContactAngleTxt.Value = mean(app.cangle(:,round(value)));
+            end
+            
+            if isnan(app.fvelocity(4,1,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.InstantVelocityTxt.Visible = 'off';
+            else 
+                app.InstantVelocityTxt.Visible = 'on';
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            end
+            
+            if isnan(app.fvelocity(4,2,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.DropletSpeedTxt.Visible = 'off';
+            else 
+                app.DropletSpeedTxt.Visible = 'on';
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            end
+            
+            if isnan(mean(app.fvelocity(4,1,1:round(value)),"omitnan"))   %checking to see if the average velocity at the current frame is a real number
+                app.AverageVelocityTxt.Visible = 'off';
+            else 
+                app.AverageVelocityTxt.Visible = 'on';
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),"omitnan");
+            end
+            if isnan(mean(app.spreadl(round(value)),"omitnan"))   %checking to see if the spread radius at the current frame is a real number
+                app.SpreadRadiusTxt.Visible = 'off';
+            else 
+                app.SpreadRadiusTxt.Visible = 'on';
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(value)) app.spreadr(round(value))],"omitnan");
+            end
+            
+            if isnan(app.jetv(round(value)))   %checking to see if the jet velocity at the current frame is a real number
+                app.JetVelocityTxt.Visible = 'off';
+            else 
+                app.JetVelocityTxt.Visible = 'on';
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            end
+            
+            if isnan(app.jetpos(round(value)))   %checking to see if the jet tip position at the current frame is a real number
+                app.JetTipPositionTxt.Visible = 'off';
+            else 
+                app.JetTipPositionTxt.Visible = 'on';
+                app.JetTipPositionTxt.Value = app.jetpos(round(value));
+            end
+            
+            if isnan(app.jetd(round(value)))   %checking to see if the jet diameter at the current frame is a real number
+                app.JetDiameterTxt.Visible = 'off';
+            else 
+                app.JetDiameterTxt.Visible = 'on';
+                app.JetDiameterTxt.Value = app.jetd(round(value));
+            end
+            
+            app.DropletCountTxt.Value = app.totalobjects(round(value));
+        end
+
+        % Value changing function: FrameSlider
+        function FrameSliderValueChanging(app, event)
+            changingValue = event.Value;
+            imshow(app.M(:,:,:,round(changingValue)),'Parent',app.UIAxes); % this displays the selected frame in the original video axes
+            imshow(app.viddisplay(:,:,:,round(changingValue)),'Parent',app.UIAxes2); % this displays the B&W border video in the processed video axes
+            app.CurrentFrameEditField.Value = string(round(changingValue)); % this sets the display in the Current Frame text field
+            % to the value selected on the slider
+            if  isnan(mean(app.cangle(:,round(changingValue))))
+                app.ContactAngleTxt.Visible = 'off';
+            else
+                app.ContactAngleTxt.Visible = 'on';
+                app.ContactAngleTxt.Value = mean(app.cangle(:,round(changingValue)));
+            end
+            
+            if isnan(app.fvelocity(4,1,round(changingValue))) %checking to see if the veloctiy at the 'changingValue' frame is a real number
+                app.InstantVelocityTxt.Visible = 'off';
+            else
+                app.InstantVelocityTxt.Visible = 'on';
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(changingValue));
+            end
+            
+            if isnan(app.fvelocity(4,2,round(changingValue))) %checking to see if the veloctiy at the 'changingValue' frame is a real number
+                app.DropletSpeedTxt.Visible = 'off';
+            else
+                app.DropletSpeedTxt.Visible = 'on';
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(changingValue));
+            end
+               
+            if isnan(mean(app.fvelocity(4,1,1:round(changingValue)),"omitnan"))   %checking to see if the average velocity at the current frame is a real number
+                app.AverageVelocityTxt.Visible = 'off';
+            else 
+                app.AverageVelocityTxt.Visible = 'on';
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(changingValue)),"omitnan");
+            end
+            
+            if isnan(mean(app.spreadl(round(changingValue)),"omitnan"))   %checking to see if the spread radius at the current frame is a real number
+                app.SpreadRadiusTxt.Visible = 'off';
+            else 
+                app.SpreadRadiusTxt.Visible = 'on';
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(changingValue)) app.spreadr(round(changingValue))],"omitnan");
+            end
+            
+            if isnan(app.jetv(round(changingValue)))   %checking to see if the jet velocity at the current frame is a real number
+                app.JetVelocityTxt.Visible = 'off';
+            else 
+                app.JetVelocityTxt.Visible = 'on';
+                app.JetVelocityTxt.Value = app.jetv(round(changingValue));
+            end
+            
+            if isnan(app.jetpos(round(changingValue)))   %checking to see if the jet tip position at the current frame is a real number
+                app.JetTipPositionTxt.Visible = 'off';
+            else 
+                app.JetTipPositionTxt.Visible = 'on';
+                app.JetTipPositionTxt.Value = app.jetpos(round(changingValue));
+            end
+            
+            if isnan(app.jetd(round(changingValue)))   %checking to see if the jet diameter at the current frame is a real number
+                app.JetDiameterTxt.Visible = 'off';
+            else 
+                app.JetDiameterTxt.Visible = 'on';
+                app.JetDiameterTxt.Value = app.jetd(round(changingValue));
+            end
+            
+            app.DropletCountTxt.Value = app.totalobjects(round(changingValue));
+        end
+
+        % Button pushed function: SaveProcessedVideoButton
+        function SaveProcessedVideoButtonPushed(app, event)
+            [filename,filepath]=uiputfile('.JPEG');
+            [~,~,~,sizeapp] = size(app.L);
+            i=1;
+            while(i <= sizeapp)
+                frame2file(app.L,filename,filepath,i);
+                i=i+1;
+            end
+        end
+
+        % Value changed function: MicronspixelEditField
+        function MicronspixelEditFieldValueChanged(app, event)
+            app.micron_to_pxl = app.MicronspixelEditField.Value; % collects user input for pxl/mm
+            if app.micron_to_pxl == 0
+                f = errordlg('Pixels/mm Cannot Be Set to 0. Setting Pixels/mm to 1...','Invalid Pixels/Millimeter Input');
+                app.MicronspixelEditField.Value = 1;
+            end
+            app.mspreadl  = app.mspreadl*app.micron_to_pxl; % converts max spread radius left
+            app.mspreadr  = app.mspreadr*app.micron_to_pxl; % converts max spread radius right
+            app.spreadl = app.spreadl*app.micron_to_pxl; % converts spread radius left
+            app.spreadr = app.spreadr*app.micron_to_pxl; % converts spread radius right
+            app.fvelocity([3 4],:,:) = app.fvelocity([3 4],:,:)*app.micron_to_pxl; % converts fall velocity of droplet x and y directions
+            app.jetv = app.jetv*app.micron_to_pxl; % converts jet velocity
+            app.jetpos = app.jetpos*app.micron_to_pxl; % converts height of the tip of the jet
+            app.jetd = app.jetd*app.micron_to_pxl; % converts jet diameter
+            
+            value = app.FrameSlider.Value; % finds current frame for updating data currently displayed
+            app.MaxRadiusTxt.Value = (app.mspreadl + app.mspreadr)/2; % updates the display of maxspread
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); % updates the absolute maximum velocity of the primary droplet
+            
+            if isnan(app.fvelocity(4,1,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.InstantVelocityTxt.Visible = 'off';
+            else 
+                app.InstantVelocityTxt.Visible = 'on';
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            end
+            
+            if isnan(app.fvelocity(4,2,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.DropletSpeedTxt.Visible = 'off';
+            else 
+                app.DropletSpeedTxt.Visible = 'on';
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            end
+            
+            if isnan(mean(app.fvelocity(4,1,1:round(value)),"omitnan"))   %checking to see if the average velocity at the current frame is a real number
+                app.AverageVelocityTxt.Visible = 'off';
+            else 
+                app.AverageVelocityTxt.Visible = 'on';
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),"omitnan");
+            end
+            if isnan(mean(app.spreadl(round(value)),"omitnan"))   %checking to see if the spread radius at the current frame is a real number
+                app.SpreadRadiusTxt.Visible = 'off';
+            else 
+                app.SpreadRadiusTxt.Visible = 'on';
+                app.SpreadRadiusTxt.Value = mean([app.spreadl(round(value)) app.spreadr(round(value))],"omitnan");
+            end
+            
+            if isnan(app.jetv(round(value)))   %checking to see if the jet velocity at the current frame is a real number
+                app.JetVelocityTxt.Visible = 'off';
+            else 
+                app.JetVelocityTxt.Visible = 'on';
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            end
+            
+            if isnan(app.jetpos(round(value)))   %checking to see if the jet tip position at the current frame is a real number
+                app.JetTipPositionTxt.Visible = 'off';
+            else 
+                app.JetTipPositionTxt.Visible = 'on';
+                app.JetTipPositionTxt.Value = app.jetpos(round(value));
+            end
+            
+            if isnan(app.jetd(round(value)))   %checking to see if the jet diameter at the current frame is a real number
+                app.JetDiameterTxt.Visible = 'off';
+            else 
+                app.JetDiameterTxt.Visible = 'on';
+                app.JetDiameterTxt.Value = app.jetd(round(value));
+            end
+        end
+
+        % Value changed function: OutlineColorDropDown
+        function OutlineColorDropDownValueChanged(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            value = app.OutlineColorDropDown.Value;
+            cavalue = app.ContactAnglesOffButton.Value;
+            if cavalue == 0
+                if strcmp(value,'Red')
+                    app.viddisplay = app.Lr; % this sets the displayed video as the red outline video
+                elseif strcmp(value,'Blue')
+                    app.viddisplay = app.Lb; % this sets the displayed video as the blue outline video
+                elseif strcmp(value,'Yellow')
+                    app.viddisplay = app.Ly; % this sets the displayed video as the yellow outline video
+                elseif strcmp(value,'Green')
+                    app.viddisplay = app.Lg; % this sets the displayed video as the green outline video
+                end
+            elseif cavalue == 1
+                if strcmp(value,'Red')
+                    app.viddisplay = app.car; % this sets the displayed video as the red angle video
+                elseif strcmp(value,'Blue')
+                    app.viddisplay = app.cab; % this sets the displayed video as the blue angle video
+                elseif strcmp(value,'Yellow')
+                    app.viddisplay = app.cay; % this sets the displayed video as the yellow angle video
+                elseif strcmp(value,'Green')
+                    app.viddisplay = app.cag; % this sets the displayed video as the green angle video
+                end             
+            end
+            imshow(app.viddisplay(:,:,:,currentframe),'Parent',app.UIAxes2); % this displays the B&W border video in the processed video axes
+        end
+
+        % Button pushed function: SaveCurrentFrameButton
+        function SaveCurrentFrameButtonPushed(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            [filename,filepath]=uiputfile('.JPEG');
+            frame2file(app.viddisplay,filename,filepath,currentframe); % this saves the current frame of the processed video axes
+        end
+
+        % Value changed function: ContactAnglesOffButton
+        function ContactAnglesOffButtonValueChanged(app, event)
+            currentframe = round(app.FrameSlider.Value);
+            value = app.ContactAnglesOffButton.Value;
+            colvalue = app.OutlineColorDropDown.Value;
+            if value == 0
+                app.ContactAnglesOffButton.Text = 'Contact Angles Off';
+                if strcmp(colvalue,'Red')
+                    app.viddisplay = app.Lr; % this sets the displayed video as the red outline video
+                elseif strcmp(colvalue,'Blue')
+                    app.viddisplay = app.Lb; % this sets the displayed video as the blue outline video
+                elseif strcmp(colvalue,'Yellow')
+                    app.viddisplay = app.Ly; % this sets the displayed video as the yellow outline video
+                elseif strcmp(colvalue,'Green')
+                    app.viddisplay = app.Lg; % this sets the displayed video as the green outline video
+                end
+            elseif value == 1
+                app.ContactAnglesOffButton.Text = 'Contact Angles On';
+                if strcmp(colvalue,'Red')
+                    app.viddisplay = app.car; % this sets the displayed video as the red angle video
+                elseif strcmp(colvalue,'Blue')
+                    app.viddisplay = app.cab; % this sets the displayed video as the blue angle video
+                elseif strcmp(colvalue,'Yellow')
+                    app.viddisplay = app.cay; % this sets the displayed video as the yellow angle video
+                elseif strcmp(colvalue,'Green')
+                    app.viddisplay = app.cag; % this sets the displayed video as the green angle video
+                end             
+            end
+            imshow(app.viddisplay(:,:,:,currentframe),'Parent',app.UIAxes2); % this displays the B&W border video in the processed video axes
+        end
+
+        % Value changed function: FramesecEditField
+        function FramesecEditFieldValueChanged(app, event)
+            app.frame_to_s = app.FramesecEditField.Value;
+            if app.frame_to_s == 0
+                f = errordlg('Frame/Sec Cannot Be Set to 0. Setting Frame/s to 1...','Invalid Frame/Second Input');
+                app.frame_to_s = 0;
+            end
+            app.fvelocity([3 4],:,:) = app.fvelocity([3 4],:,:)*app.frame_to_s; % converts fall velocity of droplet x and y directions
+            app.jetv = app.jetv*app.frame_to_s; % converts jet velocity
+            
+            value = app.FrameSlider.Value; % finds current frame for updating data currently displayed
+            app.MaxVelocityPrimaryDropletTxt.Value = app.fvelocity(4,1,app.mxvindex); % updates the absolute maximum velocity of the primary droplet
+            
+            if isnan(app.fvelocity(4,1,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.InstantVelocityTxt.Visible = 'off';
+            else 
+                app.InstantVelocityTxt.Visible = 'on';
+                app.InstantVelocityTxt.Value = app.fvelocity(4,1,round(value));
+            end
+            
+            if isnan(app.fvelocity(4,2,round(value)))   %checking to see if the veloctiy at the 'value' frame is a real number
+                app.DropletSpeedTxt.Visible = 'off';
+            else 
+                app.DropletSpeedTxt.Visible = 'on';
+                app.DropletSpeedTxt.Value = app.fvelocity(4,2,round(value));
+            end
+            
+            if isnan(mean(app.fvelocity(4,1,1:round(value)),"omitnan"))   %checking to see if the average velocity at the current frame is a real number
+                app.AverageVelocityTxt.Visible = 'off';
+            else 
+                app.AverageVelocityTxt.Visible = 'on';
+                app.AverageVelocityTxt.Value = mean(app.fvelocity(4,1,1:round(value)),"omitnan");
+            end
+            if isnan(app.jetv(round(value)))   %checking to see if the jet velocity at the current frame is a real number
+                app.JetVelocityTxt.Visible = 'off';
+            else 
+                app.JetVelocityTxt.Visible = 'on';
+                app.JetVelocityTxt.Value = app.jetv(round(value));
+            end
+        end
+    end
+
+    % Component initialization
+    methods (Access = private)
+
+        % Create UIFigure and components
+        function createComponents(app)
+
+            % Create UIFigure and hide until all components are created
+            app.UIFigure = uifigure('Visible', 'off');
+            app.UIFigure.Position = [100 100 653 718];
+            app.UIFigure.Name = 'MATLAB App';
+
+            % Create UploadVideoButton
+            app.UploadVideoButton = uibutton(app.UIFigure, 'push');
+            app.UploadVideoButton.ButtonPushedFcn = createCallbackFcn(app, @UploadVideoButtonPushed, true);
+            app.UploadVideoButton.Position = [124 496 100 22];
+            app.UploadVideoButton.Text = 'Upload Video';
+
+            % Create FrameSliderLabel
+            app.FrameSliderLabel = uilabel(app.UIFigure);
+            app.FrameSliderLabel.HorizontalAlignment = 'right';
+            app.FrameSliderLabel.Position = [313 340 40 22];
+            app.FrameSliderLabel.Text = 'Frame';
+
+            % Create FrameSlider
+            app.FrameSlider = uislider(app.UIFigure);
+            app.FrameSlider.Limits = [0 15];
+            app.FrameSlider.MajorTicks = [5 10 15];
+            app.FrameSlider.ValueChangedFcn = createCallbackFcn(app, @FrameSliderValueChanged, true);
+            app.FrameSlider.ValueChangingFcn = createCallbackFcn(app, @FrameSliderValueChanging, true);
+            app.FrameSlider.MinorTicks = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15];
+            app.FrameSlider.Position = [88 384 479 3];
+
+            % Create SaveProcessedVideoButton
+            app.SaveProcessedVideoButton = uibutton(app.UIFigure, 'push');
+            app.SaveProcessedVideoButton.ButtonPushedFcn = createCallbackFcn(app, @SaveProcessedVideoButtonPushed, true);
+            app.SaveProcessedVideoButton.Position = [466 38 140 22];
+            app.SaveProcessedVideoButton.Text = 'Save Processed Video ';
+
+            % Create InstantaneousVelocityButton
+            app.InstantaneousVelocityButton = uibutton(app.UIFigure, 'push');
+            app.InstantaneousVelocityButton.Position = [70 296 131 22];
+            app.InstantaneousVelocityButton.Text = 'Instantaneous Velocity';
+
+            % Create AverageVelocityButton
+            app.AverageVelocityButton = uibutton(app.UIFigure, 'push');
+            app.AverageVelocityButton.Position = [83 261 105 22];
+            app.AverageVelocityButton.Text = 'Average Velocity';
+
+            % Create MaxSpreadRadiusButton
+            app.MaxSpreadRadiusButton = uibutton(app.UIFigure, 'push');
+            app.MaxSpreadRadiusButton.Position = [466 163 121 22];
+            app.MaxSpreadRadiusButton.Text = 'Max Spread Radius';
+
+            % Create SaveAnalyticsButton
+            app.SaveAnalyticsButton = uibutton(app.UIFigure, 'push');
+            app.SaveAnalyticsButton.ButtonPushedFcn = createCallbackFcn(app, @SaveAnalyticsButtonPushed, true);
+            app.SaveAnalyticsButton.Position = [486 75 100 22];
+            app.SaveAnalyticsButton.Text = 'Save Analytics';
+
+            % Create SatelliteDropletSpeedButton
+            app.SatelliteDropletSpeedButton = uibutton(app.UIFigure, 'push');
+            app.SatelliteDropletSpeedButton.Position = [71 228 132 22];
+            app.SatelliteDropletSpeedButton.Text = 'Satellite Droplet Speed';
+
+            % Create SatelliteDropletCountButton
+            app.SatelliteDropletCountButton = uibutton(app.UIFigure, 'push');
+            app.SatelliteDropletCountButton.Position = [71 196 129 22];
+            app.SatelliteDropletCountButton.Text = 'Satellite Droplet Count';
+
+            % Create InstantaneousVelocityUnits
+            app.InstantaneousVelocityUnits = uieditfield(app.UIFigure, 'text');
+            app.InstantaneousVelocityUnits.Editable = 'off';
+            app.InstantaneousVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.InstantaneousVelocityUnits.Position = [300 294 100 22];
+            app.InstantaneousVelocityUnits.Value = 'um/s';
+
+            % Create AverageVelocityUnits
+            app.AverageVelocityUnits = uieditfield(app.UIFigure, 'text');
+            app.AverageVelocityUnits.Editable = 'off';
+            app.AverageVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.AverageVelocityUnits.Position = [300 261 100 22];
+            app.AverageVelocityUnits.Value = 'um/s';
+
+            % Create MaxSpreadUnits
+            app.MaxSpreadUnits = uieditfield(app.UIFigure, 'text');
+            app.MaxSpreadUnits.Editable = 'off';
+            app.MaxSpreadUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.MaxSpreadUnits.Position = [561 128 62 22];
+            app.MaxSpreadUnits.Value = 'um';
+
+            % Create DropletSpeedUnits
+            app.DropletSpeedUnits = uieditfield(app.UIFigure, 'text');
+            app.DropletSpeedUnits.Editable = 'off';
+            app.DropletSpeedUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.DropletSpeedUnits.Position = [300 228 100 22];
+            app.DropletSpeedUnits.Value = 'um/s';
+
+            % Create DropletCountUnits
+            app.DropletCountUnits = uieditfield(app.UIFigure, 'text');
+            app.DropletCountUnits.Editable = 'off';
+            app.DropletCountUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.DropletCountUnits.Position = [300 196 100 22];
+            app.DropletCountUnits.Value = 'droplets';
+
+            % Create CurrentFrameEditFieldLabel
+            app.CurrentFrameEditFieldLabel = uilabel(app.UIFigure);
+            app.CurrentFrameEditFieldLabel.HorizontalAlignment = 'right';
+            app.CurrentFrameEditFieldLabel.Position = [86 412 83 22];
+            app.CurrentFrameEditFieldLabel.Text = 'Current Frame';
+
+            % Create CurrentFrameEditField
+            app.CurrentFrameEditField = uieditfield(app.UIFigure, 'text');
+            app.CurrentFrameEditField.Editable = 'off';
+            app.CurrentFrameEditField.Position = [184 412 62 17];
+            app.CurrentFrameEditField.Value = '#';
+
+            % Create InstantVelocityTxt
+            app.InstantVelocityTxt = uieditfield(app.UIFigure, 'numeric');
+            app.InstantVelocityTxt.Position = [231 294 44 27];
+
+            % Create AverageVelocityTxt
+            app.AverageVelocityTxt = uieditfield(app.UIFigure, 'numeric');
+            app.AverageVelocityTxt.Position = [231 259 44 27];
+
+            % Create MaxRadiusTxt
+            app.MaxRadiusTxt = uieditfield(app.UIFigure, 'numeric');
+            app.MaxRadiusTxt.Position = [504 126 44 27];
+
+            % Create DropletSpeedTxt
+            app.DropletSpeedTxt = uieditfield(app.UIFigure, 'numeric');
+            app.DropletSpeedTxt.Position = [231 226 44 27];
+
+            % Create DropletCountTxt
+            app.DropletCountTxt = uieditfield(app.UIFigure, 'numeric');
+            app.DropletCountTxt.Position = [231 194 44 27];
+
+            % Create MicronspixelEditFieldLabel
+            app.MicronspixelEditFieldLabel = uilabel(app.UIFigure);
+            app.MicronspixelEditFieldLabel.HorizontalAlignment = 'right';
+            app.MicronspixelEditFieldLabel.Position = [25 454 75 22];
+            app.MicronspixelEditFieldLabel.Text = 'Microns/pixel';
+
+            % Create MicronspixelEditField
+            app.MicronspixelEditField = uieditfield(app.UIFigure, 'numeric');
+            app.MicronspixelEditField.ValueChangedFcn = createCallbackFcn(app, @MicronspixelEditFieldValueChanged, true);
+            app.MicronspixelEditField.Position = [109 454 64 22];
+            app.MicronspixelEditField.Value = 1;
+
+            % Create ContactAngleButton
+            app.ContactAngleButton = uibutton(app.UIFigure, 'push');
+            app.ContactAngleButton.Position = [85 161 100 22];
+            app.ContactAngleButton.Text = 'Contact Angle';
+
+            % Create ContactAngleUnits
+            app.ContactAngleUnits = uieditfield(app.UIFigure, 'text');
+            app.ContactAngleUnits.Editable = 'off';
+            app.ContactAngleUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.ContactAngleUnits.Position = [300 161 100 22];
+            app.ContactAngleUnits.Value = 'degrees';
+
+            % Create ContactAngleTxt
+            app.ContactAngleTxt = uieditfield(app.UIFigure, 'numeric');
+            app.ContactAngleTxt.Position = [231 159 44 27];
+
+            % Create TotalSatelliteDropletsButton
+            app.TotalSatelliteDropletsButton = uibutton(app.UIFigure, 'push');
+            app.TotalSatelliteDropletsButton.Position = [458 293 135 28];
+            app.TotalSatelliteDropletsButton.Text = 'Total Satellite Droplets';
+
+            % Create TotalSatelliteDropletsTxt
+            app.TotalSatelliteDropletsTxt = uieditfield(app.UIFigure, 'numeric');
+            app.TotalSatelliteDropletsTxt.Position = [504 259 44 27];
+
+            % Create MaxVelocityPrimaryDropletButton
+            app.MaxVelocityPrimaryDropletButton = uibutton(app.UIFigure, 'push');
+            app.MaxVelocityPrimaryDropletButton.Position = [439 228 178 22];
+            app.MaxVelocityPrimaryDropletButton.Text = 'Max Velocity (Primary Droplet)';
+
+            % Create MaxVelocityPrimaryDropletTxt
+            app.MaxVelocityPrimaryDropletTxt = uieditfield(app.UIFigure, 'numeric');
+            app.MaxVelocityPrimaryDropletTxt.Position = [504 193 44 27];
+
+            % Create MaxVelocityPrimaryDropletUnits
+            app.MaxVelocityPrimaryDropletUnits = uieditfield(app.UIFigure, 'text');
+            app.MaxVelocityPrimaryDropletUnits.Editable = 'off';
+            app.MaxVelocityPrimaryDropletUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.MaxVelocityPrimaryDropletUnits.Position = [561 195 62 22];
+            app.MaxVelocityPrimaryDropletUnits.Value = 'um/s';
+
+            % Create TotalSatelliteDropletsUnits
+            app.TotalSatelliteDropletsUnits = uieditfield(app.UIFigure, 'text');
+            app.TotalSatelliteDropletsUnits.Editable = 'off';
+            app.TotalSatelliteDropletsUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.TotalSatelliteDropletsUnits.Position = [561 261 62 22];
+            app.TotalSatelliteDropletsUnits.Value = 'droplets';
+
+            % Create OutlineColorDropDownLabel
+            app.OutlineColorDropDownLabel = uilabel(app.UIFigure);
+            app.OutlineColorDropDownLabel.HorizontalAlignment = 'right';
+            app.OutlineColorDropDownLabel.Position = [478 433 75 22];
+            app.OutlineColorDropDownLabel.Text = 'Outline Color';
+
+            % Create OutlineColorDropDown
+            app.OutlineColorDropDown = uidropdown(app.UIFigure);
+            app.OutlineColorDropDown.Items = {'Yellow', 'Green', 'Blue', 'Red'};
+            app.OutlineColorDropDown.ValueChangedFcn = createCallbackFcn(app, @OutlineColorDropDownValueChanged, true);
+            app.OutlineColorDropDown.Position = [466 412 100 22];
+            app.OutlineColorDropDown.Value = 'Yellow';
+
+            % Create SaveCurrentFrameButton
+            app.SaveCurrentFrameButton = uibutton(app.UIFigure, 'push');
+            app.SaveCurrentFrameButton.ButtonPushedFcn = createCallbackFcn(app, @SaveCurrentFrameButtonPushed, true);
+            app.SaveCurrentFrameButton.Position = [451 496 124 22];
+            app.SaveCurrentFrameButton.Text = 'Save Current Frame';
+
+            % Create SpreadRadius
+            app.SpreadRadius = uibutton(app.UIFigure, 'push');
+            app.SpreadRadius.Position = [86 124 100 22];
+            app.SpreadRadius.Text = 'Spread Radius';
+
+            % Create SpreadRadiusUnits
+            app.SpreadRadiusUnits = uieditfield(app.UIFigure, 'text');
+            app.SpreadRadiusUnits.Editable = 'off';
+            app.SpreadRadiusUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.SpreadRadiusUnits.Position = [300 124 100 22];
+            app.SpreadRadiusUnits.Value = 'um';
+
+            % Create SpreadRadiusTxt
+            app.SpreadRadiusTxt = uieditfield(app.UIFigure, 'numeric');
+            app.SpreadRadiusTxt.Position = [231 122 44 27];
+
+            % Create ContactAnglesOffButton
+            app.ContactAnglesOffButton = uibutton(app.UIFigure, 'state');
+            app.ContactAnglesOffButton.ValueChangedFcn = createCallbackFcn(app, @ContactAnglesOffButtonValueChanged, true);
+            app.ContactAnglesOffButton.Text = 'Contact Angles Off';
+            app.ContactAnglesOffButton.Position = [455 463 116 22];
+
+            % Create JetVelocity
+            app.JetVelocity = uibutton(app.UIFigure, 'push');
+            app.JetVelocity.Position = [101 89 71 22];
+            app.JetVelocity.Text = 'Jet Velocity';
+
+            % Create JetVelocityUnits
+            app.JetVelocityUnits = uieditfield(app.UIFigure, 'text');
+            app.JetVelocityUnits.Editable = 'off';
+            app.JetVelocityUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetVelocityUnits.Position = [300 89 100 22];
+            app.JetVelocityUnits.Value = 'um/s';
+
+            % Create JetVelocityTxt
+            app.JetVelocityTxt = uieditfield(app.UIFigure, 'numeric');
+            app.JetVelocityTxt.Position = [231 87 44 27];
+
+            % Create JetTipPosition
+            app.JetTipPosition = uibutton(app.UIFigure, 'push');
+            app.JetTipPosition.Position = [85 54 100 22];
+            app.JetTipPosition.Text = 'Jet Tip Position';
+
+            % Create JetTipPositionUnits
+            app.JetTipPositionUnits = uieditfield(app.UIFigure, 'text');
+            app.JetTipPositionUnits.Editable = 'off';
+            app.JetTipPositionUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetTipPositionUnits.Position = [300 54 100 22];
+            app.JetTipPositionUnits.Value = 'um';
+
+            % Create JetTipPositionTxt
+            app.JetTipPositionTxt = uieditfield(app.UIFigure, 'numeric');
+            app.JetTipPositionTxt.Position = [231 52 44 27];
+
+            % Create JetDiameter
+            app.JetDiameter = uibutton(app.UIFigure, 'push');
+            app.JetDiameter.Position = [86 17 100 22];
+            app.JetDiameter.Text = 'Jet Diameter';
+
+            % Create JetDiameterUnits
+            app.JetDiameterUnits = uieditfield(app.UIFigure, 'text');
+            app.JetDiameterUnits.Editable = 'off';
+            app.JetDiameterUnits.BackgroundColor = [0.9412 0.9412 0.9412];
+            app.JetDiameterUnits.Position = [300 17 100 22];
+            app.JetDiameterUnits.Value = 'um';
+
+            % Create JetDiameterTxt
+            app.JetDiameterTxt = uieditfield(app.UIFigure, 'numeric');
+            app.JetDiameterTxt.Position = [231 15 44 27];
+
+            % Create FramessecLabel
+            app.FramessecLabel = uilabel(app.UIFigure);
+            app.FramessecLabel.HorizontalAlignment = 'right';
+            app.FramessecLabel.Position = [181 454 68 22];
+            app.FramessecLabel.Text = 'Frames/sec';
+
+            % Create FramesecEditField
+            app.FramesecEditField = uieditfield(app.UIFigure, 'numeric');
+            app.FramesecEditField.ValueChangedFcn = createCallbackFcn(app, @FramesecEditFieldValueChanged, true);
+            app.FramesecEditField.Position = [258 454 65 22];
+            app.FramesecEditField.Value = 1;
+
+            % Create UIAxes
+            app.UIAxes = uiaxes(app.UIFigure);
+            title(app.UIAxes, 'Original Video')
+            app.UIAxes.PlotBoxAspectRatio = [1.93129770992366 1 1];
+            app.UIAxes.Position = [1 517 300 185];
+
+            % Create UIAxes2
+            app.UIAxes2 = uiaxes(app.UIFigure);
+            title(app.UIAxes2, 'Processed Video')
+            app.UIAxes2.Position = [334 517 300 185];
+
+            % Show the figure after all components are created
+            app.UIFigure.Visible = 'on';
+        end
+    end
+
+    % App creation and deletion
+    methods (Access = public)
+
+        % Construct app
+        function app = GUI_Design_exported
+
+            % Create UIFigure and components
+            createComponents(app)
+
+            % Register the app with App Designer
+            registerApp(app, app.UIFigure)
+
+            if nargout == 0
+                clear app
+            end
+        end
+
+        % Code that executes before app deletion
+        function delete(app)
+
+            % Delete UIFigure when app is deleted
+            delete(app.UIFigure)
+        end
+    end
+end
+##### SOURCE END #####
+--></body></html>
