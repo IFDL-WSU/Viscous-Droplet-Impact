@@ -429,11 +429,15 @@ This function does not currently check for a valid file extention.
 \section{jetVelocity}
 \label{sec:jetVelocity}
 \subsection{Theory and Description}
-\lipsum[4]
-
+The function jetVelocity finds the position, velocity, and diameter of the "jet" of the droplet. Because this function cannot identify a jet, this function is applied to the top of the droplet on every frame. This function can be used as follows:
+\begin{verbatim}
+[jetVel, jetPos, jetDia = jetVelocity(videoFloorRemoved)
+\end{verbatim}
+The input videoFloorRemoved is the 4 dimensional video frame matrix output of the function floorremove. The output jetVel is an array of length frames-1 containing the instantaneous velocity of the top of the droplet in pixels as an interger. The output jetPos is an array of length frames that contains the vertical pixel location of the top of the droplet. The top of the frame is vertical position 0, while the bottom of the frame is vertical position Height. The output jetDia is an array of length frames containing the calculated diameter of the jet in pixels.\\
+jetVelocity works by first converting the boundary of the primary droplet into corrdinate points. The top most point of the droplet is saved for each frame in jetPos. For each pixel row starting from the top of the droplet and ending at the bottom, the width between the most left and most right points are collected. The first local maximum width starting from the top of droplet is used for the output jetDia. If no local maximum is found, the average width of the first ten percent of the droplet is used instead. Local maximum jet diameter values will be interger numbers, while averaged jet diameter data will be a decimal pixel number. Finally, jetVel is calculated by finding the difference between jetPos(frame) and jetPos(frame+1).
+ 
 \subsection{Fault Isolation}
-\lipsum[4]
-
+This function uses NaN values to indicate frames where no value could be calculated. This function uses the first local maximum width of the droplet to calculate the diameter of the jet. If there is no local maximum, then the first ten percent of the droplet is used to find the jet diameter. Because of these two modes, the jet diameter data will sometimes instantaneously jump from one value from to another. Consider adjusting 0.1 on line 48 of the function to adjust the percentage of the second mode, or manually check decimal values that seem to be outliers.
 
 
 
@@ -454,7 +458,7 @@ This function checks if the convertedSourceVideo and videoMask are of the same s
 If this is the case, please ensure that the convertedSourceVideo matrix was not altered after being created by the function convertSource, and check that the function drawContactAngles, one of the mask functions, has the correct size input array.
 If no input is given for the lineThickness of the lineColor, 1 and red ([255,0,0]) are used respectively. If the lineColor is of the wrong format, the following error called: \\
 \textbf{'lineColor is in incorrect format. Please use an RGB value in the form [R,G,B]'}\\
-Check to make sure that the line color input is a three element uint8 array of the format [R,G,B]/ 
+Check to make sure that the line color input is a three element uint8 array of the format [R,G,B].
 
 
 
