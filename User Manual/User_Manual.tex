@@ -313,61 +313,61 @@ The borders function is the second video processing function applied to the sour
 \label{sec:fallVelocity}
 See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:borders]{borders}
 \subsection{Theory and Description}
-The function fallVelocity finds and tracks the centroids and velocities of all objects in an input four dimensional borders matrix of data type uint8. This function finds the speed and frame of impact of the main droplet, records the centroids and velocities of all tracked objects per frame, and tracks the total number of satillite objects found in the video.The function can be called as follows:
+The function fallVelocity finds and tracks the centroids and velocities of all objects in an input four-dimensional borders matrix of data type uint8. This function finds the speed and frame of impact of the main droplet, records the centroids and velocities of all tracked objects per frame, and tracks the total number of satellite objects found in the video. The function can be called as follows:
 \begin{verbatim}
 [dropletVelocity, impactData, numberOfSatillites] = 
 fallVelocity(videoFloorRemoved, floorHeight)
-\end{verbatim}  
- Where numberOfSatillites is an integer number of satillite droplets in the video, impactData is a two element array where the first element is the downwards velocity of the first droplet at impact as a double and the second element is the frame at which the droplet made impact, and dropletVelocity is a three dimensional array of the size [4,numberOfSatillites+1,Frames]. dropletVelocity is formatted as follows:
+\end{verbatim} 
+Where numberOfSatillites is an integer number of satellite droplets in the video, impactData is a two-element array where the first element is the downwards velocity of the first droplet at impact as a double and the second element is the frame at which the droplet made impact, and dropletVelocity is a three-dimensional array of the size [4,numberOfSatillites+1,Frames]. dropletVelocity is formatted as follows:
 \begin{verbatim}
 [Centroid1_X, Centroid2_X, Centroid3_X, Centroid4_X;...
- Centroid1_Y, Centroid2_Y, Centroid3_Y, Centroid4_y;...
- Velocity1_X, Velocity2_X, Velocity3_X, Velocity4_X;....
- Velocity1_Y, Velocity2_Y, Velocity3_Y, Velocity4_Y...]
+Centroid1_Y, Centroid2_Y, Centroid3_Y, Centroid4_y;...
+Velocity1_X, Velocity2_X, Velocity3_X, Velocity4_X;....
+Velocity1_Y, Velocity2_Y, Velocity3_Y, Velocity4_Y...]
 \end{verbatim} 
-videoFloorRemoved is the 4 dimensional matrix output from the floorremove function. floorHeight is the value tracking the height of the floor; it is used to find the frame of impact.
+videoFloorRemoved is the four-dimensional matrix output from the floorremove function. floorHeight is the value tracking the height of the floor; it is used to find the frame of impact.
 
 \subsection{Fault Isolation}
-This functions currently does not have fault isolation. This function needs to be able to reliably identify and track droplets even when they pass off screen. This has not been implemented, and may cause errors. In addition, the floor impact data relies heavily on the floorremove function. If there are errors, check floorremove and floor GUI.
+This functions currently does not have fault isolation. This function needs to be able to reliably identify and track droplets even when they pass off screen. This has not been implemented and may cause errors. In addition, the floor impact data relies heavily on the floorremove function. If there are errors, check floorremove and floor GUI.
 
 \section{contactAngles}
 \label{sec:contactAngles}
 See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:borders]{borders}, \hyperref[sec:drawContactAngles]{drawContactAngles}
 \subsection{Theory and Description}
-The function contactAngles finds the angles of the contact the droplet has with the floor and the locations of contact. This function can be callled as follows:
- \begin{verbatim}
+The function contactAngles finds the angles of the contact the droplet has with the floor and the locations of contact. This function can be called as follows:
+\begin{verbatim}
 [contactAngle, contactPoints] =
 contactAngles(imageFloorRemoved, floorHeight, numberOfPoints,polyOrder)
-\end{verbatim}  
-The inputs are the following: imageFloorRemoved, the 4 dimensional matrix from the floorremoved function; foorHeight, the floor pixel height used in the floorremoved function; numberOfPoints, the number of sample points along the edge of the droplet to calculate the contact angles. Default: 10; polyOrder, the polynomial order used to calculate the contact angles. Default: 2. numberOfPoints must always be greater than polyOrder. 
-The outputs are as follows: contactAngle is a 2 dimensional matrix of the size [2,Frames]. The first value of contactAngles is the right contact angle, while the second value is the left contact angle. contactPoints is a 3 dimensional of the size [2,2,frames]. contactPoints is formatted as follows:
+\end{verbatim} 
+The inputs are the following: imageFloorRemoved, the four-dimensional matrix from the floorremoved function; foorHeight, the floor pixel height used in the floorremoved function; numberOfPoints, the number of sample points along the edge of the droplet to calculate the contact angles. Default: 10; polyOrder, the polynomial order used to calculate the contact angles. Default: 2. numberOfPoints must always be greater than polyOrder. 
+The outputs are as follows: contactAngle is a two-dimensional matrix of the size [2,Frames]. The first value of contactAngles is the right contact angle, while the second value is the left contact angle. contactPoints is a three-dimensional of the size [2,2,frames]. contactPoints is formatted as follows:
 \begin{verbatim}
-contact[1,:,:] is the right contact point
-contact[2,:,:] is the left contact point
-contact[:,1,:] is the x value
-contact[:,2,:] is the y value
+contact[1, :, :] is the right contact point.
+contact[2, :, :] is the left contact point.
+contact[:, 1, :] is the x value.
+contact[:, 2, :] is the y value.
 \end{verbatim}
-The contactAngles function works by collecting a series of points on either side of the droplet once it has contacted the floor. Those points are then used to create a polyfit estimation of the curve of the droplet. Once the derivative of the polyfit is found the slope at each contact point, found using the floorHeight imput, is calculated. The slopes are converted into degrees and saved.
+The contactAngles function works by collecting a series of points on either side of the droplet once it has contacted the floor. Those points are then used to create a polyfit estimation of the curve of the droplet. Once the derivative of the polyfit is found the slope at each contact point, found using the floorHeight input, is calculated. The slopes are converted into degrees and saved.
 
 
 \subsection{Fault Isolation}
 contactAngles as two optional inputs. If numberOfPoints and polyOrder are not entered, that is:
- \begin{verbatim}
+\begin{verbatim}
 [contactAngle, contactPoints] =contactAngles(imageFloorRemoved, floorHeight)
- \end{verbatim}
+\end{verbatim}
 then default values for those inputs are used. There is no error checking to ensure that the found contact angles make sense. Instead, those additional options were created to allow for more refined configurations. contactAngles relies heavily on floorremove. If the user input floorremove settings are inaccurate, this function will be prone to create errors.
 
 \section{convertSource}
 \label{sec:convertSource}
 See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:maskOverlay]{maskOverlay}
 \subsection{Theory and Description}
-The function convertSource converts an input video frame matrix, referred to as videoSource, to an RGB video frame matrix of data type of unint8. This function also rotates videoSource to match the rotation of of the analyzed frames. The function can be called as follows:
+The function convertSource converts an input video frame matrix, referred to as videoSource, to an RGB video frame matrix of data type of unint8. This function also rotates videoSource to match the rotation of the analyzed frames. The function can be called as follows:
 \begin{verbatim}
 convertedVideoSource = convertSource(videoSource, floorAngle)
-\end{verbatim}  
-Where convertedVideoSource is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame]. convertedVideoSource is the same size as videoSource, but has a video mode of 3. floorAngle is given in degrees.
+\end{verbatim} 
+Where convertedVideoSource is a four-dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame]. convertedVideoSource is the same size as videoSource but has a video mode of 3. floorAngle is given in degrees.
 \subsection{Fault Isolation}
-This function is compatible with RGB24 and greyscale videoSource matrices for future compatibility. If videoSource is off the wrong format, not a 4 dimensional matrix or videoMode is not either 1 or 3, this function will halt and report the following error: \\
+This function is compatible with RGB24 and greyscale videoSource matrices for future compatibility. If videoSource is off the wrong format, not a four-dimensional matrix or videoMode is not either 1 or 3, this function will halt and report the following error: \\
 \textbf{'Unexpected Source Matrix format. Please provide a grayscale image, an RGB image, or a binary image.'} \\
 If you receive this error, videoSource may have been changed after video2frame, or video2frame encountered an uncaught error importing the video. 
 
@@ -375,17 +375,16 @@ If you receive this error, videoSource may have been changed after video2frame, 
 \label{sec:drawContactAngles}
 See also: \hyperref[sec:maskOverlay]{maskOverlay}, \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:contactAngles]{contactAngles},
 \subsection{Theory and Description}
-The function drawContactAngles creates a post-processing video frame matrix mask showing the contact angles with a predefined line length. The returned video mask is boolean black-and-white 4D video matrix of the height, width, and length defined by the videoSize input. The function can be called as follows:
+The function drawContactAngles creates a post-processing video frame matrix mask showing the contact angles with a predefined line length. The returned video mask is Boolean black-and-white 4D video matrix of the height, width, and length defined by the videoSize input. The function can be called as follows:
 \begin{verbatim}
 maskAngle = drawContactAngles(videoSize, contactAngle, contactPoints, lineLength)
-\end{verbatim}  
-Where videoSize is a 4 element integer array of the form [Height, Width,videoMode,Frames], contactAngle is the contact angle matrix from the contactAngles function, contactPoints is the contact position matrix from the contactAngles function, and lineLength is an interger line length.\\ \\
-drawContactAngles creates this contact angle video mask by first creating a 4 dimensional boolean matrix of the size [videoHeight, videoWidth, 1, videoLength] set to false. Each contact angle in each frame is defined by the variables lineX and lineY, where lineX is an array of linearly spaced integer x-axis values between\\
+\end{verbatim} 
+Where videoSize is a four-element integer array of the form [Height, Width, videoMode, Frames], contactAngle is the contact angle matrix from the contactAngles function, contactPoints is the contact position matrix from the contactAngles function, and lineLength is an integer line length.\\ \\
+drawContactAngles creates this contact angle video mask by first creating a four-dimensional Boolean matrix of the size [videoHeight, videoWidth, 1, videoLength] set to false. Each contact angle in each frame is defined by the variables lineX and lineY, where lineX is an array of linearly spaced integer x-axis values between\\
 $(contactPointInX\pm LineLength*Cos[contactAngle])$\\
-lineY is a similiar array in the vertical direction with the same number of elements. Together lineX and lineY make up linearly spaced integer coordinate pairs. If either value in each coordinate pair is outside the height or width range of the video, that pair is removed from the set {[lineX,lineY]}. The {[lineX,lineY]} coordinate pairs are then used to set the corresponding pixels in each frame to true. This process is repeated for each contact point in each frame of the video.
+lineY is a similar array in the vertical direction with the same number of elements. Together lineX and lineY make up linearly spaced integer coordinate pairs. If either value in each coordinate pair is outside the height or width range of the video, that pair is removed from the set {[lineX,lineY]}. The {[lineX,lineY]} coordinate pairs are then used to set the corresponding pixels in each frame to true. This process is repeated for each contact point in each frame of the video.
 \subsection{Fault Isolation}
 By removing any points that are outside of the given range, the video mask matrix will always match the videoSize dimensions provided. This function can handle non-integer lineLength values, but it will be rounded down to the nearest odd number. This function skips drawing contact angles for frames where either the contact point or the contact angle is undefined, meaning this function works when there are no contact angles to draw. There is no error checking for the videoSize inputs.
- 
 
 
 
@@ -418,12 +417,12 @@ See also: \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:video2frame]{vi
 frame2file takes a frame from a video frame matrix and saves it as an image file at a chosen location. This function is compatible with RGB24 and greyscale video frame matrices. The file may be saved as .bmp, .gif, .hdf, .jpg, .jpeg, .jp2, .jpx, .pbm, .pcx, .png, .pnm, .ppm, .ras, .tif, .tiff, or .xwd. This function can be called as follows:
 \begin{verbatim}
 frame2file(videoToBeSaved, your_file_name.ext, 'C:\your_file_Path', frameToBeSaved.)
-\end{verbatim}  
-Where videoToBeSaves is a 4 dimensional video frame matrix of your choice, and frameToBeSaved is the desired frame number. Place a valid file extention at the end of the file name to save as that format.
+\end{verbatim} 
+Where videoToBeSaves is a four-dimensional video frame matrix of your choice, and frameToBeSaved is the desired frame number. Place a valid file extension at the end of the file name to save as that format.
 \subsection{Fault Isolation}
 If no file extension is provided, then this function returns the following error:\\
 \textbf{'No file extension provided!'}\\
-This function does not currently check for a valid file extention.
+This function does not currently check for a valid file extension.
 
 
 \section{jetVelocity}
@@ -433,9 +432,8 @@ The function jetVelocity finds the position, velocity, and diameter of the "jet"
 \begin{verbatim}
 [jetVel, jetPos, jetDia = jetVelocity(videoFloorRemoved)
 \end{verbatim}
-The input videoFloorRemoved is the 4 dimensional video frame matrix output of the function floorremove. The output jetVel is an array of length frames-1 containing the instantaneous velocity of the top of the droplet in pixels as an interger. The output jetPos is an array of length frames that contains the vertical pixel location of the top of the droplet. The top of the frame is vertical position 0, while the bottom of the frame is vertical position Height. The output jetDia is an array of length frames containing the calculated diameter of the jet in pixels.\\
-jetVelocity works by first converting the boundary of the primary droplet into corrdinate points. The top most point of the droplet is saved for each frame in jetPos. For each pixel row starting from the top of the droplet and ending at the bottom, the width between the most left and most right points are collected. The first local maximum width starting from the top of droplet is used for the output jetDia. If no local maximum is found, the average width of the first ten percent of the droplet is used instead. Local maximum jet diameter values will be interger numbers, while averaged jet diameter data will be a decimal pixel number. Finally, jetVel is calculated by finding the difference between jetPos(frame) and jetPos(frame+1).
- 
+The input videoFloorRemoved is the four-dimensional video frame matrix output of the function floorremove. The output jetVel is an array of length frames-1 containing the instantaneous velocity of the top of the droplet in pixels as an integer. The output jetPos is an array of length frames that contains the vertical pixel location of the top of the droplet. The top of the frame is vertical position 0, while the bottom of the frame is vertical position Height. The output jetDia is an array of length frames containing the calculated diameter of the jet in pixels.\\
+jetVelocity works by first converting the boundary of the primary droplet into coordinate points. The topmost point of the droplet is saved for each frame in jetPos. For each pixel row starting from the top of the droplet and ending at the bottom, the width between the most left and most right points are collected. The first local maximum width starting from the top of droplet is used for the output jetDia. If no local maximum is found, the average width of the first ten percent of the droplet is used instead. Local maximum jet diameter values will be integer numbers, while averaged jet diameter data will be a decimal pixel number. Finally, jetVel is calculated by finding the difference between jetPos(frame) and jetPos(frame+1).
 \subsection{Fault Isolation}
 This function uses NaN values to indicate frames where no value could be calculated. This function uses the first local maximum width of the droplet to calculate the diameter of the jet. If there is no local maximum, then the first ten percent of the droplet is used to find the jet diameter. Because of these two modes, the jet diameter data will sometimes instantaneously jump from one value from to another. Consider adjusting 0.1 on line 48 of the function to adjust the percentage of the second mode, or manually check decimal values that seem to be outliers.
 
@@ -447,10 +445,10 @@ See also: \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:drawContactAngl
 \subsection{Theory and Description}
 The function maskOverlay overlays a mask over a selected video input using a selected line weight and color. This function can be called as follows:
 \begin{verbatim}
-	videoOverlay = maskOverlay(convertedSourceVideo, videoMask, lineThickness, lineColor)
+videoOverlay = maskOverlay(convertedSourceVideo, videoMask, lineThickness, lineColor)
 \end{verbatim}
-Where convertedVideoSource is the four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame] from the function convertSource. videoMask is a boolean black-and-white 4D video matrix of the height, width, and length of the convertedVideoSource. videoMask may either be the output matrix from the function outlineMask or the function drawContactAngles. lineThickness is an odd interger value. lineThickness determines how thick the lines in the videoMask matrix will be in the final video in number of pixels. The input lineColor is a RGB color defined by a three element uint8 array of the form [R,G,B]. The output videoOverlay is a four dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame], the same format as convertedVideoSource.
-First, each frame of the mask is dilated by the amount given by the lineThickness. For each of the RGB color components, accessed by [:,:,1,:], [:,:,2,:], [:,:,3,:], the mask is applied over the convertedSourceVideo matrix with the corresponding value of the lineColor input.
+Where convertedVideoSource is the four-dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame] from the function convertSource. videoMask is a Boolean black-and-white 4D video matrix of the height, width, and length of the convertedVideoSource. videoMask may either be the output matrix from the function outlineMask or the function drawContactAngles. lineThickness is an odd integer value. lineThickness determines how thick the lines in the videoMask matrix will be in the final video in number of pixels. The input lineColor is a RGB color defined by a three-element uint8 array of the form [R,G,B]. The output videoOverlay is a four-dimensional matrix of data type uint8 and the form [Height, Width, 3, Frame], the same format as convertedVideoSource.
+First, each frame of the mask is dilated by the amount given by the lineThickness. For each of the RGB color components, accessed by [:, :, 1, :], [:, :, 2, :], [:, :, 3, :], the mask is applied over the convertedSourceVideo matrix with the corresponding value of the lineColor input.
 
 \subsection{Fault Isolation}
 This function checks if the convertedSourceVideo and videoMask are of the same size in height, width, and the number of frames. If the sizes do not match, then the following error occurs:\\
@@ -458,7 +456,7 @@ This function checks if the convertedSourceVideo and videoMask are of the same s
 If this is the case, please ensure that the convertedSourceVideo matrix was not altered after being created by the function convertSource, and check that the function drawContactAngles, one of the mask functions, has the correct size input array.
 If no input is given for the lineThickness of the lineColor, 1 and red ([255,0,0]) are used respectively. If the lineColor is of the wrong format, the following error called: \\
 \textbf{'lineColor is in incorrect format. Please use an RGB value in the form [R,G,B]'}\\
-Check to make sure that the line color input is a three element uint8 array of the format [R,G,B].
+Check to make sure that the line color input is a three-element uint8 array of the format [R,G,B].
 
 
 
@@ -467,10 +465,10 @@ Check to make sure that the line color input is a three element uint8 array of t
 \section{maxSpread}
 \label{sec:maxSpead}
 \subsection{Theory and Description}
-The droplet radius spreading feature determines the radius of the droplet on the left and right side, and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has made contact with the floor.
+The droplet radius spreading feature determines the radius of the droplet on the left and right side and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has made contact with the floor.
 \newline
 \newline
-This function begins by determining the number of frames in dataset ('d').  Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as 'frame'. A new dataset is created from the original, this time eliminating the frames without any droplet. 
+This function begins by determining the number of frames in dataset ('d'). Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as 'frame'. A new dataset is created from the original, this time eliminating the frames without any droplet. 
 
 \subsection{Fault Isolation}
 
@@ -481,14 +479,14 @@ This function begins by determining the number of frames in dataset ('d').  Once
 \label{sec:outlineMask}
 See also: \hyperref[sec:maskOverlay]{maskOverlay}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:floorremove]{floorremove},
 \subsection{Theory and Description}
-The function outlineMask creates a post-processing video frame matrix mask showing the borders of all objects in the processsed video matrix videoFloorRemoved, the output of floorremoved. The returned video mask is boolean black-and-white 4D video matrix of the height, width, and length of the videoFloorRemoved input.This function can be called as follows:
+The function outlineMask creates a post-processing video frame matrix mask showing the borders of all objects in the processed video matrix videoFloorRemoved, the output of floorremoved. The returned video mask is Boolean black-and-white 4D video matrix of the height, width, and length of the videoFloorRemoved input. This function can be called as follows:
 \begin{verbatim}
 maskOutline = outlineMask(videoFloorRemoved)
 \end{verbatim}
-Where videoFloorRemoved is a four dimensional matrix of data type uint8 and the form [Height, Width, 1, Frame]. 
+Where videoFloorRemoved is a four-dimensional matrix of data type uint8 and the form [Height, Width, 1, Frame]. 
 
 \subsection{Fault Isolation}
-This function has no fault isolation. This function relies solely on videoFloorRemoved and uses the MATLAB function bwperim to generate the mask. If there are errors with this mask highlighting incorrent elements, check the 4D video matrix videoFloorRemoved and ensure no noise is present. 
+This function has no fault isolation. This function relies solely on videoFloorRemoved and uses the MATLAB function bwperim to generate the mask. If there are errors with this mask highlighting incorrect elements, check the 4D video matrix videoFloorRemoved and ensure no noise is present. 
 
 
 
@@ -505,18 +503,19 @@ This function has no fault isolation. This function relies solely on videoFloorR
 
 \section{video2frame}
 \label{sec:video2frame}
-See also: \hyperref[sec:borders]{borders}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:frame2file]{frame2file},  \hyperref[sec:drawContactAngles]{drawContactAngles}
+See also: \hyperref[sec:borders]{borders}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:frame2file]{frame2file}, \hyperref[sec:drawContactAngles]{drawContactAngles}
 \subsection{Theory and Description}
 The function video2frame imports a greyscale .AVI video file and converts it into MATLAB video frame data. The function takes in a video file and returns the video frame matrix and its dimensions. This function can be called as follows:
 \begin{verbatim}
 [videoSource, videoSize] = video2frame('C:\video_file_path\video.avi')
-\end{verbatim}  
-Where videoSource is a four dimensional matrix of data type uint8 and the form\\
-{[Height, Width, videoMode, Frame]}, and videoSize is a 4 element array of the form\\
+\end{verbatim} 
+Where videoSource is a four-dimensional matrix of data type uint8 and the form\\
+{[Height, Width, videoMode, Frame]}, and videoSize is a four-element array of the form\\
 {[Height, Width, videoMode, Frames]}.
 
 \subsection{Fault Isolation}
 Currently, this function does not have fault isolation. This function should return an error if the read .AVI video has a videoMode not equal to 1, which would indicate a color video.
+
 
 
 
