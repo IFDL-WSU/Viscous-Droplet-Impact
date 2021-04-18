@@ -1,3 +1,3 @@
-function mask_Collection = outlineMask(borders_Image_Collection)
-    mask_Collection = logical(bwperim(borders_Image_Collection,8));
+function maskOutline = outlineMask(videoFloorRemoved)
+    maskOutline = logical(bwperim(videoFloorRemoved,8));
 end
