@@ -498,12 +498,24 @@ This function has no fault isolation. This function relies solely on videoFloorR
 \subsection{Fault Isolation}
 \lipsum[4]
 
+\section{frame2video}
+\label{frame2video}
+See also: \hyperref[sec:borders]{borders}, \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:frame2file]{frame2file}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:video2frame]{video2frame}
+\subsection{Theory and Description}
+The function frame2video exports a four-dimensional video frame matrix of the form [Height, Width, Mode, Frame] as a .AVI video file. If the imported video matrix is in greyscale, meaning it has a Mode of 1, the video will be exported as a grayscale AVI. If the video matrix is fullcolor, meaning it has a Mode of 3, the video will be exported as a n Uncompressed RGB24 AVI. The function can be called as follows:
+\begin{verbatim}
+frame2video(videoMatrix, 'your_file_name', 'C:\your_file_path', frameRate)
+\end{verbatim}
+The input videoMatrix is any four-dimensional video matrix used thoughout the program, but will most likely be the output of maskOverlay. The input frameRate is optional, but may be any positive number. The default value of frameRate is 30 frames/second.
 
-
+\subsection{Fault Isolation}
+The function frame2video only checks that the videoMatrix function has a compatible mode, either 1 or 3. This function does not take indexed video matrices. If you receive the error:\\
+\textbf{'videoMatrix has an incompatible videoMode. Please provide a greyscale videoMatrix with a videoMode of 1, or a full color videoMatrix with a videoMode of 3.'}\\
+If you receive this error, ensure that the videoMatrix is a grayscale or fullcolor video.
 
 \section{video2frame}
 \label{sec:video2frame}
-See also: \hyperref[sec:borders]{borders}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:frame2file]{frame2file}, \hyperref[sec:drawContactAngles]{drawContactAngles}
+See also: \hyperref[sec:borders]{borders}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:frame2file]{frame2file}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:frame2video]{frame2video}
 \subsection{Theory and Description}
 The function video2frame imports a greyscale .AVI video file and converts it into MATLAB video frame data. The function takes in a video file and returns the video frame matrix and its dimensions. This function can be called as follows:
 \begin{verbatim}
