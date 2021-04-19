@@ -301,11 +301,18 @@ In this chapter each of the image processing and droplet analysis functions are 
 
 \section{borders}
 \label{sec:borders}
+See also: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:floorremove]{floorremove}
 \subsection{Theory and Description}
-The borders function is the second video processing function applied to the source video. 
+This function detects and outlines all portions of the video with a border (a contrast in the frame's gradient). This is the second video processing function. It receives a frame collection from video2frame(). After outlining borders it sends the new frame collection to floorremove(). 
+
+The borders function first finds the size of the video frame "videoSize". It then converts all the frames to double variables and multiplies by 32. Doing this brightens the frame. This works because the droplet is a black object on a lighter background. If the droplet was a light color on a dark background than this would probably need to be a division. After brightening each frame, the variables are converted back to uint8 for processing later. 
+
+Detecting borders was accomplished using MATLAB's built in edge() function. This function creates a gradient of the frame's color. It then detects sharp changes in the gradient and declares that as an edge. Borders() is set to use the 'sobel' and 'prewitt' methods in the edge() function. These can be changed. See MATLAB guide: https://www.mathworks.com/help/images/ref/edge.html. 
+
+After detecting and outlining the edges (borders), the function fills in the borders it created. It also removes small particles (noise) from the frame. 
 
 \subsection{Fault Isolation}
-\lipsum[4]
+There are no fault isolation procedures developed yet. 
 
 
 
@@ -402,10 +409,14 @@ By removing any points that are outside of the given range, the video mask matri
 \section{floorremove}
 \label{sec:floorremove}
 \subsection{Theory and Description}
-\lipsum[4]
+The floorremove() function takes in a video with borders outlined "videoBorders", a pixel value representing the y-axis pixel where the floor is "rowToDelete", and a angle (degrees) to rotate the video frames "rotationAngle". This function deletes everything at or below the floor pixel and fills in the droplet while its on the ground. 
+
+The function starts by creating a duplicate frame collection "videoRotated" and a variable for the size of videoBorders "a". Each frame in videoRotated is than rotated by the designated rotation angle. 
+
+A duplicate frame collection of the rotated frames is then created called "videoDeletedFloor". Every pixel in the x-axis from rowToDelete to end of the y-axis is set to 0. This essentially turns everything below the floor to black pixels. Next, a white line is drawn at the floor by changing all variables in that row equal to 1. This allows the droplet to be filled in using MATLAB's built in imfill() function. The white line is then deleted. 
 
 \subsection{Fault Isolation}
-\lipsum[4]
+There are no fault isolation procedures at this time. 
 
 
 
