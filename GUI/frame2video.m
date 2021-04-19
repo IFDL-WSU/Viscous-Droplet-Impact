@@ -1,6 +1,11 @@
 function frame2video(videoMatrix,fileName,filePath,frameRate)
 [~,  ~,  videoMode,  videoLength] = size(videoMatrix);
 
+%Error catching: the uiputfile window was closed. Do nothing.
+    if isa(fileName,'double')== 1
+        return
+    end
+
 %Select Correct Video Profile
 switch videoMode
     case 3
