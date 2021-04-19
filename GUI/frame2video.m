@@ -16,6 +16,10 @@ if (~exist('frameRate','var'))  %Read in provided frame rate
     frameRate = 30;       %Default to 1.
 end
 
+%Remove extension in fileName. Ignore anything after a period.
+splitStr = split(fileName,'.');
+fileName = splitStr(1);
+
 %Create video object
 v = VideoWriter(append(filePath,"/", fileName),fileExt);
 v.FrameRate = frameRate;
