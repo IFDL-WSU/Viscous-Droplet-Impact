@@ -292,6 +292,111 @@ The following section describes the function and interactivity of each feature, 
 
 
 
+\chapter{GUI Callbacks}
+In this chapter each of the callbacks in the main and secondary GUI are described. A paragraph of the overall operation of the function is given. A fault isolation section is alos provided for each callback. \\
+
+The following callbacks are within the main GUI.
+
+\section{UploadVideoButtonPushed}
+\label{sec:uploadvideo}
+System Functions Used: \hyperref[sec:video2frame]{video2frame}, \hyperref[sec:borders]{borders}, \hyperref[sec:floorremove]{floorremove}, \hyperref[sec:convertSource]{convertSource}, \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:maskOverlay]{maskOverlay}, \hyperref[sec:contactAngles]{contactAngles}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:fallVelocity]{fallVelocity}, \hyperref[sec:maxSpread]{maxSpread}, \hyperref[sec:jetVelocity]{jetVelocity}
+
+\subsection{Description}
+This callback gets a user input from the file explorer of type .avi, saves the file name and path of this video, then runs the major video processing files to get the parameters, bordered image, and contact angle mask for each frame. This callback also opens the secondary GUI to begin the user-driven floor finding.
+
+\subsection{Fault Isolation}
+If the user does not provide a video file input, then the callback is stopped before any errors can be thrown because all of the functions in this callback require a video input.
+
+\section{SaveAnalyticsButtonPushed}
+\label{sec:saveanalytics}
+
+\subsection{Description}
+This callback uses the parameters found for each frame to create a table of data that is then exported to a .csv file. The user provides the name and filepath of the .csv through the file explorer when prompted.
+
+\subsection{Fault Isolation}
+If the Microns/Pixel or Frames/Sec fields are equal to 1, then the callback sets the units to the appropriate value. Additionally, if there are NaN values for the velocity, then the callback does not use these in the calculation of the average velocity for the video.
+
+\section{FrameSliderValueChanged}
+\label{sec:framesliderchanged}
+
+\subsection{Description}
+This callback changes the visibility and value of the text boxes for each parameter when the frame slider is changed. If there is no value for a parameter at at the given frame, then the visibility of the text box for that parameter is turned off. Otherwise, the text box is visible and displays the value for that parameter at the current frame.
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{FrameSliderValueChanging}
+\label{sec:framesliderchanging}
+
+\subsection{Description}
+This callback changes the visibility and value of the text boxes for each parameter when the frame slider is changing. If there is no value for a parameter at at the given frame, then the visibility of the text box for that parameter is turned off. Otherwise, the text box is visible and displays the value for that parameter at the current frame.
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{SaveProcessedVideoButtonPushed}
+\label{sec:savevideo}
+System Functions Used: \hyperref[sec:frame2video]{frame2video}
+
+\subsection{Description}
+This callback gets a user input from the file explorer of type .avi, then saves the processed video to this name and filepath. If the contact angles are turned off, then the saved video shows the outlined frames. If the contact angles are turned on, then the saved video shows the contact angle lines on the frames.
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{MicronspixelEditFieldValueChanged}
+\label{sec:micronspixelchanged}
+
+\subsection{Description}
+This callback multiplies each parameter by the conversion rate entered in the Microns/Pixel text field, then updates the displays for each parameter text field.
+
+\subsection{Fault Isolation}
+If the user enters a value less than or equal to 0 for the conversion, then an error message appears and the microns/pixel value is reset to 1. If the conversion rate changes to or from 1, then the units displayed is changed accordingly: either 'microns' for a value greater than 1 or 'pixels' for a value of 1.
+
+\section{OutlineColorDropDownValueChanged}
+\label{sec:outlinecolor}
+
+\subsection{Description}
+This callback changes the color of the outline or contact angle line displayed in the processed video field to the user-selected color.
+
+\subsection{Fault Isolation}
+If the contact angle display is turned off, then the border line color is changed. If the contact angle display is turned on, then the contact angle line color is changed.
+
+\section{SaveCurrentFrameButtonPushed}
+\label{sec:saveframe}
+
+\subsection{Description}
+This callback gets a user input from the file explorer of type .jpeg, .png, .jpg, .bmp, .tiff, or .tif, then saves the current displayed processed frame to this name and filepath. If the contact angles are turned off, then the saved frame displays the outlined frame. If the contact angles are turned on, then the saved frame displays the contact angle lines on the frame.
+
+\section{ContactAnglesOffButtonValueChanged}
+\label{sec:contactanglesbutton}
+
+\subsection{Description}
+This callback switches the displayed processed video to either the video with a colored outline or the video with a colored contact angle line. The text displayed on the button reflects whether the contact angle lines are on or off.
+
+\subsection{Fault Isolation}
+If the contact angles are off, then the video is displayed with the border outline in the last color chosen from the outline color drop-down. If the contact angles are turned on, then the video is displayed with the contact angles in the last color chosen from the outline color drop-down.
+
+\section{FramesecEditFieldValueChanged}
+\label{sec:framesecchanged}
+
+\subsection{Description}
+This callback multiplies each parameter by the conversion rate entered in the Frames/Second text field, then updates the displays for each parameter text field.
+
+\subsection{Fault Isolation}
+If the user enters a value less than or equal to 0 for the conversion, then an error message appears and the frames/second value is reset to 1. If the conversion rate changes to or from 1, then the units displayed is changed accordingly: either 'seconds' for a value greater than 1 or 'frames' for a value of 1. \\
+
+The following callbacks are within the main GUI.
+
+\section{FloorHeightSliderValueChanged}
+
+
+
+
+
+
+
+
 
 
 
@@ -474,7 +579,7 @@ Check to make sure that the line color input is a three-element uint8 array of t
 
 
 \section{maxSpread}
-\label{sec:maxSpead}
+\label{sec:maxSpread}
 \subsection{Theory and Description}
 The droplet radius spreading feature determines the radius of the droplet on the left and right side and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has made contact with the floor.
 \newline
@@ -510,7 +615,7 @@ This function has no fault isolation. This function relies solely on videoFloorR
 \lipsum[4]
 
 \section{frame2video}
-\label{frame2video}
+\label{sec:frame2video}
 See also: \hyperref[sec:borders]{borders}, \hyperref[sec:outlineMask]{outlineMask}, \hyperref[sec:frame2file]{frame2file}, \hyperref[sec:drawContactAngles]{drawContactAngles}, \hyperref[sec:video2frame]{video2frame}
 \subsection{Theory and Description}
 The function frame2video exports a four-dimensional video frame matrix of the form [Height, Width, Mode, Frame] as a .AVI video file. If the imported video matrix is in greyscale, meaning it has a Mode of 1, the video will be exported as a grayscale AVI. If the video matrix is fullcolor, meaning it has a Mode of 3, the video will be exported as a n Uncompressed RGB24 AVI. The function can be called as follows:
