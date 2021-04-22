@@ -47,7 +47,7 @@ The purpose of this document is to describe the operating steps, description the
 
 
 \section{Document Conventions}
-\lipsum[4]
+In this document the variables and functions will be called exactly as they are in the program code. Function inputs and outputs of the same name across multiple functions refer to the same variable unless otherwise indicated. 
 
 \section{Intended Audience}
 MATLAB Microdroplet Impact Analysis Application is designed for students, professors, professionals, and anyone interested in analyzing microdroplet impacts. This application was initially designed for Interfacial Fluid Dynamics Lab at Washington State University Vancouver. However, this is an open source program and can be used by anyone. 
@@ -114,7 +114,7 @@ This applet is constrained to use on microfluid droplet videos in the .avi forma
 Any user of this applet is the target audience of this user documentation. For users that may be altering the code of the GUI or image processing functions, additional documentation found on the MathWorks website is suggested as a supplemental resource.
 
 \section{Assumptions and Dependencies}
-It is assumed that all users of this applet have at least a basic understanding of microfluid analysis and an ability to understand MATLAB error messages. 
+It is required that the user of the aplet has the MATLAB Image Processing Toolbox installed. It is assumed that all users of this applet have at least a basic understanding of microfluid analysis and an ability to understand MATLAB error messages. 
 
 \chapter{GUI User Guide}
 In this chapter, a step-by-step guide for the use of the GUI is provided, with images.
@@ -465,11 +465,43 @@ There are no fault isolation procedures developed yet.
 
 
 
+\section{UIFigureCloseRequest}
+\label{sec:uiclose}
 
+\subsection{Description}
+This callback updates the floor height and floor angle values in the main app when the applet is closed.
 
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. However, closing the applet with the "X" will crash the main applet if the floor and angle are set to zero.
 
+\section{SetFloorHeightButtonPushed}
+\label{sec:setfloorht}
 
+\subsection{Description}
+This callback updates the floor height and floor angle values in the main app and closes the applet
 
+\subsection{Fault Isolation}
+If either the floor height or the floor angle isn't set, a error message is displayed that says:\\
+\textbf{"Floor Height or Angle Not Set. Please Adjust and Try Again."}
+
+\section{LineColorDropDownValueChanged}
+\label{sec:linecolorchanged}
+
+\subsection{Description}
+This callback updates the color of drawn floor line in the plot. 
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{StartInteractiveFloorFindButtonPushed}
+\label{sec:startinteractivefloor}
+
+\subsection{Description}
+This callback starts a Region of Interest (ROI) interactive line on the plot. This function starts with the following message:\\
+\textbf{"Draw a Line at the Floor. Press 'Set Floor Height' to Save."}
+
+\subsection{Fault Isolation}
+The default plot interactability is disabled when the interactive floor finding feature is enabled. This keeps users from accidentally moving the graph.  
 
 
 
@@ -721,82 +753,18 @@ Currently, this function does not have fault isolation. This function should ret
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\chapter{Other Nonfunctional Requirements}
-
-\section{Performance Requirements}
+\chapter{Performance Requirements}
 \par Matlab requirements are needed. Found at \url{https://www.mathworks.com/support/requirements/matlab-system-requirements.html}
 
-\section{Safety Requirements}
-\lipsum[4]
-
-\section{Security Requirements}
-\lipsum[4]
-
-\section{Software Quality Attributes}
-\lipsum[4]
-
-\section{Business Rules}
-\lipsum[4]
 
 
 
 
 
-
-
-
-
-\chapter{Other Requirements}
-
-
-
-\chapter{Appendix A: Glossary}
+\chapter{Glossary}
 
 Dataset: Any video file that has been uploaded to MATLAB.\newline
 Floor: (Variable) The horizontal reference in which the droplet impacts and begins spreading. \newline
-
-
-
-
-\chapter{Appendix B: Analysis Models}
-
-
-
-
-\chapter{Appendix C: TBD}
-
 
 
 
