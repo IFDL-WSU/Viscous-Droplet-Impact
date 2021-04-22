@@ -386,10 +386,82 @@ This callback multiplies each parameter by the conversion rate entered in the Fr
 \subsection{Fault Isolation}
 If the user enters a value less than or equal to 0 for the conversion, then an error message appears and the frames/second value is reset to 1. If the conversion rate changes to or from 1, then the units displayed is changed accordingly: either 'seconds' for a value greater than 1 or 'frames' for a value of 1. \\
 
-The following callbacks are within the main GUI.
+The following callbacks are within the floorselectdlgbox GUI.
 
+\section{startupFcn}
+\label{sec:startupfcn}
+
+\subsection{Description}
+This callback initalizes the values for the plot, displays the frame one fifth through the video, and stores the main applet property.
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{startupFcn}
+\label{sec:startupfcn}
+
+\subsection{Description}
+This callback initalizes the values for the plot, displays the frame one fifth through the video, and stores the main applet property.
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+  
 \section{FloorHeightSliderValueChanged}
+\label{sec:floorhtsldchanged}
 
+\subsection{Description}
+This callback updates the vertical position of the line drawn in the plot when the slider is moved. 
+
+\subsection{Fault Isolation}
+If the selected height is not an integer number, it is rounded to the closest integer.
+
+\section{FloorHeightSliderValueChanging}
+\label{sec:floorhtsldchanging}
+
+\subsection{Description}
+This callback updates the vertical position of the line drawn in the plot as the slider value is being changed. 
+
+\subsection{Fault Isolation}
+If the selected height is not an integer number, it is rounded to the closest integer.
+
+\section{FloorHeightEditFieldValueChanged}
+\label{sec:floorhteditchanging}
+
+\subsection{Description}
+This callback updates the vertical position of the line drawn in the plot when the floor height field is editted. 
+
+\subsection{Fault Isolation}
+If the selected height is not an integer number, it is rounded to the closest integer. 
+
+
+
+
+\section{FloorAngleSliderValueChanged}
+\label{sec:floorangsldchanged}
+
+\subsection{Description}
+This callback updates the angle of the line drawn in the plot when the slider is moved. 
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{FloorAngleSliderValueChanging}
+\label{sec:floorangsldchanging}
+
+\subsection{Description}
+This callback updates the angle of the line drawn in the plot as the slider value is being changed. 
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
+
+\section{FloorAngleEditFieldValueChanged}
+\label{sec:floorangeditchanging}
+
+\subsection{Description}
+This callback updates the angle of the line drawn in the plot when the floor angle field is editted. 
+
+\subsection{Fault Isolation}
+There are no fault isolation procedures developed yet. 
 
 
 
