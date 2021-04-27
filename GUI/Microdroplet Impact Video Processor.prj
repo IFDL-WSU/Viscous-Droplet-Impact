@@ -1,14 +1,18 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3470328511" file="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI\GUI_Design.prj" location="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI" name="GUI_Design" target="target.mlapps" target-name="Package App">
-    <param.appname>GUI_Design</param.appname>
-    <param.authnamewatermark />
+  <configuration build-checksum="434364811" file="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI\Microdroplet Impact Video Processor.prj" location="D:\Documents\GitHub\Viscous-Droplet-Impact\GUI" name="Microdroplet Impact Video Processor" target="target.mlapps" target-name="Package App">
+    <param.appname>Microdroplet Impact Video Processor</param.appname>
+    <param.authnamewatermark>Rosemary B., Zach W., Andrew T, Nikita K.</param.authnamewatermark>
     <param.email />
-    <param.company />
-    <param.icon />
-    <param.icons />
+    <param.company>Washington State University Vancouver</param.company>
+    <param.icon>${PROJECT_ROOT}\Microdroplet Impact Video Processor_resources\icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\Microdroplet Impact Video Processor_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\Microdroplet Impact Video Processor_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\Microdroplet Impact Video Processor_resources\icon_16.png</file>
+    </param.icons>
     <param.summary />
-    <param.description />
-    <param.screenshot>C:\Users\14085\AppData\Local\Temp\tp8e20d20e_c653_42eb_9af9_93e997d26af1.png</param.screenshot>
+    <param.description>This applet takes .avi input and uses MATLAB image processing capabilities to provide the user with a variety of microdroplet parameters and processed images.</param.description>
+    <param.screenshot>C:\Users\14085\AppData\Local\Temp\tpd278f86c_c633_42a6_85ff_ab3ced8e0f70.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
@@ -17,13 +21,8 @@
     <param.output>C:\Users\14085\Desktop</param.output>
     <param.guid>07eea96a-5287-4ebb-9be4-ab8298f42fc4</param.guid>
     <unset>
-      <param.authnamewatermark />
       <param.email />
-      <param.company />
-      <param.icon />
-      <param.icons />
       <param.summary />
-      <param.description />
       <param.version />
       <param.products.name />
       <param.products.id />
@@ -42,6 +41,7 @@
       <file>${PROJECT_ROOT}\floorremove.m</file>
       <file>${PROJECT_ROOT}\floorselectdlgbox.mlapp</file>
       <file>${PROJECT_ROOT}\frame2file.m</file>
+      <file>${PROJECT_ROOT}\frame2video.m</file>
       <file>${PROJECT_ROOT}\jetVelocity.m</file>
       <file>${PROJECT_ROOT}\maskOverlay.m</file>
       <file>${PROJECT_ROOT}\maxSpread.m</file>
