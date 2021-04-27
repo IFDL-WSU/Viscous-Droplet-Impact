@@ -83,10 +83,10 @@ The purpose of this document is to describe the operating steps, description the
 In this document the variables and functions will be called exactly as they are in the program code. Function inputs and outputs of the same name across multiple functions refer to the same variable unless otherwise indicated. 
 
 \section{Intended Audience}
-MATLAB Microdroplet Impact Analysis Application is designed for students, professors, professionals, and anyone interested in analyzing microdroplet impacts. This application was initially designed for Interfacial Fluid Dynamics Lab at Washington State University Vancouver. However, this is an open-source program and can be used by anyone. 
+MATLAB Microdroplet Impact Video Processor is designed for students, professors, professionals, and anyone interested in analyzing microdroplet impacts. This application was initially designed for Interfacial Fluid Dynamics Lab at Washington State University Vancouver. However, this is an open-source program and can be used by anyone. 
 
 \section{Product Scope}
-This applet is to be used for automated processing of microfluid droplet videos. This applet takes an input of .avi video files and provides a table of parameters for instantaneous primary droplet velocity, primary droplet spread radius, satellite droplet velocity, number of satellite droplets per frame, jet velocity, jet diameter, jet tip position, primary droplet contact angle, maximum primary droplet spread radius, and maximum primary droplet velocity. This data is intended for use in aiding research in microfluid behavior. This applet is not intended to replace logical reasoning, so data taken from this applet should be checked before use in academic research in case errors have occurred in processing.
+This applet is to be used for automated processing of microfluid droplet videos. This applet takes an input of a .avi video file and provides a table of parameters for instantaneous primary droplet velocity, primary droplet spread radius, satellite droplet velocity, number of satellite droplets per frame, jet velocity, jet diameter, jet tip position, primary droplet contact angle, maximum primary droplet spread radius, and maximum primary droplet velocity. This data is intended for use in aiding research in microfluid behavior. This applet is not intended to replace logical reasoning, so data taken from this applet should be checked before use in academic research in case errors have occurred in processing.
 
 
 
@@ -156,7 +156,7 @@ In this chapter, a step-by-step guide for the use of the GUI is provided, with i
 
 \begin{enumerate}[label = Step \arabic*.]
 
-\item Double left-click on GUI\_Design.mlappinstall. \\
+\item Double left-click on Microdroplet\_Impact\_Video\_Processor.mlappinstall. \\
 \item Left-click on "Install" on pop-up window.
 \begin{figure}[H]
 \centering
@@ -184,7 +184,7 @@ In this chapter, a step-by-step guide for the use of the GUI is provided, with i
 \label{fig:appsdropdown}
 \end{figure}
 
-\item From the dropdown menu, left-click GUI\_Design from the "MY APPS" section.
+\item From the dropdown menu, left-click "Microdroplet Impact Video Processor" from the "MY APPS" section.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{MyAppsSection.jpg}
@@ -713,15 +713,15 @@ Check to make sure that the line color input is a three-element uint8 array of t
 
 \section{maxSpread}
 \label{sec:maxSpread}
-See also: \hyperref[floorremove]{floorremove}
+See also: \hyperref[sec:floorremove]{floorremove}
 \subsection{Theory and Description}
-The droplet radius spreading feature determines the radius of the droplet on the left and right side and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has contacted the floor. This is accomplished by finding the centroid of the droplet in the first frame with a full droplet and comparing it to the bottom left and bottom right extreme points of the droplet after it has impacted the floor. 
+The droplet radius spreading feature determines the radius of the droplet on the left and right side and provides the maximum radius of the droplet in the video. The radii are only calculated after the droplet has contacted the floor. This is accomplished by finding the centroid of the droplet in the first frame with a full droplet and comparing it to the bottom left and bottom right extreme points of the droplet after it has impacted the floor. 
 
 This function begins by determining the number of frames in dataset "d". Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as "frame". A new dataset is created from the original, "X", this time eliminating the frames without any droplet. 
 
 A for loop is used again to determine what frame the droplet impacts the floor, this variable is saved as "frame". Two NaN datasets are declared called "spreadLeft" and "spreadRight". These datasets hold the radii of the left and right radius, respectively, in each frame. Frames prior to impact are declared as NaN. The centroid of the droplet in the first frame is found and stored as "x". A variable called "center" determines the x coordinate of the centroid. A variable "difference" is declared which is the number of blacked out frames.
 
-A for loop is generated to find the radius in each frame. The first step in the loop is to find the extrema points of the droplet. Then the "spreadLeft" and "spreadRight" datasets are changed to reflect the new radius. The radius is calculated by finding the difference in pixels between the extreme points and the center. This assumes that the droplet has fallen straight down in the video. The max radii are determined using the max() function on the radii datasets.
+A for loop is again used to find the radius in each frame. The first step in the loop is to find the extrema points of the droplet. Then the "spreadLeft" and "spreadRight" datasets are changed to reflect the new radius. The radius is calculated by finding the difference in pixels between the extreme points and the center. This assumes that the droplet has fallen straight down in the video. The max radii are determined using the max() function on the radii datasets.
 
 \subsection{Fault Isolation}
 There are no troubleshooting procedures at this time. Reference MATLAB's regionprops function for help: https://www.mathworks.com/help/images/ref/regionprops.html. 
