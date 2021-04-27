@@ -637,19 +637,14 @@ By removing any points that are outside of the given range, the video mask matri
 
 
 
-\section{calculateVelocity}
-\label{sec:calculateVelocity}
-\subsection{Theory and Description}
-\lipsum[4]
 
-\subsection{Fault Isolation}
-\lipsum[4]
 
 
 
 
 \section{floorremove}
 \label{sec:floorremove}
+See also: \hyperref[sec:borders]{borders}, \hyperref[sec:maxSpread]{maxSpread}
 \subsection{Theory and Description}
 The floorremove() function takes in a video with borders outlined "videoBorders", a pixel value representing the y-axis pixel where the floor is "rowToDelete", and an angle (degrees) to rotate the video frames "rotationAngle". This function deletes everything at or below the floor pixel and fills in the droplet while it is on the ground. 
 
@@ -718,13 +713,18 @@ Check to make sure that the line color input is a three-element uint8 array of t
 
 \section{maxSpread}
 \label{sec:maxSpread}
+See also: \hyperref[floorremove]{floorremove}
 \subsection{Theory and Description}
-The droplet radius spreading feature determines the radius of the droplet on the left and right side and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has contacted the floor.
-\newline
-\newline
-This function begins by determining the number of frames in dataset ('d'). Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as 'frame'. A new dataset is created from the original, this time eliminating the frames without any droplet. 
+The droplet radius spreading feature determines the radius of the droplet on the left and right side and provide the maximum radius the droplet in the video. Radii is only calculated after the droplet has contacted the floor. This is accomplished by finding the centroid of the droplet in the first frame with a full droplet and comparing it to the bottom left and bottom right extreme points of the droplet after it has impacted the floor. 
+
+This function begins by determining the number of frames in dataset "d". Once the length is determined, it finds the last frame that is completely black (no droplet appears) and saves it as "frame". A new dataset is created from the original, "X", this time eliminating the frames without any droplet. 
+
+A for loop is used again to determine what frame the droplet impacts the floor, this variable is saved as "frame". Two NaN datasets are declared called "spreadLeft" and "spreadRight". These datasets hold the radii of the left and right radius, respectively, in each frame. Frames prior to impact are declared as NaN. The centroid of the droplet in the first frame is found and stored as "x". A variable called "center" determines the x coordinate of the centroid. A variable "difference" is declared which is the number of blacked out frames.
+
+A for loop is generated to find the radius in each frame. The first step in the loop is to find the extrema points of the droplet. Then the "spreadLeft" and "spreadRight" datasets are changed to reflect the new radius. The radius is calculated by finding the difference in pixels between the extreme points and the center. This assumes that the droplet has fallen straight down in the video. The max radii are determined using the max() function on the radii datasets.
 
 \subsection{Fault Isolation}
+There are no troubleshooting procedures at this time. Reference MATLAB's regionprops function for help: https://www.mathworks.com/help/images/ref/regionprops.html. 
 
 
 
@@ -744,13 +744,7 @@ This function has no fault isolation. This function relies solely on videoFloorR
 
 
 
-\section{removePartialDroplet}
-\label{sec:removePartialDroplet}
-\subsection{Theory and Description}
-\lipsum[4]
 
-\subsection{Fault Isolation}
-\lipsum[4]
 
 \section{frame2video}
 \label{sec:frame2video}
