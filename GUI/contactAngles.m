@@ -22,7 +22,7 @@ function [contactAngle,contactPoints] = contactAngles(imageFloorRemoved,floorHei
 % A value of -1 means a angle could not be calculated for that frame.
 
 [~,  ~,  ~,  videoLength] = size(imageFloorRemoved);
-%% Input error checking, default values, and options
+% Input error checking, default values, and options
 if (exist('polyOrder')==1)
    if polyOrder == 0
        error("Polyfit Order must be greater than 0")
@@ -41,7 +41,7 @@ else
 end
 
 for frame=1:videoLength
-%% Collect image outline
+% Collect image outline
 
 %BWoutline = bwperim(image_collection);
 B = bwboundaries(imageFloorRemoved(:,:,:,frame));
@@ -71,7 +71,7 @@ if ~any(S(:,1) >= (floorHeight-1))
     clear B J S %Perform next of cycle cleanup now.
     continue %skip analysis
 end
-%% Collect important Pixels 
+% Collect important Pixels 
 index=max(S(:,1)); % Start from bottom.
 floor = index;
 temp = S(find(S(:,1) == index),2); % Find first points. 
@@ -107,7 +107,7 @@ for i = 0:Span % Move up the image.
     index = index-1;
 end
 
-%% Create PolyNomial Fit
+% Create PolyNomial Fit
 % Set vertical (down image) as x or R(2,:) for future compatibility:
     % Technically, a horizontal value could have multiple vertical
     % values, but not vice-versa. Therefore, the polyfits have been evaluated

@@ -1,5 +1,5 @@
 function convertedSourceVideo = convertSource(videoSource, floorAngle)
-%% Convert source image to TrueColor image. %%
+% Convert source image to TrueColor image.
 [videoHeight,videoWidth,videoMode,videoLength]=size(videoSource);
 convertedSourceVideo = uint8(zeros(videoHeight,videoWidth,3,videoLength));
 
@@ -21,7 +21,7 @@ else
     error('Unexpected Source Matrix format. Please provide a grayscale image, an RGB image, or a binary image. ')
 end
 
-%% Rotate TrueColor Image to match rotated borders.
+% Rotate TrueColor Image to match rotated borders.
 if floorAngle ~= 0
     for frame = 1:videoLength
         convertedSourceVideo(:,:,:,frame) = ...
